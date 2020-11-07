@@ -1,0 +1,137 @@
+There is no index out of bounds checking in C/C++.
+---
+Array name indicates the address of first element and arrays are always passed as pointers (even if we use square bracket).
+
+Compiler uses pointer arithmetic to access array element. For example, an expression like “arr[i]” is treated as *(arr + i) by the compiler.
+---
+The loss of type and dimensions of an array is known as decay of an array.This generally occurs when we pass the array into function by value or pointer. 
+What it does is, it sends first address to the array which is a pointer, hence the size of array is not the original one, but the one occupied by the pointer in the 
+memory. A typical solution to handle decay is to send the array into functions by reference (int (&p)[7])
+
+There is a threat of array decay in case of character array. As strings are represented as objects, no array decay occurs.
+
+String methods-: getline()
+                 push_back()
+                 pop_back() 
+                 capacity()
+                 length()
+                 resize()
+                 copy(“char array”, len, pos)
+                 Iterator functions-: begin()
+                                      end()
+                                      rbegin()
+                                      rend()
+                                      
+A stringstream associates a string object with a stream allowing you to read from the string as if it were a stream (like cin). 
+Method-: operator << — add a string to the stringstream object
+         operator >> — read something from the stringstream object
+e.g. Count number of words in a string
+                                      #include <bits/stdc++.h> 
+                                      using namespace std; 
+  
+                                      int countWords(string str) 
+                                      { 
+                                       // breaking input into word using string stream 
+                                       stringstream s(str); // Used for breaking words 
+                                       string word; // to store individual words 
+  
+                                       int count = 0; 
+                                       while (s >> word) 
+                                         count++; 
+                                       return count; 
+                                      } 
+                                      int main() 
+                                      { 
+                                       string s = "geeks for geeks geeks "
+                                                  "contribution placements"; 
+                                       cout << " Number of words are: " << countWords(s); 
+                                       return 0; 
+                                      } 
+                                      
+It is always recommended to declare a function before it is used. (int max(int, int); int *swap(int*,int);)
+
+In C++, both void fun() and void fun(void) are same.
+
+Once default value is used for an argument in function definition, all subsequent arguments to it must have default value.
+
+When the program executes the function call instruction the CPU stores the memory address of the instruction following the function call, 
+copies the arguments of the function on the stack and finally transfers control to the specified function. The CPU then executes the function code, 
+stores the function return value in a predefined memory location/register and returns control to the calling function. This can become overhead if the execution time
+of function is less than the switching time from the caller function to called function (callee). For functions that are large and/or perform complex tasks, the 
+overhead of the function call is usually insignificant compared to the amount of time the function takes to run. However, for small, commonly-used functions, the 
+time needed to make the function call is often a lot more than the time needed to actually execute the function’s code. This overhead occurs for small functions 
+because execution time of small function is less than the switching time. C++ provides an inline functions to reduce the function call overhead.
+
+Inlining is only a request to the compiler, not a command. Compiler can ignore the request for inlining. Compiler may not perform inlining in such circumstances like:
+1) If a function contains a loop. (for, while, do-while)
+2) If a function contains static variables.
+3) If a function is recursive.
+4) If a function return type is other than void, and the return statement doesn’t exist in function body.
+5) If a function contains switch or goto statement.
+                                      
+Disadvantage-: The added variables from the inlined function consumes additional registers, After in-lining function if variables number which are going to use 
+               register increases than they may create overhead on register variable resource utilization.
+               
+               Too much inlining can also reduce your instruction cache hit rate, thus reducing the speed of instruction fetch from that of cache memory to that of 
+               primary memory.
+               
+               Inline function may increase compile time overhead if someone changes the code inside the inline function then all the calling location has to be 
+               recompiled because compiler would require to replace all the code once again to reflect the changes, otherwise it will continue with old functionality.
+                                      
+All the functions defined inside the class are implicitly inline. 
+
+Macro cannot access private members of class.
+C++ compiler checks the argument types of inline functions and necessary conversions are performed correctly. Preprocessor macro is not capable for doing this.
+Macros are managed by preprocessor and inline functions are managed by C++ compiler.
+                                      
+C++ compiler cannot perform inlining if the function is virtual. The reason is call to a virtual function is resolved at runtime instead of compile time. Virtual 
+means wait until runtime and inline means during compilation, if the compiler doesn’t know which function will be called, how it can perform inlining?                                      
+                                      
+A void fun() can return another void function
+
+“array” is a “pointer to the first element of array” but “&array” is a “pointer to whole array of 5 int”. Since “array” is pointer to int, addition of 1 resulted 
+in an address with increment of 4 (assuming int size in your machine is 4 bytes). Since “&array” is pointer to array of 5 ints, addition of 1 resulted in an address
+with increment of 4 x 5 = 20 = 0x14.
+
+* A pointer can be declared as void but a reference can never be void
+* The pointer variable has n-levels/multiple levels of indirection i.e. single-pointer, double-pointer, triple-pointer. Whereas, the reference variable has only 
+one/single level of indirection.
+* Once a reference is created, it cannot be later made to reference another object; it cannot be reseated. This is often done with pointers. 
+* References cannot be NULL. Pointers are often made NULL to indicate that they are not pointing to any valid thing. 
+* A reference must be initialized when declared. There is no such restriction with pointers
+there are few places like the copy constructor argument where pointer cannot be used. Reference must be used to pass the argument in the copy constructor. Similarly,
+references must be used for overloading some operators like ++.
+* Due to the above limitations, references in C++ cannot be used for implementing data structures like Linked List, Tree, etc. In Java, references don’t have the 
+above restrictions and can be used to implement all data structures. References being more powerful in Java is the main reason Java doesn’t need pointers.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
