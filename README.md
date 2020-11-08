@@ -266,8 +266,38 @@ Types of Contructors-:
 	                       cout << "\np2.x = " << p2.getX() << ", p2.y = " << p2.getY(); 
                          return 0; 
                          }
-  
   ---
+                         A copy constructor is called when an object is passed by value. Copy constructor itself is a function. So if we pass an argument by value in a copy 
+			 constructor, a call to copy constructor would be made to call copy constructor which becomes a non-terminating chain of calls. Therefore compiler doesn’t 
+			 allow parameters to be passed by value.		 
+---			 
+                         Why const?
+			 #include<iostream> 
+                         using namespace std; 
+                         class Test 
+                         { 
+                          /* Class data members */
+                         public: 
+                         Test(Test &t) { /* Copy data members from t*/} 
+                         Test()	 { /* Initialize data members */ } 
+                         }; 
+                         Test fun() 
+                         { 
+	                   cout << "fun() Called\n"; 
+	                   Test t; 
+	                   return t; 
+                         } 
+                         int main() 
+                         { 
+	                  Test t1; 
+	                  Test t2 = fun(); 
+	                  return 0; 
+                         } 
+	                 >>>Compile time error. Reason-: The function fun() returns by value. So the compiler creates a temporary object which is copied to t2 using copy constructor 
+	                 in the original program (The temporary object is passed as an argument to copy constructor). The reason for compiler error is, compiler created temporary 
+	                 objects cannot be bound to non-const references because it doesn’t make sense to modify compiler created temporary objects as they can die any moment. 
+                         Solution-: 1. Use const. 2. Test t2; t2 = fun(); 
+---
                          In C++, a Copy Constructor may be called in following cases:
                          1. When an object of the class is returned by value.
                          2. When an object of the class is passed (to a function) by value as an argument.
@@ -291,6 +321,10 @@ Types of Contructors-:
 			 objects. The compiler created copy constructor works fine in general. We need to define our own copy constructor only if an object has pointers or any 
 			 runtime allocation of the resource like file handle, a network connection..etc. Default copy constructor does only shallow copy. Deep copy is possible only 
 			 with user defined copy constructor. 
+			 
+---
+                         Copy constructor is called when a new object is created from an existing object, as a copy of the existing object (see this G-Fact). And assignment operator 
+			 is called when an already initialized object is assigned a new value from another existing object. 
 * Conversion Constructor
 * Explicit Constructor
 * Dynamic Constructor
