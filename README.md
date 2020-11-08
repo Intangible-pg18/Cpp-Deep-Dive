@@ -145,6 +145,20 @@ means wait until runtime and inline means during compilation, if the compiler do
 A void fun() can return another void function
 
 ---
+Like friend class, a friend function can be given special grant to access private and protected members. A friend function can be:
+a) A method of another class
+b) A global function
+class Node { 
+private: 
+    int key; 
+    Node* next; 
+    // Other members of Node Class
+    friend int LinkedList::search(); 
+    // Only search() of linkedList 
+    // can access internal members 
+}; 
+Note-: Friendship is not mutual & Friendship is not inherited. . If a base class has a friend function, then the function doesn’t become a friend of the derived class(es).
+
 
 
 
@@ -185,7 +199,7 @@ Solution-: int (* foo)(int); //there's no space between * and foo. Added space t
 
 
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
-## CLASSES & OBJECTS
+## Object Oriented Programming
 When a class is defined, no memory is allocated but when it is instantiated (i.e. an object is created) memory is allocated. Object take up space in memory and have an associated address.
 
 ---
@@ -199,6 +213,83 @@ Only the member functions or the friend functions are allowed to access the priv
 Protected access modifier is similar to private access modifier in the sense that it can’t be accessed outside of it’s class unless with the help of friend class, the difference is that the class members declared as Protected can be accessed by any subclass(derived class) of that class as well. 
 This access through inheritance can alter the access modifier of the elements of base class in derived class depending on the modes of Inheritance. (For more info jump to *Inheritance* section)
 A friend class can access private and protected members of other class in which it is declared as friend. It is sometimes useful to allow a particular class to access private members of other class. For example a LinkedList class may be allowed to access private members of Node.
+class Node { 
+private: 
+    int key; 
+    Node* next; 
+    // Other members of Node Class 
+    // Now class  LinkedList can 
+    // access private members of Node 
+    friend class LinkedList; 
+}; 
+Note-: Friendship is not mutual & Friendship is not inherited. . If a base class has a friend function, then the function doesn’t become a friend of the derived class(es).
+
+---
+Types of Contructors-: 
+* Default Constructor
+* Parameterized Constructor
+* Copy Constructor -:  is a member function which initializes an object using another object of the same class. 
+
+---
+                       #include<iostream> 
+                       using namespace std; 
+                       class Point 
+                        { 
+                         private: 
+	                               int x, y; 
+                         public: 
+	                              Point(int x1, int y1) { x = x1; y = y1; } 
+	                              Point(const Point& p1) {x = p1.x; y = p1.y; } 
+                                int getX()		 { return x; } 
+                                int getY()		 { return y; } 
+                        }; 
+                        int main() 
+                        { 
+	                       Point p1(10, 15); // Normal constructor is called here 
+	                       Point p2=p1; // Copy constructor is called here 
+	                       cout << "p1.x = " << p1.getX() << ", p1.y = " << p1.getY(); 
+	                       cout << "\np2.x = " << p2.getX() << ", p2.y = " << p2.getY(); 
+                         return 0; 
+                         }
+  
+  ---
+                         In C++, a Copy Constructor may be called in following cases:
+                         1. When an object of the class is returned by value.
+                         2. When an object of the class is passed (to a function) by value as an argument.
+                         3. When an object is constructed based on another object of the same class.
+                         4. When the compiler generates a temporary object.
+                         
+  ---
+                         It is, however, not guaranteed that a copy constructor will be called in all these cases, because the C++ Standard allows the compiler to optimize the copy                                
+                         away in certain cases, one example is the return value optimization (sometimes referred to as RVO).
+                         Note-: In C++ computer programming, copy elision refers to a compiler optimization technique that eliminates unnecessary copying of objects. The C++ language                   
+                         standard generally allows implementations to perform any optimization, provided the resulting program's observable behavior is the same as if, i.e. 
+                         pretending, the program were executed exactly as mandated by the standard.
+                         In the context of the C++ programming language, return value optimization (RVO) is a compiler optimization that involves eliminating the temporary object 
+                         created to hold a function's return value.The standard also describes a few situations where copying can be eliminated even if this would alter the program's  
+                         behavior, the most common being the return value optimization.
+* Conversion Constructor
+* Explicit Constructor
+* Dynamic Constructor
+* Dummy Constructor
+* Move Constructor
+Types of Destructors-:
+* Virtual Destructor
+* Pure Destructor
+
+---
+Whenever we define one or more non-default constructors( with parameters ) for a class, a default constructor( without parameters ) should also be explicitly defined as the compiler will not provide a default constructor in this case.
+
+---
+
+
+
+
+
+
+
+
+
 
 
 
