@@ -1,18 +1,20 @@
 # Cpp-Lesser-Known-Facts-
 
 ## BUFFER
-Buffer-: A region of storage used to hold data. IO facilities often store input (or output) in a buffer and read or write the buffer independently from actions in the program. Using a
-buffer allows the operating system to combine several output operations from our program into a single system-level write. Output buffers can be explicitly flushed to force the buffer
-to be written. By default, reading cin flushes cout; cout is also flushed when the program ends normally. By default, All output buffers are flushed as part of the return from main.
+Buffer-: A region of storage used to hold data. IO facilities often store input (or output) in a buffer and read or write the buffer independently from actions in the program. Using a buffer allows the operating system to combine several output operations from our program into a single system-level write. Output buffers can be explicitly flushed to force the buffer to be written. By default, reading cin flushes cout; cout is also flushed when the program ends normally. By default, All output buffers are flushed as part of the return from main.
+---
 Manipulator-: Object, such as std::endl, that when read or written “manipulates” the stream itself.
+---
 Clearing output buffer-: 
 endl-: It is a manipulator. Writing endl has the effect of ending the current line and flushing the buffer associated with that device. Flushing the buffer ensures that all the output
 the program has generated so far is actually written to the output stream, rather than sitting in memory waiting to be written.
 flush-: writes the output, then flushes the buffer and adds no data (contrary to which endl, adds a new line).
 ends-: writes the output and a null, then flushes the buffer.
+---
 Disadvantage-: Flushing of buffers is an Operating System task. Each time the buffer is flushed, a request has to be made to the OS and these requests are comparatively expensive. 
 Furthermore, we don’t really need to flush the buffer every time we write something to the stream, since the buffers get flushed automatically when they get full. 
 Solution-: Writing ‘\n’ characters directly to the stream is more efficient since it doesn’t force a flush like std::endl. 
+---
 Clearing input buffer-: 
 In case of C++, after encountering“cin” statement, we require to input a character array or a string , we require to clear the input buffer or else the desired input is occupied by 
 buffer of previous variable, not by the desired container.
