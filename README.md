@@ -148,6 +148,7 @@ A void fun() can return another void function
 
 
 
+
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## POINTERS & REFERENCES
 * A pointer can be declared as void but a reference can never be void
@@ -197,7 +198,7 @@ By default the access modifier for the members will be Private.
 Only the member functions or the friend functions are allowed to access the private data members of a class. 
 Protected access modifier is similar to private access modifier in the sense that it can’t be accessed outside of it’s class unless with the help of friend class, the difference is that the class members declared as Protected can be accessed by any subclass(derived class) of that class as well. 
 This access through inheritance can alter the access modifier of the elements of base class in derived class depending on the modes of Inheritance. (For more info jump to *Inheritance* section)
-
+A friend class can access private and protected members of other class in which it is declared as friend. It is sometimes useful to allow a particular class to access private members of other class. For example a LinkedList class may be allowed to access private members of Node.
 
 
 
