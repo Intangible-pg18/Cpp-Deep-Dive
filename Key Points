@@ -1,3 +1,4 @@
+##BUFFER
 Buffer-: A region of storage used to hold data. IO facilities often store input (or output) in a buffer and read or write the buffer independently from actions in the program. Using a
 buffer allows the operating system to combine several output operations from our program into a single system-level write. Output buffers can be explicitly flushed to force the buffer
 to be written. By default, reading cin flushes cout; cout is also flushed when the program ends normally. By default, All output buffers are flushed as part of the return from main.
@@ -15,25 +16,14 @@ In case of C++, after encountering“cin” statement, we require to input a cha
 buffer of previous variable, not by the desired container.
 Solution-: Typing “cin>>ws” after “cin” statement tells the compiler to ignore buffer and also to discard all the whitespaces before the actual content of string or character array. 
 ---
+
+
+
+
+
+
+##STRINGS
 In case of strings, >> ignores anything after whitespaces and getline() reads the whole line until it encounters a new line.
-
-
-
-
-
-
-
-
-There is no index out of bounds checking in C++. But doing so may cause a Buffer Overflow (-: is an anomaly where a program, while writing data to a buffer, overruns the buffer's 
-boundary and overwrites adjacent memory locations.)
----
-Array name indicates the address of first element and arrays are always passed as pointers (even if we use square bracket).
----
-Compiler uses pointer arithmetic to access array element. For example, an expression like “arr[i]” is treated as *(arr + i) by the compiler.
----
-The loss of type and dimensions of an array is known as decay of an array.This generally occurs when we pass the array into function by value or pointer. 
-What it does is, it sends first address to the array which is a pointer, hence the size of array is not the original one, but the one occupied by the pointer in the 
-memory. A typical solution to handle decay is to send the array into functions by reference (int (&p)[7])
 ---
 There is a threat of array decay in case of character array. As strings are represented as objects, no array decay occurs.
 ---
@@ -50,6 +40,7 @@ String methods-: getline()
                                       rend()
 ---                                      
 A stringstream associates a string object with a stream allowing you to read from the string as if it were a stream (like cin). 
+---
 Method-: operator << — add a string to the stringstream object
          operator >> — read something from the stringstream object
 e.g. Count number of words in a string
@@ -74,7 +65,32 @@ e.g. Count number of words in a string
                                        cout << " Number of words are: " << countWords(s); 
                                        return 0; 
                                       } 
----                                      
+---
+
+
+
+
+
+##ARRAYS
+There is no index out of bounds checking in C++. But doing so may cause a Buffer Overflow (-: is an anomaly where a program, while writing data to a buffer, overruns the buffer's 
+boundary and overwrites adjacent memory locations.)
+---
+Array name indicates the address of first element and arrays are always passed as pointers (even if we use square bracket).
+---
+Compiler uses pointer arithmetic to access array element. For example, an expression like “arr[i]” is treated as *(arr + i) by the compiler.
+---
+The loss of type and dimensions of an array is known as decay of an array.This generally occurs when we pass the array into function by value or pointer. 
+---
+What it does is, it sends first address to the array which is a pointer, hence the size of array is not the original one, but the one occupied by the pointer in the 
+memory. A typical solution to handle decay is to send the array into functions by reference (int (&p)[7])
+---
+“array” is a “pointer to the first element of array” but “&array” is a “pointer to whole array of 5 int”. Since “array” is pointer to int, addition of 1 resulted in an address with 
+increment of 4 (assuming int size in your machine is 4 bytes). Since “&array” is pointer to array of 5 ints, addition of 1 resulted in an address with increment of 4 x 5 = 20 = 0x14.
+---
+
+
+
+##FUNCTIONS
 It is always recommended to declare a function before it is used. (int max(int, int); int *swap(int*,int);)
 ---
 In C++, both void fun() and void fun(void) are same.
@@ -116,10 +132,11 @@ means wait until runtime and inline means during compilation, if the compiler do
 ---                                      
 A void fun() can return another void function
 ---
-“array” is a “pointer to the first element of array” but “&array” is a “pointer to whole array of 5 int”. Since “array” is pointer to int, addition of 1 resulted 
-in an address with increment of 4 (assuming int size in your machine is 4 bytes). Since “&array” is pointer to array of 5 ints, addition of 1 resulted in an address
-with increment of 4 x 5 = 20 = 0x14.
----
+
+
+
+
+##POINTERS & REFERENCES
 * A pointer can be declared as void but a reference can never be void
 * The pointer variable has n-levels/multiple levels of indirection i.e. single-pointer, double-pointer, triple-pointer. Whereas, the reference variable has only 
 one/single level of indirection.
@@ -131,13 +148,28 @@ references must be used for overloading some operators like ++.
 * Due to the above limitations, references in C++ cannot be used for implementing data structures like Linked List, Tree, etc. In Java, references don’t have the 
 above restrictions and can be used to implement all data structures. References being more powerful in Java is the main reason Java doesn’t need pointers.
 ---
+
+
+
+##MEMORY
+A typical memory representation of C++ program consists of following sections.
+1. Text segment (Code segment) -: Contains the compiled Machine code (program) instructions.
+2. Initialized data segment (Data segment) -: Global and static variables
+3. Uninitialized data segment (Block Started by Symbol (BSS) segment)
+4. Heap (Free store) -: Used for Dynamic Memory allocation. C++ managed by new, delete.
+5. Unallocated. Free area, available to be utilised for growth by heap or stack.
+6. Stack -: Used for local variables and passing arguments to functions, along with return address of the next instruction to be executed when the function call is over. The stack is
+            comprised of a number of Stack Frames, with each frame representing a function call.
+7. OS -: Environment variables, command line arguments.
+>>> https://cpp.tech-academy.co.uk/files/2013/01/memoryLayout5.png
+>>> https://media.geeksforgeeks.org/wp-content/uploads/memoryLayoutC.jpg
+>>> https://cpp.tech-academy.co.uk/files/2013/01/stackFrames.png
 * In a stack, the allocation and deallocation is automatically done by whereas, in heap, it needs to be done by the programmer manually.
 * Handling of Heap frame is costlier than handling of stack frame.
 * Memory shortage problem is more likely to happen in stack whereas the main issue in heap memory is fragmentation.
 * Stack frame access is easier than the heap frame as the stack have small region of memory and is cache friendly, but in case of heap frames which are dispersed 
 throughout the memory so it cause more cache misses.
 * Stack is not flexible, the memory size allotted cannot be changed whereas a heap is flexible, and the allotted memory can be altered.
----
 Memory leakage occurs in C++ when programmers allocates memory by using new keyword and forgets to deallocate the memory by using delete() function or delete[] 
 operator. Avoid-: 
 * Instead of managing memory manually, try to use smart pointers where applicable.
