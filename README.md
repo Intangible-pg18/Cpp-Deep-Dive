@@ -26,7 +26,7 @@ Solution-: Typing “cin>>ws” after “cin” statement tells the compiler to 
 
 
 
-
+- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## STRINGS
 In case of strings, >> ignores anything after whitespaces and getline() reads the whole line until it encounters a new line.
 ---
@@ -75,7 +75,7 @@ e.g. Count number of words in a string
 
 
 
-
+- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## ARRAYS
 There is no index out of bounds checking in C++. But doing so may cause a Buffer Overflow (-: is an anomaly where a program, while writing data to a buffer, overruns the buffer's 
 boundary and overwrites adjacent memory locations.)
@@ -94,7 +94,7 @@ increment of 4 (assuming int size in your machine is 4 bytes). Since “&array�
 ---
 
 
-
+- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## FUNCTIONS
 It is always recommended to declare a function before it is used. (int max(int, int); int *swap(int*,int);)
 ---
@@ -140,7 +140,7 @@ A void fun() can return another void function
 
 
 
-
+- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## POINTERS & REFERENCES
 * A pointer can be declared as void but a reference can never be void
 * The pointer variable has n-levels/multiple levels of indirection i.e. single-pointer, double-pointer, triple-pointer. Whereas, the reference variable has only 
@@ -155,7 +155,7 @@ above restrictions and can be used to implement all data structures. References 
 ---
 
 
-
+- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## MEMORY
 A typical memory representation of C++ program consists of following sections.
 1. Text segment (Code segment) -: Contains the compiled Machine code (program) instructions.
