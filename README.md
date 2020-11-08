@@ -228,7 +228,22 @@ Note-: Friendship is not mutual & Friendship is not inherited. . If a base class
 Types of Contructors-: 
 * Default Constructor
 * Parameterized Constructor
-* Copy Constructor -:  is a member function which initializes an object using another object of the same class. 
+* Copy Constructor -:  is a member function which initializes an object using another object of the same class.
+
+---
+                       **OBJECT COPYING**
+		       It is the process of creating a copy of an existing object. Copying is done mostly so the copy can be modified or moved, or the 
+                       current value preserved. If either of these is unneeded, a reference to the original data is sufficient and more efficient, as no copying occurs. 
+                       Types-: 
+		       1. Shallow copy-: In that case a new object B is created, and the fields values of A are copied over to B. If the field value is a primitive type it copies the 
+		       value of the primitive type. In languages without primitive types (where everything is an object), all fields of the copy B are references to the same objects 
+		       as the fields of original A. https://media.geeksforgeeks.org/wp-content/uploads/copy-constructor.png
+		       2. Deep copy-: Rather than references to objects being copied, new copy objects are created for any referenced objects, and references to these placed in B.  
+		       The result is different from the result a shallow copy gives in that the objects referenced by the copy B are distinct from those referenced by A, and 
+		       independent. https://media.geeksforgeeks.org/wp-content/uploads/copy-constructor1.png
+		       3. Lazy copy-: A lazy copy is an implementation of a deep copy. When initially copying an object, a (fast) shallow copy is used. A counter is also used to 
+		       track how many objects share the data. When the program wants to modify an object, it can determine if the data is shared (by examining the counter) and can do 
+		       a deep copy if needed. Lazy copy looks to the outside just as a deep copy, but takes advantage of the speed of a shallow copy whenever possible.
 
 ---
                        #include<iostream> 
@@ -261,18 +276,28 @@ Types of Contructors-:
                          
   ---
                          It is, however, not guaranteed that a copy constructor will be called in all these cases, because the C++ Standard allows the compiler to optimize the copy                                
-                         away in certain cases, one example is the return value optimization (sometimes referred to as RVO).
+                         away in certain cases, one example is the return value optimization (sometimes referred to as RVO)
+		
+---
                          Note-: In C++ computer programming, copy elision refers to a compiler optimization technique that eliminates unnecessary copying of objects. The C++ language                   
                          standard generally allows implementations to perform any optimization, provided the resulting program's observable behavior is the same as if, i.e. 
                          pretending, the program were executed exactly as mandated by the standard.
                          In the context of the C++ programming language, return value optimization (RVO) is a compiler optimization that involves eliminating the temporary object 
                          created to hold a function's return value.The standard also describes a few situations where copying can be eliminated even if this would alter the program's  
                          behavior, the most common being the return value optimization.
+			 
+---
+                         If we don’t define our own copy constructor, the C++ compiler creates a default copy constructor for each class which does a member-wise copy between 
+			 objects. The compiler created copy constructor works fine in general. We need to define our own copy constructor only if an object has pointers or any 
+			 runtime allocation of the resource like file handle, a network connection..etc. Default copy constructor does only shallow copy. Deep copy is possible only 
+			 with user defined copy constructor. 
 * Conversion Constructor
 * Explicit Constructor
 * Dynamic Constructor
 * Dummy Constructor
 * Move Constructor
+
+---
 Types of Destructors-:
 * Virtual Destructor
 * Pure Destructor
