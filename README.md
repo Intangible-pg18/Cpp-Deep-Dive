@@ -1,6 +1,7 @@
 # Cpp-Lesser-Known-Facts-
 
-- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) ## BUFFER
+- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
+## BUFFER
 Buffer-: A region of storage used to hold data. IO facilities often store input (or output) in a buffer and read or write the buffer independently from actions in the program. Using a buffer allows the operating system to combine several output operations from our program into a single system-level write. Output buffers can be explicitly flushed to force the buffer to be written. By default, reading cin flushes cout; cout is also flushed when the program ends normally. By default, All output buffers are flushed as part of the return from main.
 ---
 Manipulator-: Object, such as std::endl, that when read or written “manipulates” the stream itself.
