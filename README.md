@@ -1,4 +1,4 @@
-# Cpp-Lesser-Known-Facts-
+# Cpp- |Deep Dive| |Lesser-Known-Facts| & |Tips|
 
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## BUFFER
@@ -150,9 +150,59 @@ one/single level of indirection.
 * A reference must be initialized when declared. There is no such restriction with pointers
 there are few places like the copy constructor argument where pointer cannot be used. Reference must be used to pass the argument in the copy constructor. Similarly,
 references must be used for overloading some operators like ++.
+* A pointer has its own memory address and size on the stack whereas a reference shares the same memory address (with the original variable) but also takes up some space on the stack.
 * Due to the above limitations, references in C++ cannot be used for implementing data structures like Linked List, Tree, etc. In Java, references don’t have the 
 above restrictions and can be used to implement all data structures. References being more powerful in Java is the main reason Java doesn’t need pointers.
 ---
+Types of pointers-: 
+* Null Pointers
+* Void Pointers
+* Invalid Pointers
+* Dangling Pointers
+* This Pointers
+* Smart Pointers
+* Wild Pointers
+* Near, Far & Huge Pointers
+* Opaque Pointers
+---
+Pointer to a function -: int * foo(int); operator precedence also plays role here ..so in this case, operator () will take priority over the asterisk operator . And the above declaration will mean – a function foo with one argument of int type and return value of int * i.e. integer pointer.
+Solution-: int (* foo)(int); //there's no space between * and foo. Added space to avoid text formatting of a markdown file.
+---
+
+
+
+
+
+
+- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
+## CLASSES & OBJECTS
+When a class is defined, no memory is allocated but when it is instantiated (i.e. an object is created) memory is allocated. Object take up space in memory and have an associated address.
+---
+The standard does not permit objects (or classes) of size 0, this is because that would make it possible for two distinct objects to have the same memory location. This is the reason behind the concept that even an empty class must have a size at least 1. It is known that size of an empty class is not zero. Generally, it is 1 byte.
+For dynamic allocation also, the new keyword returns different address for the same reason.
+When a program is executed the objects interact by sending messages to one another. (For more info jump to *Message Passing* section)
+---
+By default the access modifier for the members will be Private.
+Only the member functions or the friend functions are allowed to access the private data members of a class. 
+Protected access modifier is similar to private access modifier in the sense that it can’t be accessed outside of it’s class unless with the help of friend class, the difference is that the class members declared as Protected can be accessed by any subclass(derived class) of that class as well. 
+This access through inheritance can alter the access modifier of the elements of base class in derived class depending on the modes of Inheritance. (For more info jump to *Inheritance* section)
+
+
+
+
+
+
+- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
+## ABSTRACTION
+Types-: 
+* Abstraction using Classes: We can implement Abstraction in C++ using classes. The class helps us to group data members and member functions using available access specifiers. A Class can decide which data member will be visible to the outside world and which is not.
+* Abstraction in Header files: One more type of abstraction in C++ can be header files. For example, consider the pow() method present in math.h header file. Whenever we need to calculate the power of a number, we simply call the function pow() present in the math.h header file and pass the numbers as arguments without knowing the underlying algorithm according to which the function is actually calculating the power of numbers.
+
+
+
+
+
+
 
 
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
