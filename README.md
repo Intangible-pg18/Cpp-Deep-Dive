@@ -225,8 +225,13 @@ private:
 Note-: Friendship is not mutual & Friendship is not inherited. . If a base class has a friend function, then the function doesn’t become a friend of the derived class(es).
 
 ---
+Constructors-: 
+* They can be defined in private section of class and thus can only be used by a friend class.
+
+---
 Types of Contructors-: 
-* Default Constructor
+* Default Constructor -: Consider a class derived from another class with the default constructor, or a class containing another class object with default constructor. The compiler 
+                         needs to insert code to call the default constructors of base class.
 * Parameterized Constructor
 * Copy Constructor -:  is a member function which initializes an object using another object of the same class.
 
@@ -338,6 +343,16 @@ Types of Contructors-:
 * Dynamic Constructor
 * Dummy Constructor
 * Move Constructor
+
+---
+Destructor-:
+* When something is created using dynamic memory allocation, it is programmer’s responsibility to delete it. So compiler doesn’t bother. 
+* When a class has private destructor, only dynamic objects of that class can be created and use a function as friend of the class to call delete().
+* It cannot be declared static or const.
+* An object of a class with a Destructor cannot become a member of the union.
+* The programmer cannot access the address of destructor.
+* There can only one destructor in a class
+* It is always a good idea to make destructors virtual in base class when we have a virtual function.
 
 ---
 Types of Destructors-:
