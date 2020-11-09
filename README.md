@@ -246,7 +246,15 @@ Types of Contructors-:
 		       a deep copy if needed. Lazy copy looks to the outside just as a deep copy, but takes advantage of the speed of a shallow copy whenever possible.
 
 ---
-                       #include<iostream> 
+                       **Compiler's Optimizations**
+		       1. Copy Elision-: or Copy omission is a compiler optimization technique that avoids unnecessary copying of objects.
+		          e.g. For  B ob = "copy me"; // B is a class
+			       According to theory, when the object “ob” is being constructed, one argument constructor is used to convert “copy me” to a temporary object & that   
+			       temporary object is copied to the object “ob”. But now the call to the copy constructor is elided.
+		       2. Return Value Optimization-: is a compiler optimization that involves eliminating the temporary object created to hold a function's return value.
+
+---
+		       #include<iostream> 
                        using namespace std; 
                        class Point 
                         { 
