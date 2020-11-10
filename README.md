@@ -23,7 +23,42 @@ Solution-: Typing “cin>>ws” after “cin” statement tells the compiler to 
 
 ---
 
-
+- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
+## MEMORY
+A typical memory representation of C++ program consists of following sections.
+1. Text segment (Code segment) -: Contains the compiled Machine code (program) instructions.
+2. Initialized data segment (Data segment) -: Global and static variables
+3. Uninitialized data segment (Block Started by Symbol (BSS) segment)
+4. Heap (Free store) -: Used for Dynamic Memory allocation. C++ managed by new, delete.
+5. Unallocated. Free area, available to be utilised for growth by heap or stack.
+6. Stack -: Used for local variables and passing arguments to functions, along with return address of the next instruction to be executed when the function call is over. The stack is
+            comprised of a number of Stack Frames, with each frame representing a function call.
+7. OS -: Environment variables, command line arguments.
+>>> https://cpp.tech-academy.co.uk/files/2013/01/memoryLayout5.png
+>>> https://media.geeksforgeeks.org/wp-content/uploads/memoryLayoutC.jpg
+>>> https://cpp.tech-academy.co.uk/files/2013/01/stackFrames.png
+Note-: Each thread gets a stack, while there's typically only one heap for the application (although it isn't uncommon to have multiple heaps for different types of allocation).
+* In a stack, the allocation and deallocation is automatically done by whereas, in heap, it needs to be done by the programmer manually.
+* Handling of Heap frame is costlier than handling of stack frame.
+* Memory shortage problem is more likely to happen in stack whereas the main issue in heap memory is fragmentation.
+* Stack frame access is easier than the heap frame as the stack have small region of memory and is cache friendly, but in case of heap frames which are dispersed 
+throughout the memory so it cause more cache misses.
+* Stack is not flexible, the memory size allotted cannot be changed whereas a heap is flexible, and the allotted memory can be altered.
+Memory leakage occurs in C++ when programmers allocates memory by using new keyword and forgets to deallocate the memory by using delete() function or delete[] 
+operator. Avoid-: 
+* Instead of managing memory manually, try to use smart pointers where applicable.
+* Use std::string instead of char *. The std::string class handles all memory management internally, and it’s fast and well-optimized.
+* The best way to avoid memory leaks in C++ is to have as few new/delete calls at the program level as possible – ideally NONE. Anything that requires dynamic memory should be 
+buried inside an RAII object that releases the memory when it goes out of scope. RAII allocate memory in constructor and release it in destructor, so that memory is garanteed to be 
+deallocated when the variable leave the current scope.
+Q-N-A -:
+* To what extent are they (stack & heap) controlled by the OS or language runtime?
+->The OS allocates the stack for each system-level thread when the thread is created. Typically the OS is called by the language runtime to allocate the heap for the application.
+* What is their scope?
+-> The stack is attached to a thread, so when the thread exits the stack is reclaimed. The heap is typically allocated at application startup by the runtime, and is reclaimed when the application (technically process) exits.
+* What makes one faster?
+-> The stack is faster because the access pattern makes it trivial to allocate and deallocate memory from it (a pointer/integer is simply incremented or decremented), while the heap has much more complex bookkeeping involved in an allocation or deallocation. Also, each byte in the stack tends to be reused very frequently which means it tends to be mapped to the processor's cache, making it very fast. Another performance hit for the heap is that the heap, being mostly a global resource, typically has to be multi-threading safe, i.e. each allocation and deallocation needs to be - typically - synchronized with "all" other heap accesses in the program. OR While the stack is allocated by the OS when the process starts (assuming the existence of an OS), it is maintained inline by the program. This is another reason the stack is faster, as well - push and pop operations are typically one machine instruction, and modern machines can do at least 3 of them in one cycle, whereas allocating or freeing heap involves calling into OS code. 
+---
 
 
 
@@ -384,38 +419,3 @@ Types-:
 * Abstraction in Header files: One more type of abstraction in C++ can be header files. For example, consider the pow() method present in math.h header file. Whenever we need to calculate the power of a number, we simply call the function pow() present in the math.h header file and pass the numbers as arguments without knowing the underlying algorithm according to which the function is actually calculating the power of numbers.
 
 
-
-
-
-
-
-
-- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
-## MEMORY
-A typical memory representation of C++ program consists of following sections.
-1. Text segment (Code segment) -: Contains the compiled Machine code (program) instructions.
-2. Initialized data segment (Data segment) -: Global and static variables
-3. Uninitialized data segment (Block Started by Symbol (BSS) segment)
-4. Heap (Free store) -: Used for Dynamic Memory allocation. C++ managed by new, delete.
-5. Unallocated. Free area, available to be utilised for growth by heap or stack.
-6. Stack -: Used for local variables and passing arguments to functions, along with return address of the next instruction to be executed when the function call is over. The stack is
-            comprised of a number of Stack Frames, with each frame representing a function call.
-7. OS -: Environment variables, command line arguments.
->>> https://cpp.tech-academy.co.uk/files/2013/01/memoryLayout5.png
->>> https://media.geeksforgeeks.org/wp-content/uploads/memoryLayoutC.jpg
->>> https://cpp.tech-academy.co.uk/files/2013/01/stackFrames.png
-* In a stack, the allocation and deallocation is automatically done by whereas, in heap, it needs to be done by the programmer manually.
-* Handling of Heap frame is costlier than handling of stack frame.
-* Memory shortage problem is more likely to happen in stack whereas the main issue in heap memory is fragmentation.
-* Stack frame access is easier than the heap frame as the stack have small region of memory and is cache friendly, but in case of heap frames which are dispersed 
-throughout the memory so it cause more cache misses.
-* Stack is not flexible, the memory size allotted cannot be changed whereas a heap is flexible, and the allotted memory can be altered.
-Memory leakage occurs in C++ when programmers allocates memory by using new keyword and forgets to deallocate the memory by using delete() function or delete[] 
-operator. Avoid-: 
-* Instead of managing memory manually, try to use smart pointers where applicable.
-* Use std::string instead of char *. The std::string class handles all memory management internally, and it’s fast and well-optimized.
-* The best way to avoid memory leaks in C++ is to have as few new/delete calls at the program level as possible – ideally NONE. Anything that requires dynamic memory should be 
-buried inside an RAII object that releases the memory when it goes out of scope. RAII allocate memory in constructor and release it in destructor, so that memory is garanteed to be 
-deallocated when the variable leave the current scope.
-
----
