@@ -504,28 +504,130 @@ Points to Remember-:
 Types of Inheritance-:
 * Single Inheritance: In single inheritance, a class is allowed to inherit from only one class. i.e. one sub class is inherited by one base class only.    
   https://media.geeksforgeeks.org/wp-content/uploads/single-inheritance.png
-* Multiple Inheritance: Multiple Inheritance is a feature of C++ where a class can inherit from more than one classes. i.e one sub class is inherited from more than one base classes.
+* Multiple Inheritance (V): Multiple Inheritance is a feature of C++ where a class can inherit from more than one classes. i.e one sub class is inherited from more than one base classes.
   https://media.geeksforgeeks.org/wp-content/uploads/multiple-inheritance.png Note-: The constructors of inherited classes are called in the same order in which they are inherited   
   and the destructors are called in reverse order of constructors. 
-* 
-
-
-
+* Multilevel Inheritance-: In this type of inheritance, a derived class is created from another derived class. https://media.geeksforgeeks.org/wp-content/uploads/multilevel-inheritance.png  
+* Hierarchical Inheritance (A)-: In this type of inheritance, more than one sub class is inherited from a single base class. i.e. more than one derived class is created from a single base class. https://media.geeksforgeeks.org/wp-content/uploads/hierarchical-inheritance.png
+* Hybrid (Virtual) Inheritance: Hybrid Inheritance is implemented by combining more than one type of inheritance. For example: Combining Hierarchical inheritance and Multiple Inheritance. https://media.geeksforgeeks.org/wp-content/uploads/Hybrid-Inheritance.png
+---
+**Multipath Inheritance or The diamond problem**-:
+The diamond problem occurs when two superclasses of a class have a common base class. For example, in the following diagram, the TA class gets two copies of all attributes of Person class, this causes ambiguities. https://media.geeksforgeeks.org/wp-content/uploads/diamondproblem.png
+                         #include<iostream> 
+                         using namespace std; 
+                         class Person { 
+                         // Data members of person 
+                         public: 
+                         	Person(int x) { cout << "Person::Person(int ) called" << endl; } 
+                         }; 
+                         class Faculty : public Person { 
+                         // data members of Faculty 
+                         public: 
+	                         Faculty(int x):Person(x) { 
+	                         cout<<"Faculty::Faculty(int ) called"<< endl; 
+	                         } 
+                         }; 
+                         class Student : public Person { 
+                         // data members of Student 
+                         public: 
+	                         Student(int x):Person(x) { 
+		                         cout<<"Student::Student(int ) called"<< endl; 
+	                         } 
+                         }; 
+                         class TA : public Faculty, public Student { 
+                         public: 
+	                         TA(int x):Student(x), Faculty(x) { 
+		                         cout<<"TA::TA(int ) called"<< endl; 
+	                         } 
+                         }; 
+                         int main() { 
+	                         TA ta1(30); 
+                         } 
+>>>Person::Person(int ) called
+   Faculty::Faculty(int ) called
+   Person::Person(int ) called
+   Student::Student(int ) called
+   TA::TA(int ) called
+* In the above program, constructor of ‘Person’ is called two times. Destructor of ‘Person’ will also be called two times when object ‘ta1’ is destructed. So object ‘ta1’ has two 
+	copies of all members of ‘Person’, this causes ambiguities. The solution to this problem is ‘virtual’ keyword. We make the classes ‘Faculty’ and ‘Student’ as virtual base 
+	classes to avoid two copies of ‘Person’ in ‘TA’ class.
+*
+*                          #include<iostream> 
+                         using namespace std; 
+                         class Person { 
+                         public: 
+	                         Person(int x) { cout << "Person::Person(int ) called" << endl; } 
+	                         Person()	 { cout << "Person::Person() called" << endl; } 
+                         }; 
+                         class Faculty : virtual public Person { 
+                         public: 
+	                         Faculty(int x):Person(x) { 
+	                         cout<<"Faculty::Faculty(int ) called"<< endl; 
+	                         } 
+                         }; 
+                         class Student : virtual public Person { 
+                         public: 
+	                         Student(int x):Person(x) { 
+		                         cout<<"Student::Student(int ) called"<< endl; 
+	                         } 
+                         }; 
+                         class TA : public Faculty, public Student { 
+                         public: 
+	                         TA(int x):Student(x), Faculty(x) { 
+		                         cout<<"TA::TA(int ) called"<< endl; 
+	                         } 
+                         }; 
+                         int main() { 
+	                         TA ta1(30); 
+                         } 
+>>>Person::Person() called
+   Faculty::Faculty(int ) called
+   Student::Student(int ) called
+   TA::TA(int ) called
+* Note-: One important thing to note in the above output is, the default constructor of ‘Person’ is called. When we use ‘virtual’ keyword, the default constructor of grandparent 
+	 class is called by default even if the parent classes explicitly call parameterized constructor. 
+* Calling the parameterized constructor of the grandparent class-: 
+                         #include<iostream> 
+                         using namespace std; 
+                         class Person { 
+                         public: 
+	                         Person(int x) { cout << "Person::Person(int ) called" << endl; } 
+	                         Person()	 { cout << "Person::Person() called" << endl; } 
+                         }; 
+                         class Faculty : virtual public Person { 
+                         public: 
+	                         Faculty() { 
+	                         cout<<"Faculty::Faculty(int ) called"<< endl; 
+	                         } 
+                         }; 
+                         class Student : virtual public Person { 
+                         public: 
+	                         Student() { 
+		                         cout<<"Student::Student(int ) called"<< endl; 
+	                         } 
+                         }; 
+                         class TA : public Faculty, public Student { 
+                         public: 
+	                         TA(int x):Student(), Faculty(), Person(x) { 
+		                         cout<<"TA::TA(int ) called"<< endl; 
+	                         } 
+                         }; 
+                         int main() { 
+	                         TA ta1(30); 
+                         } 
+>>>Person::Person(int ) called
+   Faculty::Faculty(int ) called
+   Student::Student(int ) called
+   TA::TA(int ) called	
+* Note-: In general, it is not allowed to call the grandparent’s constructor directly, it has to be called through parent class. It is allowed only when ‘virtual’ keyword is used. 
+* e.g. 2 -> If B and C are sub classes of A and are superclasses of D then to access the data members of the grandparent class we can use :: 
+	 -> obj.ClassB::a = 10; 
+	    obj.ClassC::a = 100;
+            obj.b = 20; 
+	    obj.c = 30; 
+	    obj.d = 40;
 
 ---
-**The diamond problem**-:
-The diamond problem occurs when two superclasses of a class have a common base class. For example, in the following diagram, the TA class gets two copies of all attributes of Person class, this causes ambiguities. https://media.geeksforgeeks.org/wp-content/uploads/diamondproblem.png
-
-
-
-
-
-
-
-
-
-
-
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## Inheritance -> UPCASTING & DOWNCASTING
 * Upcasting -: is a process of creating a pointer or a reference of the derived class object as a base class pointer. You do not need to upcast manually. You just need to assign 
