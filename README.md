@@ -250,9 +250,9 @@ Pointer to a function -: int * foo(int); operator precedence also plays role her
 Solution-: int (* foo)(int); //there's no space between * and foo. Added space to avoid text formatting of a markdown file.
 
 ---
+Note-: The Arrow(->) operator exists to access the members of the structure or the unions using pointers.
 
-
-
+---
 
 
 
@@ -441,4 +441,200 @@ Types-:
 * Abstraction using Classes: We can implement Abstraction in C++ using classes. The class helps us to group data members and member functions using available access specifiers. A Class can decide which data member will be visible to the outside world and which is not.
 * Abstraction in Header files: One more type of abstraction in C++ can be header files. For example, consider the pow() method present in math.h header file. Whenever we need to calculate the power of a number, we simply call the function pow() present in the math.h header file and pass the numbers as arguments without knowing the underlying algorithm according to which the function is actually calculating the power of numbers.
 
+---
+- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
+## Inheritance
+Modes Of Inheritance-:
+* Public mode: If we derive a sub class from a public base class. Then the public member of the base class will become public in the derived class and protected members of the base 
+  class will become protected in derived class.
+* Protected mode: If we derive a sub class from a Protected base class. Then both public member and protected members of the base class will become protected in derived class.
+* Private mode: If we derive a sub class from a Private base class. Then both public member and protected members of the base class will become Private in derived class.
 
+---
+Note : The private members in the base class cannot be directly accessed in the derived class, while protected members can be directly accessed. 
+
+---
+Constructor Calls in Inheritance-:
+Base class constructors are always called in the derived class constructors. Whenever you create derived class object, first the base class default constructor is executed and then 
+the derived class's constructor finishes execution.
+
+---
+Points to Remember-:
+* Whether derived class's default constructor is called or parameterised is called, base class's default constructor is always called inside them.
+* To call base class's parameterised constructor inside derived class's parameterised constructo, we must mention it explicitly while declaring derived class's parameterized 
+  constructor. 
+  #include<iostream> 
+  using namespace std; 
+  class Base
+  {   int x;
+      public:
+      // parameterized constructor
+      Base(int i)
+      {  x = i;
+         cout << "Base Parameterized Constructor\n";
+      }
+  };
+  class Derived : public Base
+  {   int y;
+      public:
+      // parameterized constructor
+      Derived(int j):Base(j)
+      { y = j;
+        cout << "Derived Parameterized Constructor\n";
+      }
+  };
+  int main()
+  {  Derived d(10) ;
+  }
+* Why is Base class Constructor called inside Derived class? -> Constructors have a special job of initializing the object properly. A Derived class constructor has access only to 
+	its own class members, but a Derived class object also have inherited property of Base class, and only base class constructor can properly initialize base class members. 
+	Hence all the constructors are called, else object wouldn't be constructed properly.	
+
+
+---
+Types of Inheritance-:
+* Single Inheritance: In single inheritance, a class is allowed to inherit from only one class. i.e. one sub class is inherited by one base class only.    
+  https://media.geeksforgeeks.org/wp-content/uploads/single-inheritance.png
+* Multiple Inheritance: Multiple Inheritance is a feature of C++ where a class can inherit from more than one classes. i.e one sub class is inherited from more than one base classes.
+  https://media.geeksforgeeks.org/wp-content/uploads/multiple-inheritance.png Note-: The constructors of inherited classes are called in the same order in which they are inherited   
+  and the destructors are called in reverse order of constructors. 
+* 
+
+
+
+
+---
+**The diamond problem**-:
+The diamond problem occurs when two superclasses of a class have a common base class. For example, in the following diagram, the TA class gets two copies of all attributes of Person class, this causes ambiguities. https://media.geeksforgeeks.org/wp-content/uploads/diamondproblem.png
+
+
+
+
+
+
+
+
+
+
+
+- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
+## Inheritance -> UPCASTING & DOWNCASTING
+* Upcasting -: is a process of creating a pointer or a reference of the derived class object as a base class pointer. You do not need to upcast manually. You just need to assign 
+derived class pointer (or reference) to base class pointer.
+* When you use upcasting, the object is not changing. Nevertheless, when you upcast an object, you will be able to access only member functions and data members that are defined in 
+the base class.
+* One of the biggest advantages of upcasting is the capability of writing generic functions for all the classes that are derived from the same base class.
+#include <iostream>
+using namespace std;
+class Person
+{
+  //content of Person
+};
+class Employee:public Person
+{
+public:
+  Employee(string fName, string lName, double sal)
+  {
+    FirstName = fName;
+    LastName = lName;
+    salary = sal;
+  }
+  string FirstName;
+  string LastName;
+  double salary;
+  void show()
+  {
+    cout << "First Name: " << FirstName << " Last Name: " << LastName << " Salary: " << salary<< endl;
+  }
+  void addBonus(double bonus)
+  {
+    salary += bonus;
+  }
+};
+class Manager :public Employee
+{
+public:
+  Manager(string fName, string lName, double sal, double comm) :Employee(fName, lName, sal)
+  {
+    Commision = comm;
+  }
+  double Commision;
+  double getComm()
+  {
+    return Commision;
+  }
+};
+class Clerk :public Employee
+{
+public:
+  Clerk(string fName, string lName, double sal, Manager* man) :Employee(fName, lName, sal)
+  {
+    manager = man;
+  }
+  Manager* manager;
+  Manager* getManager()
+  {
+    return manager;
+  }
+};
+void congratulate(Employee* emp) //generic function
+{
+  cout << "Happy Birthday!!!" << endl;
+  emp->addBonus(200);
+  emp->show();
+};
+int main()
+{
+    //pointer to base class object
+    Employee* emp;
+    
+    //object of derived class
+    Manager m1("Steve", "Kent", 3000, 0.2);
+    Clerk c1("Kevin","Jones", 1000, &m1);
+    
+    //implicit upcasting
+    emp = &m1;
+    
+    //It's ok
+    cout<<emp->FirstName<<endl;
+    cout<<emp->salary<<endl;
+    
+    //Fails because upcasting is used
+    //cout<<emp->getComm();
+    
+    congratulate(&c1);
+    congratulate(&m1);
+    
+    cout<<"Manager of "<<c1.FirstName<<" is "<<c1.getManager()->FirstName;
+}
+* Steve
+  3000
+  Happy Birthday!!!
+  First Name: Kevin Last Name: Jones Salary: 1200
+  Happy Birthday!!!
+  First Name: Steve Last Name: Kent Salary: 3200
+  Manager of Kevin is Steve
+* Memory Layout-: https://www.tutorialcup.com/images/cplusplus/upcasting-downcasting/upcasting-memory-layout.png  -> It represents the fact that when you use a base class pointer to 
+point up an object of the derived class, you can access only elements that are defined in the base class (green area). Elements of the derived class (yellow area) are not accessible 
+when you use a base class pointer.
+* Downcasting is an opposite process for upcasting. It converts base class pointer to derived class pointer. Downcasting must be done manually. It means that you have to specify 
+explicit typecast.
+* Downcasting is not as safe as upcasting. You know that a derived class object can be always treated as a base class object. However, the opposite is not right.
+* You have to use an explicit cast for downcasting: 
+//pointer to base class object
+Employee* emp;
+//object of derived class
+Manager m1("Steve", "Kent", 3000, 0.2);
+//implicit upcasting
+emp = &m1;
+//explicit downcasting from Employee to Manager
+Manager* m2 = (Manager*)(emp);
+This code compiles and runs without any problem because emp points to an object of Manager class.
+* But, 
+Employee e1("Peter", "Green", 1400);
+//try to cast an employee to Manager
+Manager* m3 = (Manager*)(&e1);
+cout << m3->getComm() << endl;
+e1 object is not an object of the Manager class. It does not contain any information about the commission. That’s why such an operation can produce unexpected results.
+* Memory layout-:https://www.tutorialcup.com/images/cplusplus/upcasting-downcasting/upcasting-memory-layout.png  -> When you try to downcast base class pointer (Employee) that is not actually pointing up an object of the derived class (Manager), you will get access to the memory that does not have any information about the derived class object (yellow area). This is the main danger of downcasting. You can use a safe cast that can help you to know if one type can be converted correctly to another type. For this purpose, use a dynamic cast.
+* Dynamic Cast-: 
