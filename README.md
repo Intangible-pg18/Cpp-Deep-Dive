@@ -51,6 +51,8 @@ operator. Avoid-:
 * The best way to avoid memory leaks in C++ is to have as few new/delete calls at the program level as possible – ideally NONE. Anything that requires dynamic memory should be 
 buried inside an RAII object that releases the memory when it goes out of scope. RAII allocate memory in constructor and release it in destructor, so that memory is garanteed to be 
 deallocated when the variable leave the current scope.
+
+---
 Q-N-A -:
 * To what extent are they (stack & heap) controlled by the OS or language runtime?
 ->The OS allocates the stack for each system-level thread when the thread is created. Typically the OS is called by the language runtime to allocate the heap for the application.
@@ -59,9 +61,25 @@ Q-N-A -:
 * What makes one faster?
 -> The stack is faster because the access pattern makes it trivial to allocate and deallocate memory from it (a pointer/integer is simply incremented or decremented), while the heap has much more complex bookkeeping involved in an allocation or deallocation. Also, each byte in the stack tends to be reused very frequently which means it tends to be mapped to the processor's cache, making it very fast. Another performance hit for the heap is that the heap, being mostly a global resource, typically has to be multi-threading safe, i.e. each allocation and deallocation needs to be - typically - synchronized with "all" other heap accesses in the program. OR While the stack is allocated by the OS when the process starts (assuming the existence of an OS), it is maintained inline by the program. This is another reason the stack is faster, as well - push and pop operations are typically one machine instruction, and modern machines can do at least 3 of them in one cycle, whereas allocating or freeing heap involves calling into OS code. 
 ---
+- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
+## FAULTS
+They are signals generated when serious program error is detected by the operating system and there is no way the program could continue to execute because of these errors.
+* Core Dump or Segmentation fault (SIGSEGV) -: When a piece of code tries to do read and write operation in a read only location in memory or freed block of memory, it is known as core dump.
+Scenarios-:
+  * Modifying a string literal (explained later)
+  * Accessing an address that is freed
+  * Accessing out of array index bounds (explained later)
+  * Stack Overflow-:  It’s because of recursive function gets called repeatedly which eats up all the stack memory resulting in stack overflow. Running out of memory on the stack is also a type of memory corruption. It can be resolved by having a base condition to return from the recursive function.
+  * Dereferencing uninitialized pointer.
+*  Bus Error (also known as SIGBUS and is usually signal 10) -:  occur when a process is trying to access memory that the CPU cannot physically address.In other words the memory 
+   tried to access by the program is not a valid memory address.It caused due to alignment issues with the CPU (eg. trying to read a long from an address which isn’t a multiple of 4)
+Scenarios-: 
+  * Program instructs the CPU to read or write a specific physical memory address which is not valid / Requested physical address is unrecognized by the whole computer system.
+  * Unaligned access of memory (For example, if multi-byte accesses must be 16 bit-aligned, addresses (given in bytes) at 0, 2, 4, 6, and so on would be considered aligned and 
+    therefore accessible, while addresses 1, 3, 5, and so on would be considered unaligned.)
+The main difference between Segmentation Fault and Bus Error is that Segmentation Fault indicates an invalid access to a valid memory, while Bus Error indicates an access to an invalid address. 
 
-
-
+---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## STRINGS
 In case of strings, >> ignores anything after whitespaces and getline() reads the whole line until it encounters a new line.
@@ -90,14 +108,12 @@ Method-: operator << — add a string to the stringstream object
          operator >> — read something from the stringstream object
 e.g. Count number of words in a string
                                       #include <bits/stdc++.h> 
-                                      using namespace std; 
-  
+                                      using namespace std;   
                                       int countWords(string str) 
                                       { 
                                        // breaking input into word using string stream 
                                        stringstream s(str); // Used for breaking words 
-                                       string word; // to store individual words 
-  
+                                       string word; // to store individual words   
                                        int count = 0; 
                                        while (s >> word) 
                                          count++; 
@@ -110,15 +126,18 @@ e.g. Count number of words in a string
                                        cout << " Number of words are: " << countWords(s); 
                                        return 0; 
                                       } 
+
 ---
+Storage for Strings in C++
+Note-: When a string value is directly assigned to a pointer, in most of the compilers, it’s stored in a read-only block (generally in data segment) that is shared among functions.
+e.g. char *str=  =  "GfG";                                                 
+In the above line “GfG” is stored in a shared read-only location, but pointer str is stored in a read-write memory. You can change str to point something else but cannot change value at the address present at str i.e. str="mno" is possible but *str="nmo" is not. The former is a Segmentation Fault. (For more info jump to Faults section).
 
-
-
-
+---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## ARRAYS
 There is no index out of bounds checking in C++. But doing so may cause a Buffer Overflow (-: is an anomaly where a program, while writing data to a buffer, overruns the buffer's 
-boundary and overwrites adjacent memory locations.)
+boundary and overwrites adjacent memory locations.) and a Segmentation Fault (-: For an array int arr[] = {1,2,3,4,5} , cout<<arr[10] works fine and prints a garbage value but arr[10]=9 results in a segmentation fault cause the memory beyond the buffer's boundaries in read-only memory.)
 Array name indicates the address of first element and arrays are always passed as pointers (even if we use square bracket).
 Compiler uses pointer arithmetic to access array element. For example, an expression like “arr[i]” is treated as *(arr + i) by the compiler.
 The loss of type and dimensions of an array is known as decay of an array.This generally occurs when we pass the array into function by value or pointer. 
