@@ -603,13 +603,13 @@ the base class.
                                congratulate(&m1);    
                                cout<<"Manager of "<<c1.FirstName<<" is "<<c1.getManager()->FirstName;
                            }
->>Steve
-  3000
-  Happy Birthday!!!
-  First Name: Kevin Last Name: Jones Salary: 1200
-  Happy Birthday!!!
-  First Name: Steve Last Name: Kent Salary: 3200
-  Manager of Kevin is Steve
+                         >>Steve
+                           3000
+                           Happy Birthday!!!
+                           First Name: Kevin Last Name: Jones Salary: 1200
+                           Happy Birthday!!!
+                           First Name: Steve Last Name: Kent Salary: 3200
+                           Manager of Kevin is Steve
 	
 ---	
 * Memory Layout-: https://www.tutorialcup.com/images/cplusplus/upcasting-downcasting/upcasting-memory-layout.png  -> It represents the fact that when you use a base class pointer to 
@@ -621,22 +621,23 @@ explicit typecast.
 * You have to use an explicit cast for downcasting: 
 
 ---
-* //pointer to base class object
-  Employee* emp;
-  //object of derived class
-  Manager m1("Steve", "Kent", 3000, 0.2);
-  //implicit upcasting
-  emp = &m1;
-  //explicit downcasting from Employee to Manager
-  Manager* m2 = (Manager*)(emp);
-  This code compiles and runs without any problem because emp points to an object of Manager class.
+*                          //pointer to base class object
+                           Employee* emp;
+                           //object of derived class
+                           Manager m1("Steve", "Kent", 3000, 0.2);
+                           //implicit upcasting
+                           emp = &m1;
+                           //explicit downcasting from Employee to Manager
+                           Manager* m2 = (Manager*)(emp);
+                           >>>This code compiles and runs without any problem because emp points to an object of Manager class.
 
 ---
 * But, 
-  Employee e1("Peter", "Green", 1400);
-  //try to cast an employee to Manager
-  Manager* m3 = (Manager*)(&e1);
-  cout << m3->getComm() << endl;
-  e1 object is not an object of the Manager class. It does not contain any information about the commission. That’s why such an operation can produce unexpected results.
+                           Employee e1("Peter", "Green", 1400);
+                           //try to cast an employee to Manager
+                           Manager* m3 = (Manager*)(&e1);
+                           cout << m3->getComm() << endl;
+                           >>>e1 object is not an object of the Manager class. It does not contain any information about the commission. That’s why such an operation can produce 
+			   unexpected results.
 * Memory layout-:https://www.tutorialcup.com/images/cplusplus/upcasting-downcasting/upcasting-memory-layout.png  -> When you try to downcast base class pointer (Employee) that is not actually pointing up an object of the derived class (Manager), you will get access to the memory that does not have any information about the derived class object (yellow area). This is the main danger of downcasting. You can use a safe cast that can help you to know if one type can be converted correctly to another type. For this purpose, use a dynamic cast.
 * Dynamic Cast-: 
