@@ -543,11 +543,13 @@ The diamond problem occurs when two superclasses of a class have a common base c
                          int main() { 
 	                         TA ta1(30); 
                          } 
->>>Person::Person(int ) called
-   Faculty::Faculty(int ) called
-   Person::Person(int ) called
-   Student::Student(int ) called
-   TA::TA(int ) called
+	---
+	                 Person::Person(int ) called
+   	                 Faculty::Faculty(int ) called
+   	                 Person::Person(int ) called
+   	                 Student::Student(int ) called
+   	                 TA::TA(int ) called
+	---
 * In the above program, constructor of ‘Person’ is called two times. Destructor of ‘Person’ will also be called two times when object ‘ta1’ is destructed. So object ‘ta1’ has two 
 	copies of all members of ‘Person’, this causes ambiguities. The solution to this problem is ‘virtual’ keyword. We make the classes ‘Faculty’ and ‘Student’ as virtual base 
 	classes to avoid two copies of ‘Person’ in ‘TA’ class.
@@ -580,10 +582,12 @@ The diamond problem occurs when two superclasses of a class have a common base c
                          int main() { 
 	                         TA ta1(30); 
                          } 
->>>Person::Person() called
-   Faculty::Faculty(int ) called
-   Student::Student(int ) called
-   TA::TA(int ) called
+---
+	                 Person::Person() called
+                         Faculty::Faculty(int ) called
+                         Student::Student(int ) called
+                         TA::TA(int ) called
+	---
 * Note-: One important thing to note in the above output is, the default constructor of ‘Person’ is called. When we use ‘virtual’ keyword, the default constructor of grandparent 
 	 class is called by default even if the parent classes explicitly call parameterized constructor. 
 * Calling the parameterized constructor of the grandparent class
@@ -615,17 +619,19 @@ The diamond problem occurs when two superclasses of a class have a common base c
                                         int main() { 
 	                                        TA ta1(30); 
                                         } 
->>>               Person::Person(int ) called
-                  Faculty::Faculty(int ) called
-                  Student::Student(int ) called
-                  TA::TA(int ) called	
+---   
+                                        Person::Person(int ) called
+                                        Faculty::Faculty(int ) called
+                                        Student::Student(int ) called
+                                        TA::TA(int ) called	
+---
 * Note-: In general, it is not allowed to call the grandparent’s constructor directly, it has to be called through parent class. It is allowed only when ‘virtual’ keyword is used. 
 * e.g. 2 -> If B and C are sub classes of A and are superclasses of D then to access the data members of the grandparent class we can use :: 
-*                          obj.ClassB::a = 10; 
-	                   obj.ClassC::a = 100;
-                           obj.b = 20; 
-	                   obj.c = 30; 
-	                   obj.d = 40;
+*                                       obj.ClassB::a = 10; 
+	                                obj.ClassC::a = 100;
+                                        obj.b = 20; 
+	                                obj.c = 30; 
+	                                obj.d = 40;
 
 ---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
