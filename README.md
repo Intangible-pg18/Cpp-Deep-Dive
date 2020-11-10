@@ -1,7 +1,7 @@
 # Cpp- |Deep Dive| |Lesser-Known-Facts| & |Tips|
 
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
-## BUFFER
+## BUFFER & STREAMS
 Buffer-: A region of storage used to hold data. IO facilities often store input (or output) in a buffer and read or write the buffer independently from actions in the program. Using a buffer allows the operating system to combine several output operations from our program into a single system-level write. Output buffers can be explicitly flushed to force the buffer to be written. By default, reading cin flushes cout; cout is also flushed when the program ends normally. By default, All output buffers are flushed as part of the return from main.
 
 ---
@@ -24,7 +24,7 @@ Solution-: Typing “cin>>ws” after “cin” statement tells the compiler to 
 ---
 
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
-## MEMORY
+## MEMORY (UNDER THE HOOD)
 A typical memory representation of C++ program consists of following sections.
 1. Text segment (Code segment) -: Contains the compiled Machine code (program) instructions.
 2. Initialized data segment (Data segment) -: Global and static variables
@@ -64,20 +64,24 @@ Q-N-A -:
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## FAULTS
 They are signals generated when serious program error is detected by the operating system and there is no way the program could continue to execute because of these errors.
-* Core Dump or Segmentation fault (SIGSEGV) -: When a piece of code tries to do read and write operation in a read only location in memory or freed block of memory, it is known as core dump.
+1. Core Dump or Segmentation fault (SIGSEGV) -: When a piece of code tries to do read and write operation in a read only location in memory or freed block of memory, it is known as 
+   core dump.
 Scenarios-:
   * Modifying a string literal (explained later)
   * Accessing an address that is freed
   * Accessing out of array index bounds (explained later)
-  * Stack Overflow-:  It’s because of recursive function gets called repeatedly which eats up all the stack memory resulting in stack overflow. Running out of memory on the stack is also a type of memory corruption. It can be resolved by having a base condition to return from the recursive function.
+  * Stack Overflow-:  It’s because of recursive function gets called repeatedly which eats up all the stack memory resulting in stack overflow. Running out of memory on the stack is 
+    also a type of memory corruption. It can be resolved by having a base condition to return from the recursive function.
   * Dereferencing uninitialized pointer.
-*  Bus Error (also known as SIGBUS and is usually signal 10) -:  occur when a process is trying to access memory that the CPU cannot physically address.In other words the memory 
-   tried to access by the program is not a valid memory address.It caused due to alignment issues with the CPU (eg. trying to read a long from an address which isn’t a multiple of 4)
+2. Bus Error (also known as SIGBUS and is usually signal 10) -:  occur when a process is trying to access memory that the CPU cannot physically address.In other words the memory 
+   tried to access by the program is not a valid memory address.It caused due to alignment issues with the CPU (eg. trying to read a long from an address which isn’t a multiple of 
+   4).
 Scenarios-: 
   * Program instructs the CPU to read or write a specific physical memory address which is not valid / Requested physical address is unrecognized by the whole computer system.
   * Unaligned access of memory (For example, if multi-byte accesses must be 16 bit-aligned, addresses (given in bytes) at 0, 2, 4, 6, and so on would be considered aligned and 
     therefore accessible, while addresses 1, 3, 5, and so on would be considered unaligned.)
-The main difference between Segmentation Fault and Bus Error is that Segmentation Fault indicates an invalid access to a valid memory, while Bus Error indicates an access to an invalid address. 
+The main difference between Segmentation Fault and Bus Error is that Segmentation Fault indicates an invalid access to a valid memory, while Bus Error indicates an access to an 
+invalid address. 
 
 ---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
