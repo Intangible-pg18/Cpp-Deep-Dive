@@ -463,7 +463,7 @@ Points to Remember-:
 * Whether derived class's default constructor is called or parameterised is called, base class's default constructor is always called inside them.
 * To call base class's parameterised constructor inside derived class's parameterised constructo, we must mention it explicitly while declaring derived class's parameterized 
   constructor. 
-  #include<iostream> 
+* #include<iostream> 
   using namespace std; 
   class Base
   {   int x;
@@ -524,89 +524,83 @@ derived class pointer (or reference) to base class pointer.
 * When you use upcasting, the object is not changing. Nevertheless, when you upcast an object, you will be able to access only member functions and data members that are defined in 
 the base class.
 * One of the biggest advantages of upcasting is the capability of writing generic functions for all the classes that are derived from the same base class.
-#include <iostream>
-using namespace std;
-class Person
-{
-  //content of Person
-};
-class Employee:public Person
-{
-public:
-  Employee(string fName, string lName, double sal)
+* #include <iostream>
+  using namespace std;
+  class Person
   {
-    FirstName = fName;
-    LastName = lName;
-    salary = sal;
-  }
-  string FirstName;
-  string LastName;
-  double salary;
-  void show()
+    //content of Person
+  };
+  class Employee:public Person
   {
-    cout << "First Name: " << FirstName << " Last Name: " << LastName << " Salary: " << salary<< endl;
-  }
-  void addBonus(double bonus)
+  public:
+    Employee(string fName, string lName, double sal)
+    {
+      FirstName = fName;
+      LastName = lName;
+      salary = sal;
+    }
+    string FirstName;
+    string LastName;
+    double salary;
+    void show()
+    {
+      cout << "First Name: " << FirstName << " Last Name: " << LastName << " Salary: " << salary<< endl;
+    }
+    void addBonus(double bonus)
+    {
+      salary += bonus;
+    }
+  };
+  class Manager :public Employee
   {
-    salary += bonus;
-  }
-};
-class Manager :public Employee
-{
-public:
-  Manager(string fName, string lName, double sal, double comm) :Employee(fName, lName, sal)
+  public:
+    Manager(string fName, string lName, double sal, double comm) :Employee(fName, lName, sal)
+    {
+      Commision = comm;
+    }
+    double Commision;
+    double getComm()
+    {
+      return Commision;
+    }
+  };
+  class Clerk :public Employee
   {
-    Commision = comm;
-  }
-  double Commision;
-  double getComm()
+  public:
+    Clerk(string fName, string lName, double sal, Manager* man) :Employee(fName, lName, sal)
+    {
+      manager = man;
+    }
+    Manager* manager;
+    Manager* getManager()
+    {
+     return manager;
+    }
+  };
+  void congratulate(Employee* emp) //generic function
   {
-    return Commision;
-  }
-};
-class Clerk :public Employee
-{
-public:
-  Clerk(string fName, string lName, double sal, Manager* man) :Employee(fName, lName, sal)
+    cout << "Happy Birthday!!!" << endl;
+    emp->addBonus(200);
+    emp->show();
+  };
+  int main()
   {
-    manager = man;
+      //pointer to base class object
+      Employee* emp;
+      //object of derived class
+      Manager m1("Steve", "Kent", 3000, 0.2);
+      Clerk c1("Kevin","Jones", 1000, &m1);
+      //implicit upcasting
+      emp = &m1; 
+      //It's ok
+      cout<<emp->FirstName<<endl;
+      cout<<emp->salary<<endl;
+      //Fails because upcasting is used
+      //cout<<emp->getComm();
+      congratulate(&c1);
+      congratulate(&m1);    
+      cout<<"Manager of "<<c1.FirstName<<" is "<<c1.getManager()->FirstName;
   }
-  Manager* manager;
-  Manager* getManager()
-  {
-    return manager;
-  }
-};
-void congratulate(Employee* emp) //generic function
-{
-  cout << "Happy Birthday!!!" << endl;
-  emp->addBonus(200);
-  emp->show();
-};
-int main()
-{
-    //pointer to base class object
-    Employee* emp;
-    
-    //object of derived class
-    Manager m1("Steve", "Kent", 3000, 0.2);
-    Clerk c1("Kevin","Jones", 1000, &m1);
-    
-    //implicit upcasting
-    emp = &m1;
-    
-    //It's ok
-    cout<<emp->FirstName<<endl;
-    cout<<emp->salary<<endl;
-    
-    //Fails because upcasting is used
-    //cout<<emp->getComm();
-    
-    congratulate(&c1);
-    congratulate(&m1);
-    
-    cout<<"Manager of "<<c1.FirstName<<" is "<<c1.getManager()->FirstName;
-}
 * Steve
   3000
   Happy Birthday!!!
@@ -621,20 +615,20 @@ when you use a base class pointer.
 explicit typecast.
 * Downcasting is not as safe as upcasting. You know that a derived class object can be always treated as a base class object. However, the opposite is not right.
 * You have to use an explicit cast for downcasting: 
-//pointer to base class object
-Employee* emp;
-//object of derived class
-Manager m1("Steve", "Kent", 3000, 0.2);
-//implicit upcasting
-emp = &m1;
-//explicit downcasting from Employee to Manager
-Manager* m2 = (Manager*)(emp);
-This code compiles and runs without any problem because emp points to an object of Manager class.
+* //pointer to base class object
+  Employee* emp;
+  //object of derived class
+  Manager m1("Steve", "Kent", 3000, 0.2);
+  //implicit upcasting
+  emp = &m1;
+  //explicit downcasting from Employee to Manager
+  Manager* m2 = (Manager*)(emp);
+  This code compiles and runs without any problem because emp points to an object of Manager class.
 * But, 
-Employee e1("Peter", "Green", 1400);
-//try to cast an employee to Manager
-Manager* m3 = (Manager*)(&e1);
-cout << m3->getComm() << endl;
-e1 object is not an object of the Manager class. It does not contain any information about the commission. That’s why such an operation can produce unexpected results.
+  Employee e1("Peter", "Green", 1400);
+  //try to cast an employee to Manager
+  Manager* m3 = (Manager*)(&e1);
+  cout << m3->getComm() << endl;
+  e1 object is not an object of the Manager class. It does not contain any information about the commission. That’s why such an operation can produce unexpected results.
 * Memory layout-:https://www.tutorialcup.com/images/cplusplus/upcasting-downcasting/upcasting-memory-layout.png  -> When you try to downcast base class pointer (Employee) that is not actually pointing up an object of the derived class (Manager), you will get access to the memory that does not have any information about the derived class object (yellow area). This is the main danger of downcasting. You can use a safe cast that can help you to know if one type can be converted correctly to another type. For this purpose, use a dynamic cast.
 * Dynamic Cast-: 
