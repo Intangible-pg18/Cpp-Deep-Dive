@@ -524,7 +524,9 @@ derived class pointer (or reference) to base class pointer.
 * When you use upcasting, the object is not changing. Nevertheless, when you upcast an object, you will be able to access only member functions and data members that are defined in 
 the base class.
 * One of the biggest advantages of upcasting is the capability of writing generic functions for all the classes that are derived from the same base class.
-* #include <iostream>
+
+---
+#include <iostream>
   using namespace std;
   class Person
   {
@@ -601,13 +603,15 @@ the base class.
       congratulate(&m1);    
       cout<<"Manager of "<<c1.FirstName<<" is "<<c1.getManager()->FirstName;
   }
-* Steve
+>>Steve
   3000
   Happy Birthday!!!
   First Name: Kevin Last Name: Jones Salary: 1200
   Happy Birthday!!!
   First Name: Steve Last Name: Kent Salary: 3200
   Manager of Kevin is Steve
+	
+---	
 * Memory Layout-: https://www.tutorialcup.com/images/cplusplus/upcasting-downcasting/upcasting-memory-layout.png  -> It represents the fact that when you use a base class pointer to 
 point up an object of the derived class, you can access only elements that are defined in the base class (green area). Elements of the derived class (yellow area) are not accessible 
 when you use a base class pointer.
@@ -615,6 +619,8 @@ when you use a base class pointer.
 explicit typecast.
 * Downcasting is not as safe as upcasting. You know that a derived class object can be always treated as a base class object. However, the opposite is not right.
 * You have to use an explicit cast for downcasting: 
+
+---
 * //pointer to base class object
   Employee* emp;
   //object of derived class
@@ -624,6 +630,8 @@ explicit typecast.
   //explicit downcasting from Employee to Manager
   Manager* m2 = (Manager*)(emp);
   This code compiles and runs without any problem because emp points to an object of Manager class.
+
+---
 * But, 
   Employee e1("Peter", "Green", 1400);
   //try to cast an employee to Manager
