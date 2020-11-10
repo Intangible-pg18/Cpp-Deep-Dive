@@ -491,6 +491,15 @@ Points to Remember-:
 	Hence all the constructors are called, else object wouldn't be constructed properly.	
 
 
+
+---
+* Note-: 
+  1. Constructors and Destructors are never inherited and hence never overrided.(We will study the concept of function overriding in the next tutorial)
+  2. Assignment operator = is never inherited. It can be overloaded but can't be inherited by sub class.
+* Inheritance and Static Functions in C++ -:
+  1. They are inherited into the derived class.
+  2. If you redefine a static member function in derived class, all the other overloaded functions in base class are hidden.
+  3. Static Member functions can never be virtual. We will study about Virtual in coming topics.
 ---
 Types of Inheritance-:
 * Single Inheritance: In single inheritance, a class is allowed to inherit from only one class. i.e. one sub class is inherited by one base class only.    
@@ -639,5 +648,17 @@ explicit typecast.
                            cout << m3->getComm() << endl;
                            >>>e1 object is not an object of the Manager class. It does not contain any information about the commission. That’s why such an operation can produce 
 			   unexpected results.
-* Memory layout-:https://www.tutorialcup.com/images/cplusplus/upcasting-downcasting/upcasting-memory-layout.png  -> When you try to downcast base class pointer (Employee) that is not actually pointing up an object of the derived class (Manager), you will get access to the memory that does not have any information about the derived class object (yellow area). This is the main danger of downcasting. You can use a safe cast that can help you to know if one type can be converted correctly to another type. For this purpose, use a dynamic cast.
-* Dynamic Cast-: 
+* Memory layout-:https://www.tutorialcup.com/images/cplusplus/upcasting-downcasting/upcasting-memory-layout.png  -> When you try to downcast base class pointer (Employee) that is not 
+actually pointing up an object of the derived class (Manager), you will get access to the memory that does not have any information about the derived class object (yellow area). This 
+is the main danger of downcasting. You can use a safe cast that can help you to know if one type can be converted correctly to another type. For this purpose, use a dynamic cast.
+* Dynamic Cast-: is an operator that converts safely one type to another type. In the case, the conversation is possible and safe, it returns the address of the object that is 
+converted. Otherwise, it returns nullptr.
+* If you want to use a dynamic cast for downcasting, the base class should be polymorphic – it must have at least one virtual function. Modify base class Person by adding a virtual function:
+* virtual void foo() {}
+*                           Employee e1("Peter", "Green", 1400);
+                            Manager* m3 = dynamic_cast<Manager*>(&e1);
+                            if (m3)
+                            cout << m3->getComm() << endl;
+                            else
+                            cout << "Can't  cast from Employee to Manager" << endl;
+* In this case, the dynamic cast returns nullptr. Therefore, you will see a warning message.
