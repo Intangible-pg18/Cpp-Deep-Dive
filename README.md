@@ -632,7 +632,7 @@ explicit typecast.
                            >>>This code compiles and runs without any problem because emp points to an object of Manager class.
 
 ---
-* But, 
+*                          But, 
                            Employee e1("Peter", "Green", 1400);
                            //try to cast an employee to Manager
                            Manager* m3 = (Manager*)(&e1);
