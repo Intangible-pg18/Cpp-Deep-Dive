@@ -463,29 +463,29 @@ Points to Remember-:
 * Whether derived class's default constructor is called or parameterised is called, base class's default constructor is always called inside them.
 * To call base class's parameterised constructor inside derived class's parameterised constructo, we must mention it explicitly while declaring derived class's parameterized 
   constructor. 
-* #include<iostream> 
-  using namespace std; 
-  class Base
-  {   int x;
-      public:
-      // parameterized constructor
-      Base(int i)
-      {  x = i;
-         cout << "Base Parameterized Constructor\n";
-      }
-  };
-  class Derived : public Base
-  {   int y;
-      public:
-      // parameterized constructor
-      Derived(int j):Base(j)
-      { y = j;
-        cout << "Derived Parameterized Constructor\n";
-      }
-  };
-  int main()
-  {  Derived d(10) ;
-  }
+*                          #include<iostream> 
+                           using namespace std; 
+                           class Base
+                           {   int x;
+                               public:
+                               // parameterized constructor
+                               Base(int i)
+                               {  x = i;
+                                  cout << "Base Parameterized Constructor\n";
+                               }
+                           };
+                           class Derived : public Base
+                           {   int y;
+                               public:
+                               // parameterized constructor
+                               Derived(int j):Base(j)
+                               { y = j;
+                                 cout << "Derived Parameterized Constructor\n";
+                               }
+                           };
+                           int main()
+                           {  Derived d(10) ;
+                           }
 * Why is Base class Constructor called inside Derived class? -> Constructors have a special job of initializing the object properly. A Derived class constructor has access only to 
 	its own class members, but a Derived class object also have inherited property of Base class, and only base class constructor can properly initialize base class members. 
 	Hence all the constructors are called, else object wouldn't be constructed properly.	
@@ -586,46 +586,46 @@ The diamond problem occurs when two superclasses of a class have a common base c
    TA::TA(int ) called
 * Note-: One important thing to note in the above output is, the default constructor of ‘Person’ is called. When we use ‘virtual’ keyword, the default constructor of grandparent 
 	 class is called by default even if the parent classes explicitly call parameterized constructor. 
-* Calling the parameterized constructor of the grandparent class-: 
-                         #include<iostream> 
-                         using namespace std; 
-                         class Person { 
-                         public: 
-	                         Person(int x) { cout << "Person::Person(int ) called" << endl; } 
-	                         Person()	 { cout << "Person::Person() called" << endl; } 
-                         }; 
-                         class Faculty : virtual public Person { 
-                         public: 
-	                         Faculty() { 
-	                         cout<<"Faculty::Faculty(int ) called"<< endl; 
-	                         } 
-                         }; 
-                         class Student : virtual public Person { 
-                         public: 
-	                         Student() { 
-		                         cout<<"Student::Student(int ) called"<< endl; 
-	                         } 
-                         }; 
-                         class TA : public Faculty, public Student { 
-                         public: 
-	                         TA(int x):Student(), Faculty(), Person(x) { 
-		                         cout<<"TA::TA(int ) called"<< endl; 
-	                         } 
-                         }; 
-                         int main() { 
-	                         TA ta1(30); 
-                         } 
->>>Person::Person(int ) called
-   Faculty::Faculty(int ) called
-   Student::Student(int ) called
-   TA::TA(int ) called	
+* Calling the parameterized constructor of the grandparent class
+                                        #include<iostream> 
+                                        using namespace std; 
+                                        class Person { 
+                                        public: 
+	                                        Person(int x) { cout << "Person::Person(int ) called" << endl; } 
+	                                        Person()	 { cout << "Person::Person() called" << endl; } 
+                                        }; 
+                                        class Faculty : virtual public Person { 
+                                        public: 
+	                                        Faculty() { 
+	                                        cout<<"Faculty::Faculty(int ) called"<< endl; 
+	                                        } 
+                                        }; 
+                                        class Student : virtual public Person { 
+                                        public: 
+	                                        Student() { 
+		                                        cout<<"Student::Student(int ) called"<< endl; 
+	                                        } 
+                                        }; 
+                                        class TA : public Faculty, public Student { 
+                                        public: 
+	                                        TA(int x):Student(), Faculty(), Person(x) { 
+		                                        cout<<"TA::TA(int ) called"<< endl; 
+	                                        } 
+                                        }; 
+                                        int main() { 
+	                                        TA ta1(30); 
+                                        } 
+>>>               Person::Person(int ) called
+                  Faculty::Faculty(int ) called
+                  Student::Student(int ) called
+                  TA::TA(int ) called	
 * Note-: In general, it is not allowed to call the grandparent’s constructor directly, it has to be called through parent class. It is allowed only when ‘virtual’ keyword is used. 
 * e.g. 2 -> If B and C are sub classes of A and are superclasses of D then to access the data members of the grandparent class we can use :: 
-	 -> obj.ClassB::a = 10; 
-	    obj.ClassC::a = 100;
-            obj.b = 20; 
-	    obj.c = 30; 
-	    obj.d = 40;
+*                          obj.ClassB::a = 10; 
+	                   obj.ClassC::a = 100;
+                           obj.b = 20; 
+	                   obj.c = 30; 
+	                   obj.d = 40;
 
 ---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
