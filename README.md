@@ -267,6 +267,7 @@ Uses-:
                        } 
 	---
 2) To return reference to the calling object-: Usecase-: Chain Function Calls
+	---
 		       #include<iostream> 
 		       using namespace std; 
                        class Test 
