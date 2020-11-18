@@ -5,6 +5,9 @@
 Buffer-: A region of storage used to hold data. IO facilities often store input (or output) in a buffer and read or write the buffer independently from actions in the program. Using a buffer allows the operating system to combine several output operations from our program into a single system-level write. Output buffers can be explicitly flushed to force the buffer to be written. By default, reading cin flushes cout; cout is also flushed when the program ends normally. By default, All output buffers are flushed as part of the return from main.
 
 ---
+Note-: cout is an object of ostream class and cin is an object istream class.
+
+---
 Manipulator-: Object, such as std::endl, that when read or written “manipulates” the stream itself.
 Clearing output buffer-: 
 * endl-: It is a manipulator. Writing endl has the effect of ending the current line and flushing the buffer associated with that device. Flushing the buffer ensures that all the output
@@ -828,6 +831,9 @@ converted. Otherwise, it returns nullptr.
 Types of polymorphism-: https://media.geeksforgeeks.org/wp-content/uploads/20200703160531/Polymorphism-in-CPP.png
 
 ---
+* Binding-: refers to the process of converting identifiers (such as variable and function names) into addresses. Binding is done for each variable and functions. For functions, it means that matching the call with the right function definition by the compiler. It takes place either at compile time or at runtime.
+* Early Binding (compile-time time polymorphism or static binding) As the name indicates, compiler (or linker) directly associate an address to the function call. It replaces 
+the call with a machine language instruction that tells the mainframe to leap to the address of the function. By default early binding happens in C++.
 1. Operator Overloading-:
 Note-: 1. Most overloaded operators may be defined as ordinary non-member functions or as class member functions. Box operator+(const Box&);
        In case we define above function as non-member function of a class then we would have to pass two arguments for each operand as Box operator+(const Box&, const 
@@ -844,7 +850,190 @@ Note-: 1. Most overloaded operators may be defined as ordinary non-member functi
                                                      dynamic_cast (casting operator)
        3. For operator overloading to work, at least one of the operands must be a user defined class object.
        4. Overloaded operators cannot have default arguments except the function call operator () which can have default arguments.
-       5. Assignment (=), subscript ([]), function call (“()”), and member selection (->) operators must be defined as member functions, all other operators can be 
+       5. Compiler automatically creates a default assignment operator with every class. 
+       6. Assignment (=), subscript ([]), function call (“()”), and member selection (->) operators must be defined as member functions, all other operators can be 
           either member functions or a non member functions.
-       6. Some operators like (assignment)=, (address)& and comma (,) are by default overloaded.
-       
+       7. Some operators like (assignment)=, (address)& and comma (,) are by default overloaded.
+       8. Consider the statement “ob1 + ob2” (let ob1 and ob2 be objects of two different classes). To make this statement compile, we must overload ‘+’ in class of ‘ob1’ or 
+          make ‘+’ a global function. Which can be quite inconvenient in some cases (e.g. <<,>>).
+
+---
+Overloading the Output Operator <<
+*  Ordinarily, the first parameter of an output operator is a reference to a nonconst ostream object. The ostream is nonconst because writing to the stream changes its state.  
+The parameter is a reference because we cannot copy an ostream object. The second parameter ordinarily should be a reference to const of the class type we want to print. The 
+parameter is a reference to avoid copying the argument. It can be const because (ordinarily) printing an object does not change that object.
+*                  void operator<<(ostream &os, const book &item)
+                   {
+                   os << item.isbn() << " " << item.units_sold << " "
+                   << item.revenue << " " << item.avg_price();
+                   }
+		   ---
+Note-: Differentiating Prefix and Postfix Operators-: Normal overloading cannot distinguish between these operators. The prefix and postfix versions use the same symbol, 
+meaning  that the overloaded versions of these operators have the same name. They also have the same number and type of operands. To solve this problem, the postfix versions 
+take an extra (unused) parameter of type int. When we use a postfix operator, the compiler supplies 0 as the argument for this parameter.
+
+---
+Function Overloading-: 
+* Parameter declarations that differ only in a pointer * versus an array [] are equivalent. That is, the array declaration is adjusted to become a pointer declaration. Only 
+ the second and subsequent array dimensions are significant in parameter types. For example, following two function declarations are equivalent
+ int fun(int * ptr); 
+ int fun(int ptr[]); // redeclaration of fun(int * ptr)
+ 
+ ---
+ - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
+## Virtual Function & Runtime Polymorphism (Function Overriding)
+* Late Binding (Run time polymorphism or dynamic binding)-: In this, the compiler adds code that identifies the kind of object at runtime then matches the call with the right function definition.
+* A Base Class pointer can point to a derived class object. Why is the vice-versa not true? ->  A derived class contains the properties of it's super class but the super class doesn't contain the properties of the derived class. A derived object is a base class object (as it's a sub class), so it can be pointed to by a base class pointer. However, a base class object is not a derived class object so it can't be assigned to a derived class pointer.
+* A base class pointer can point to a derived class object, but we can only access base class member or virtual functions using the base class pointer because object slicing happens when a derived class object is assigned to a base class object. Additional attributes of a derived class object are sliced off to form the base class object.
+* Example of the above point-: A class base contains the following function definition-: virtual void fun_4() { cout << "base-4\n"; } and the derived class conatins the following: void fun_4(int x) { cout << "derived-4\n"; }. Then doing this-: base* p; derived obj1; p = &obj1; p->fun_4(5); is illegal.
+* Object Slicing-: happens when a derived class object is assigned to a base class object, additional attributes of a derived class object are sliced off to form the base class object.
+---
+                                         #include <iostream> 
+                                         using namespace std; 
+                                         class Base 
+                                         { 
+                                         protected: 
+	                                         int i; 
+                                         public: 
+                                         Base(int a)	 { i = a; } 
+                                         virtual void display() 
+                                         { cout << "I am Base class object, i = " << i << endl; } 
+                                         }; 
+                                         class Derived : public Base 
+                                         { 
+	                                         int j; 
+                                         public: 
+	                                         Derived(int a, int b) : Base(a) { j = b; } 
+	                                         virtual void display() 
+	                                         { cout << "I am Derived class object, i = "
+		                                         << i << ", j = " << j << endl; } 
+                                         }; 
+                                         void somefunc (Base obj) 
+                                         { 
+	                                         obj.display(); 
+                                         } 
+                                         int main() 
+                                         { 
+	                                         Base b(33); 
+	                                         Derived d(45, 54); 
+	                                         somefunc(b); 
+	                                         somefunc(d); // Object Slicing, the member j of d is sliced off 
+	                                         return 0; 
+                                         }
+	---
+* I am Base class object, i = 33
+  I am Base class object, i = 45
+* Solution 1-: Object slicing doesn’t occur when pointers or references to objects are passed as function arguments since a pointer or reference of any type takes same amount of memory and prevents copying.  -> void somefunc (Base &obj)
+* Solution 2-: Object slicing can be prevented by making the base class function pure virtual there by disallowing object creation. It is not possible to create the object of a class which contains a pure virtual method.
+* A virtual function is a member function that you expect to be redefined in derived classes. When you refer to a derived class object using a pointer or a reference to the base class, you can call a virtual function for that object and execute the derived class's version of the function.
+---
+                                         #include <iostream>
+                                         using namespace std;
+                                         class Account {
+                                         public:
+                                            Account( double d ) { _balance = d; }
+                                            virtual double GetBalance() { return _balance; }
+                                            virtual void PrintBalance() { cerr << "Error. Balance not available for base type." << endl; }
+                                         private:
+                                             double _balance;
+                                         };
+                                         class CheckingAccount : public Account {
+                                         public:
+                                            CheckingAccount(double d) : Account(d) {}
+                                            void PrintBalance() { cout << "Checking account balance: " << GetBalance() << endl; }
+                                         };
+                                         class SavingsAccount : public Account {
+                                         public:
+                                            SavingsAccount(double d) : Account(d) {}
+                                            void PrintBalance() { cout << "Savings account balance: " << GetBalance(); }
+                                         };
+                                         int main() {
+                                            CheckingAccount checking( 100.00 );
+                                            SavingsAccount  savings( 1000.00 );
+                                            Account *pAccount = &checking;
+                                            pAccount->PrintBalance();
+                                            pAccount = &savings;
+                                            pAccount->PrintBalance();
+                                         }	
+	---
+* In the preceding code, the calls to PrintBalance are identical, except for the object pAccount points to. Because PrintBalance is virtual, the version of the function defined for each object is called. The PrintBalance function in the derived classes CheckingAccount and SavingsAccount "override" the function in the base class Account.In the preceding code, the calls to PrintBalance are identical, except for the object pAccount points to. Because PrintBalance is virtual, the version of the function defined for each object is called. The PrintBalance function in the derived classes CheckingAccount and SavingsAccount "override" the function in the base class Account.
+* A function that is virtual in a base class is implicitly virtual in its derived classes-: When a derived class overrides a virtual function, it may, but is not required to,  repeat the virtual keyword. Once a function is declared as virtual, it remains virtual in all the derived classes.
+* If a class is declared that does not provide an overriding implementation of the PrintBalance function, the default implementation from the base class Account is used.
+* Rules-: 1. A call to a virtual function is resolved according to the underlying type of object for which it is called.
+	  2. A call to a nonvirtual function is resolved according to the type of the pointer or reference.
+	  3. Because virtual functions are called only for objects of class types, you cannot declare global or static functions as virtual.
+	  4. A class may have virtual destructor but it cannot have a virtual constructor. (More details later)
+* Use-: Virtual functions allow us to call methods of any of the derived classes without even knowing kind of derived class object. 
+* Usecase-: To raise the salary of each employee in the organisation-:
+	---
+                                      class Employee {
+                                      public:
+	                                      virtual void raiseSalary()
+	                                      {
+		                                      /* common raise salary code */
+	                                      }
+	                                      virtual void promote() { /* common promote code */ }
+                                      };
+                                      class Manager : public Employee {
+	                                      virtual void raiseSalary()
+	                                      {
+		                                      /* Manager specific raise salary code, may contain
+		                                      increment of manager specific incentives*/
+	                                      }
+	                                      virtual void promote()
+	                                      {
+		                                      /* Manager specific promote */
+	                                      }
+                                      };
+                                      // Similarly, there may be other types of employees                                      
+                                      // We need a very simple function
+                                      // to increment the salary of all employees
+                                      // Note that emp[] is an array of pointers
+                                      // and actual pointed objects can
+                                      // be any type of employees.
+                                      // This function should ideally
+                                      // be in a class like Organization,
+                                      // we have made it global to keep things simple
+                                      void globalRaiseSalary(Employee* emp[], int n)
+                                      {
+	                                      for (int i = 0; i < n; i++
+		                                      // Polymorphic Call: Calls raiseSalary()
+		                                      // according to the actual object, not
+		                                      // according to the type of pointer
+		                                      emp[i]->raiseSalary();
+                                      }
+	---
+*Working of the above code and the concept of VTABLE and VPTR-: 
+* vtable: A table of function pointers, maintained per class and created at compile time.
+* vptr: A pointer to vtable, maintained per object instance and is inherited by derived classes.
+* If a class contains a virtual function then compiler itself does two things: 1. If object of that class is created then a virtual pointer (VPTR) is inserted as a data member of the class to point to virtual table (VTABLE) of that class. For each new object created, a new virtual pointer is inserted as a data member of that class. 2. Irrespective of object is created or not, a static array of function pointer called VTABLE where each cell contains the address of each virtual function contained in that class.
+* For the code above this is what happens under the hood-: https://media.geeksforgeeks.org/wp-content/uploads/VirtualFunction.png
+* Compiler adds additional code at two places to maintain and use vptr-: 
+1) Code in every constructor. This code sets the vptr of the object being created. This code sets vptr to point to the vtable of the class. 
+2) Wherever a polymorphic call is made, the compiler inserts code to first look for vptr using base class pointer or reference (In the above example, since pointed or referred object is of derived type, vptr of derived class is accessed). Once vptr is fetched, vtable of derived class can be accessed. Using vtable, address of derived class function raisesalary() is accessed and called.
+* Example-:
+---
+                                      #include <iostream> 
+                                      using namespace std; 
+                                      class A 
+                                      { 
+                                      public: 
+                                          virtual void fun(); 
+                                      }; 
+                                      class B 
+                                      { 
+                                      public: 
+                                         void fun(); 
+                                      }; 
+                                      int main() 
+                                      { 
+                                          int a = sizeof(A), b = sizeof(B); 
+                                          if (a == b) cout << "a == b"; 
+                                          else if (a > b) cout << "a > b"; 
+                                          else cout << "a < b"; 
+                                          return 0; 
+                                      }
+						  ---
+* Output -> a > b
+* Explanation-: Class A has a VPTR which is not there in class B. In a typical implementation of virtual functions, compiler places a VPTR with every object. Compiler secretly adds some code in every constructor to this.
+			
