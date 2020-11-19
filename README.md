@@ -468,7 +468,7 @@ Destructor-:
 
 ---
 Types of Destructors-:
-* Virtual Destructor
+* Virtual Destructor-: Discussed in the *Virtual Function & Runtime Polymorphism (Function Overriding)* section.
 * Pure Destructor
 
 ---
@@ -564,129 +564,6 @@ Types of Inheritance-:
 * Multilevel Inheritance-: In this type of inheritance, a derived class is created from another derived class. https://media.geeksforgeeks.org/wp-content/uploads/multilevel-inheritance.png  
 * Hierarchical Inheritance (A)-: In this type of inheritance, more than one sub class is inherited from a single base class. i.e. more than one derived class is created from a single base class. https://media.geeksforgeeks.org/wp-content/uploads/hierarchical-inheritance.png
 * Hybrid (Virtual) Inheritance: Hybrid Inheritance is implemented by combining more than one type of inheritance. For example: Combining Hierarchical inheritance and Multiple Inheritance. https://media.geeksforgeeks.org/wp-content/uploads/Hybrid-Inheritance.png
----
-**Multipath Inheritance or The diamond problem**-:
-The diamond problem occurs when two superclasses of a class have a common base class. For example, in the following diagram, the TA class gets two copies of all attributes of Person class, this causes ambiguities. https://media.geeksforgeeks.org/wp-content/uploads/diamondproblem.png
-                         #include<iostream> 
-                         using namespace std; 
-                         class Person { 
-                         // Data members of person 
-                         public: 
-                         	Person(int x) { cout << "Person::Person(int ) called" << endl; } 
-                         }; 
-                         class Faculty : public Person { 
-                         // data members of Faculty 
-                         public: 
-	                         Faculty(int x):Person(x) { 
-	                         cout<<"Faculty::Faculty(int ) called"<< endl; 
-	                         } 
-                         }; 
-                         class Student : public Person { 
-                         // data members of Student 
-                         public: 
-	                         Student(int x):Person(x) { 
-		                         cout<<"Student::Student(int ) called"<< endl; 
-	                         } 
-                         }; 
-                         class TA : public Faculty, public Student { 
-                         public: 
-	                         TA(int x):Student(x), Faculty(x) { 
-		                         cout<<"TA::TA(int ) called"<< endl; 
-	                         } 
-                         }; 
-                         int main() { 
-	                         TA ta1(30); 
-                         } 
-	---
-	                 Person::Person(int ) called
-   	                 Faculty::Faculty(int ) called
-   	                 Person::Person(int ) called
-   	                 Student::Student(int ) called
-   	                 TA::TA(int ) called
-	---
-* In the above program, constructor of ‘Person’ is called two times. Destructor of ‘Person’ will also be called two times when object ‘ta1’ is destructed. So object ‘ta1’ has two 
-	copies of all members of ‘Person’, this causes ambiguities. The solution to this problem is ‘virtual’ keyword. We make the classes ‘Faculty’ and ‘Student’ as virtual base 
-	classes to avoid two copies of ‘Person’ in ‘TA’ class.
-*
-*                          #include<iostream> 
-                         using namespace std; 
-                         class Person { 
-                         public: 
-	                         Person(int x) { cout << "Person::Person(int ) called" << endl; } 
-	                         Person()	 { cout << "Person::Person() called" << endl; } 
-                         }; 
-                         class Faculty : virtual public Person { 
-                         public: 
-	                         Faculty(int x):Person(x) { 
-	                         cout<<"Faculty::Faculty(int ) called"<< endl; 
-	                         } 
-                         }; 
-                         class Student : virtual public Person { 
-                         public: 
-	                         Student(int x):Person(x) { 
-		                         cout<<"Student::Student(int ) called"<< endl; 
-	                         } 
-                         }; 
-                         class TA : public Faculty, public Student { 
-                         public: 
-	                         TA(int x):Student(x), Faculty(x) { 
-		                         cout<<"TA::TA(int ) called"<< endl; 
-	                         } 
-                         }; 
-                         int main() { 
-	                         TA ta1(30); 
-                         } 
----
-	                 Person::Person() called
-                         Faculty::Faculty(int ) called
-                         Student::Student(int ) called
-                         TA::TA(int ) called
-	---
-* Note-: One important thing to note in the above output is, the default constructor of ‘Person’ is called. When we use ‘virtual’ keyword, the default constructor of grandparent 
-	 class is called by default even if the parent classes explicitly call parameterized constructor. 
-* Calling the parameterized constructor of the grandparent class
-                                        #include<iostream> 
-                                        using namespace std; 
-                                        class Person { 
-                                        public: 
-	                                        Person(int x) { cout << "Person::Person(int ) called" << endl; } 
-	                                        Person()	 { cout << "Person::Person() called" << endl; } 
-                                        }; 
-                                        class Faculty : virtual public Person { 
-                                        public: 
-	                                        Faculty() { 
-	                                        cout<<"Faculty::Faculty(int ) called"<< endl; 
-	                                        } 
-                                        }; 
-                                        class Student : virtual public Person { 
-                                        public: 
-	                                        Student() { 
-		                                        cout<<"Student::Student(int ) called"<< endl; 
-	                                        } 
-                                        }; 
-                                        class TA : public Faculty, public Student { 
-                                        public: 
-	                                        TA(int x):Student(), Faculty(), Person(x) { 
-		                                        cout<<"TA::TA(int ) called"<< endl; 
-	                                        } 
-                                        }; 
-                                        int main() { 
-	                                        TA ta1(30); 
-                                        } 
----   
-                                        Person::Person(int ) called
-                                        Faculty::Faculty(int ) called
-                                        Student::Student(int ) called
-                                        TA::TA(int ) called	
----
-* Note-: In general, it is not allowed to call the grandparent’s constructor directly, it has to be called through parent class. It is allowed only when ‘virtual’ keyword is used. 
-* e.g. 2 -> If B and C are sub classes of A and are superclasses of D then to access the data members of the grandparent class we can use :: 
-*                                       obj.ClassB::a = 10; 
-	                                obj.ClassC::a = 100;
-                                        obj.b = 20; 
-	                                obj.c = 30; 
-	                                obj.d = 40;
-
 ---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## Inheritance -> UPCASTING & DOWNCASTING
@@ -813,7 +690,7 @@ explicit typecast.
 * Memory layout-:https://www.tutorialcup.com/images/cplusplus/upcasting-downcasting/upcasting-memory-layout.png  -> When you try to downcast base class pointer (Employee) that is not 
 actually pointing up an object of the derived class (Manager), you will get access to the memory that does not have any information about the derived class object (yellow area). This 
 is the main danger of downcasting. You can use a safe cast that can help you to know if one type can be converted correctly to another type. For this purpose, use a dynamic cast.
-* Dynamic Cast-: is an operator that converts safely one type to another type. In the case, the conversation is possible and safe, it returns the address of the object that is 
+* Dynamic_Cast-: is an operator that converts safely one type to another type. In the case, the conversation is possible and safe, it returns the address of the object that is 
 converted. Otherwise, it returns nullptr.
 * If you want to use a dynamic cast for downcasting, the base class should be polymorphic – it must have at least one virtual function. Modify base class Person by adding a virtual function:
 * virtual void foo() {}
@@ -1037,3 +914,140 @@ Function Overloading-:
 * Output -> a > b
 * Explanation-: Class A has a VPTR which is not there in class B. In a typical implementation of virtual functions, compiler places a VPTR with every object. Compiler secretly adds some code in every constructor to this.
 * Note-: By default all the functions defined inside the class are implicitly or automatically considered as inline except virtual functions. Whenever virtual function is called using base class reference or pointer it cannot be inlined (because call is resolved at runtime), but whenever called using the object (without reference or pointer) of that class, can be inlined because compiler knows the exact class of the object at compile time.	
+* Deleting a derived class object using a pointer of base class type that has a non-virtual destructor results in undefined behavior. To correct this situation, the base class should be defined with a virtual destructor. Making base class destructor virtual guarantees that the object of derived class is destructed properly, i.e., both base class and derived class destructors are called. Any time you have a virtual function in a class, you should immediately add a virtual destructor (even if it does nothing).
+* Pure Virtual Functions & Abstract Classes-: Sometimes implementation of all function cannot be provided in a base class because we don’t know the implementation. Such a class is called abstract class. For example, let Shape be a base class. We cannot provide implementation of function draw() in Shape, but we know every derived class must have implementation of draw(). A pure virtual function (or abstract function) in C++ is a virtual function for which we don’t have implementation, we only declare it. A pure virtual function is declared by assigning 0 in declaration. 
+						  ---
+*                                      // An abstract class 
+                                      class Test 
+                                      {    
+                                          // Data members of class 
+                                      public: 
+                                          // Pure Virtual Function 
+                                          virtual void show() = 0;     
+                                      }; 
+						  ---
+* Note-: 1. A class is abstract if it has at least one pure virtual function.
+	 2. If we do not override the pure virtual function in derived class, then derived class also becomes abstract class.
+	 3. We cannot create objects of abstract classes. Reasoon-: Because it's abstract and an object is concrete. An abstract class is sort of like a template, or an empty/partially empty structure, you have to extend it and build on it before you can use it. Take for example an "Animal" abstract class. There's no such thing as a "pure" animal - there are specific types of animals. So you can instantiate Dog and Cat and Turtle, but you shouldn't be able to instantiate plain Animal - that's just a basic template. And there's certain functionality that all animals share, such as "makeSound()", but that can't be defined on the base Animal level. So if you could create an Animal object and you would call makeSound(), how would the object know which sound to make?
+         4. An abstract class can have constructors. Reason-: An abstract class can have member variables and potentially non-virtual member functions, so that every derived class from the former implements specific features. Then, the responsibility for the initialization of these members variables may belong to the abstract class (at least always for private members, because the derived class wouldn't be able to initialize them, yet could use some inherited member functions that may use/rely on these members). Thus, it makes it perfectly reasonable for abstract classes to implement constructors.
+	 5. We can have pointers and references of abstract class type (But they should not be pointing at the astract class's object but to any of the derived class's object.
+* **Multiple Inheritace and Hybrid Inheritance -> Virtual Inheritance (The Diamond Problem) -> Virtual Base Class** -: 
+The diamond problem occurs when two superclasses of a class have a common base class. For example, in the following diagram, the TA class gets two copies of all attributes of Person class, this causes ambiguities. https://media.geeksforgeeks.org/wp-content/uploads/diamondproblem.png
+                         #include<iostream> 
+                         using namespace std; 
+                         class Person { 
+                         // Data members of person 
+                         public: 
+                         	Person(int x) { cout << "Person::Person(int ) called" << endl; } 
+                         }; 
+                         class Faculty : public Person { 
+                         // data members of Faculty 
+                         public: 
+	                         Faculty(int x):Person(x) { 
+	                         cout<<"Faculty::Faculty(int ) called"<< endl; 
+	                         } 
+                         }; 
+                         class Student : public Person { 
+                         // data members of Student 
+                         public: 
+	                         Student(int x):Person(x) { 
+		                         cout<<"Student::Student(int ) called"<< endl; 
+	                         } 
+                         }; 
+                         class TA : public Faculty, public Student { 
+                         public: 
+	                         TA(int x):Student(x), Faculty(x) { 
+		                         cout<<"TA::TA(int ) called"<< endl; 
+	                         } 
+                         }; 
+                         int main() { 
+	                         TA ta1(30); 
+                         } 
+	---
+	                 Person::Person(int ) called
+   	                 Faculty::Faculty(int ) called
+   	                 Person::Person(int ) called
+   	                 Student::Student(int ) called
+   	                 TA::TA(int ) called
+	---
+* In the above program, constructor of ‘Person’ is called two times. Destructor of ‘Person’ will also be called two times when object ‘ta1’ is destructed. So object ‘ta1’ has two copies of all members of ‘Person’, this causes ambiguities. The solution to this problem is ‘virtual’ keyword. We make the classes ‘Faculty’ and ‘Student’ as virtual base classes to avoid two copies of ‘Person’ in ‘TA’ class. (Concept of *Virtual* explained later in the *Virtual Function & Runtime Polymorphism (Function Overriding)* section)
+* Virtual Base Class-: Virtual base classes are used in virtual inheritance in a way of preventing multiple “instances” of a given class appearing in an inheritance hierarchy when using multiple inheritances.
+*                          #include<iostream> 
+                         using namespace std; 
+                         class Person { 
+                         public: 
+	                         Person(int x) { cout << "Person::Person(int ) called" << endl; } 
+	                         Person()	 { cout << "Person::Person() called" << endl; } 
+                         }; 
+                         class Faculty : virtual public Person { 
+                         public: 
+	                         Faculty(int x):Person(x) { 
+	                         cout<<"Faculty::Faculty(int ) called"<< endl; 
+	                         } 
+                         }; 
+                         class Student : virtual public Person { 
+                         public: 
+	                         Student(int x):Person(x) { 
+		                         cout<<"Student::Student(int ) called"<< endl; 
+	                         } 
+                         }; 
+                         class TA : public Faculty, public Student { 
+                         public: 
+	                         TA(int x):Student(x), Faculty(x) { 
+		                         cout<<"TA::TA(int ) called"<< endl; 
+	                         } 
+                         }; 
+                         int main() { 
+	                         TA ta1(30); 
+                         } 
+---
+	                 Person::Person() called
+                         Faculty::Faculty(int ) called
+                         Student::Student(int ) called
+                         TA::TA(int ) called
+	---
+* Note-: One important thing to note in the above output is, the default constructor of ‘Person’ is called. When we use ‘virtual’ keyword, the default constructor of grandparent 
+	 class is called by default even if the parent classes explicitly call parameterized constructor. 
+* Calling the parameterized constructor of the grandparent class
+                                        #include<iostream> 
+                                        using namespace std; 
+                                        class Person { 
+                                        public: 
+	                                        Person(int x) { cout << "Person::Person(int ) called" << endl; } 
+	                                        Person()	 { cout << "Person::Person() called" << endl; } 
+                                        }; 
+                                        class Faculty : virtual public Person { 
+                                        public: 
+	                                        Faculty() { 
+	                                        cout<<"Faculty::Faculty(int ) called"<< endl; 
+	                                        } 
+                                        }; 
+                                        class Student : virtual public Person { 
+                                        public: 
+	                                        Student() { 
+		                                        cout<<"Student::Student(int ) called"<< endl; 
+	                                        } 
+                                        }; 
+                                        class TA : public Faculty, public Student { 
+                                        public: 
+	                                        TA(int x):Student(), Faculty(), Person(x) { 
+		                                        cout<<"TA::TA(int ) called"<< endl; 
+	                                        } 
+                                        }; 
+                                        int main() { 
+	                                        TA ta1(30); 
+                                        } 
+---   
+                                        Person::Person(int ) called
+                                        Faculty::Faculty(int ) called
+                                        Student::Student(int ) called
+                                        TA::TA(int ) called	
+---
+* Note-: In general, it is not allowed to call the grandparent’s constructor directly, it has to be called through parent class. It is allowed only when ‘virtual’ keyword is used. 
+* e.g. 2 -> If B and C are sub classes of A and are superclasses of D then to access the data members of the grandparent class we can use :: 
+*                                       obj.ClassB::a = 10; 
+	                                obj.ClassC::a = 100;
+                                        obj.b = 20; 
+	                                obj.c = 30; 
+	                                obj.d = 40;
+						  
