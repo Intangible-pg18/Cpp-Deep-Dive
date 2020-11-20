@@ -1052,3 +1052,13 @@ Function Overloading-:
                                         obj.b = 20; 
 	                                obj.c = 30; 
 	                                obj.d = 40;						  
+---
+- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
+## Exception Handling-:
+*Terminate function-: Library function that is called if an exception is not caught. Terminate aborts the program. If no appropriate catch is found, execution is transferred to a library function named terminate. The behavior of that function is system dependent but is guaranteed to stop further execution of the program. Exceptions that occur in programs that do not define any try blocks are handled in the same manner: After all, if there are no try blocks, there can be no handlers. If a program has no try blocks and an exception occurs, then terminate is called and the program is exited.	
+* The fact that control passes from
+throw clause to a catch block, has two important implications:
+• Functions along the call chain may be prematurely exited.
+• When a handler is entered, objects created along the call chain will have been
+destroyed.
+* 
