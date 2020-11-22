@@ -832,7 +832,7 @@ take an extra (unused) parameter of type int. When we use a postfix operator, th
   * An abstract class can have constructors. Reason-: An abstract class can have member variables and potentially non-virtual member functions, so that every derived class from the former implements specific features. Then, the responsibility for the initialization of these members variables may belong to the abstract class (at least always for private members, because the derived class wouldn't be able to initialize them, yet could use some inherited member functions that may use/rely on these members). Thus, it makes it perfectly reasonable for abstract classes to implement constructors.
   * We can have pointers and references of abstract class type (But they should not be pointing at the astract class's object but to any of the derived class's object.						 
 * Multiple Inheritace and Hybrid Inheritance -> Virtual Inheritance (The Diamond Problem) -> Virtual Base Class -: The diamond problem occurs when two superclasses of a class have a common base class. For example, in the following diagram, the TA class gets two copies of all attributes of Person class, this causes ambiguities. https://media.geeksforgeeks.org/wp-content/uploads/diamondproblem.png						
-						---
+---
                          #include<iostream> 
                          using namespace std; 
                          class Person { 
