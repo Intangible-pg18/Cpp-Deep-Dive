@@ -992,8 +992,10 @@ destroyed.
                                         getchar(); 
                                         return 0; 
                                         } 
-			---
-* Output-:                              f3() Start
+---
+* Output-:                             
+---
+					 f3() Start
                                          f2() Start
                                          f1() Start
                                          Caught Exception: 100
@@ -1023,11 +1025,13 @@ destroyed.
 	                                        cout << "Caught " << i << endl; 
                                         } 
                                         }	
-						  ---
-* Output-: Constructing an Object of Test1
-  Constructing an Object of Test2
-  Destructing an Object of Test1
-  Caught 20
+---
+* Output-: 
+---						  
+					Constructing an Object of Test1
+                                        Constructing an Object of Test2
+                                        Destructing an Object of Test1
+                                        Caught 20
 * User Defined Exception-:
 ---
 				        #include <iostream> 
@@ -1074,5 +1078,5 @@ An empty throw can appear only in a catch or in a function called (directly or i
 				        eObj.status = errCodes::badErr; // modifies the local copy only
 				        throw; // the status member of the exception object is unchanged
 				        }
-						  ---
+---
 * Finally block implementation in c++ -: C++ doesn't support the finally block (which is used in programming languages like Java) instead it uses a concept, RAII (Resource Acquisition Is Initialization). The idea is that an object's destructor is responsible for freeing resources. When the object has automatic storage duration, the object's destructor will be called when the block in which it was created exits -- even when that block is exited in the presence of an exception. Actual code and implementation is out of the scope of this repo and most of the c++ books. 
