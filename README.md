@@ -863,16 +863,17 @@ take an extra (unused) parameter of type int. When we use a postfix operator, th
                          int main() { 
 	                         TA ta1(30); 
                          } 
-	---
+---
 	                 Person::Person(int ) called
    	                 Faculty::Faculty(int ) called
    	                 Person::Person(int ) called
    	                 Student::Student(int ) called
    	                 TA::TA(int ) called
-	---
+---
 * In the above program, constructor of ‘Person’ is called two times. Destructor of ‘Person’ will also be called two times when object ‘ta1’ is destructed. So object ‘ta1’ has two copies of all members of ‘Person’, this causes ambiguities. The solution to this problem is ‘virtual’ keyword. We make the classes ‘Faculty’ and ‘Student’ as virtual base classes to avoid two copies of ‘Person’ in ‘TA’ class. (Concept of *Virtual* explained later in the *Virtual Function & Runtime Polymorphism (Function Overriding)* section)
 * Virtual Base Class-: Virtual base classes are used in virtual inheritance in a way of preventing multiple “instances” of a given class appearing in an inheritance hierarchy when using multiple inheritances.
-*                          #include<iostream> 
+---
+			 #include<iostream> 
                          using namespace std; 
                          class Person { 
                          public: 
@@ -905,10 +906,10 @@ take an extra (unused) parameter of type int. When we use a postfix operator, th
                          Faculty::Faculty(int ) called
                          Student::Student(int ) called
                          TA::TA(int ) called
-	---
-* Note-: One important thing to note in the above output is, the default constructor of ‘Person’ is called. When we use ‘virtual’ keyword, the default constructor of grandparent 
-	 class is called by default even if the parent classes explicitly call parameterized constructor. 
+---
+* Note-: One important thing to note in the above output is, the default constructor of ‘Person’ is called. When we use ‘virtual’ keyword, the default constructor of grandparent class is called by default even if the parent classes explicitly call parameterized constructor. 
 * Calling the parameterized constructor of the grandparent class
+---
                                         #include<iostream> 
                                         using namespace std; 
                                         class Person { 
@@ -945,7 +946,8 @@ take an extra (unused) parameter of type int. When we use a postfix operator, th
 ---
 * Note-: In general, it is not allowed to call the grandparent’s constructor directly, it has to be called through parent class. It is allowed only when ‘virtual’ keyword is used. 
 * e.g. 2 -> If B and C are sub classes of A and are superclasses of D then to access the data members of the grandparent class we can use :: 
-*                                       obj.ClassB::a = 10; 
+---
+				        obj.ClassB::a = 10; 
 	                                obj.ClassC::a = 100;
                                         obj.b = 20; 
 	                                obj.c = 30; 
