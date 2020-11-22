@@ -614,46 +614,39 @@ converted. Otherwise, it returns nullptr.
 ---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## Polymorphism
-Types of polymorphism-: https://media.geeksforgeeks.org/wp-content/uploads/20200703160531/Polymorphism-in-CPP.png
-
----
+* Types of polymorphism-: https://media.geeksforgeeks.org/wp-content/uploads/20200703160531/Polymorphism-in-CPP.png
 * Binding-: refers to the process of converting identifiers (such as variable and function names) into addresses. Binding is done for each variable and functions. For functions, it means that matching the call with the right function definition by the compiler. It takes place either at compile time or at runtime.
-* Early Binding (compile-time time polymorphism or static binding) As the name indicates, compiler (or linker) directly associate an address to the function call. It replaces 
-the call with a machine language instruction that tells the mainframe to leap to the address of the function. By default early binding happens in C++.
+  * Early Binding (compile-time time polymorphism or static binding) As the name indicates, compiler (or linker) directly associate an address to the function call. It replaces the call with a machine language instruction that tells the mainframe to leap to the address of the function. By default early binding happens in C++.
 1. Operator Overloading-:
-Note-: 1. Most overloaded operators may be defined as ordinary non-member functions or as class member functions. Box operator+(const Box&);
-       In case we define above function as non-member function of a class then we would have to pass two arguments for each operand as Box operator+(const Box&, const 
-       Box&);
-       2. Operators which cannot be overloaded-:     ?: (conditional)
-                                                     . (member selection)
-                                                     .* (member selection with pointer-to-member)
-                                                     :: (scope resolution)
-                                                     sizeof (object size information)
-                                                     typeid (object type information)
-                                                     static_cast (casting operator)
-                                                     const_cast (casting operator)
-                                                     reinterpret_cast (casting operator)
-                                                     dynamic_cast (casting operator)
-       3. For operator overloading to work, at least one of the operands must be a user defined class object.
-       4. Overloaded operators cannot have default arguments except the function call operator () which can have default arguments.
-       5. Compiler automatically creates a default assignment operator with every class. 
-       6. Assignment (=), subscript ([]), function call (“()”), and member selection (->) operators must be defined as member functions, all other operators can be 
-          either member functions or a non member functions.
-       7. Some operators like (assignment)=, (address)& and comma (,) are by default overloaded.
-       8. Consider the statement “ob1 + ob2” (let ob1 and ob2 be objects of two different classes). To make this statement compile, we must overload ‘+’ in class of ‘ob1’ or 
-          make ‘+’ a global function. Which can be quite inconvenient in some cases (e.g. <<,>>).
-
+* Most overloaded operators may be defined as ordinary non-member functions or as class member functions. Box operator+(const Box&); In case we define above function as non-member function of a class then we would have to pass two arguments for each operand as Box operator+(const Box&, const Box&);
+* Operators which cannot be overloaded-:     
+  *  ?: (conditional)
+  *  . (member selection)
+  *  .* (member selection with pointer-to-member)
+  *  :: (scope resolution)
+  *  sizeof (object size information)
+  *  typeid (object type information)
+  *  static_cast (casting operator)
+  *  const_cast (casting operator)
+  *  reinterpret_cast (casting operator)
+  *  dynamic_cast (casting operator)
+* For operator overloading to work, at least one of the operands must be a user defined class object.
+* Overloaded operators cannot have default arguments except the function call operator () which can have default arguments.
+* Compiler automatically creates a default assignment operator with every class. 
+* Assignment (=), subscript ([]), function call (“()”), and member selection (->) operators must be defined as member functions, all other operators can be either member functions or a non member functions.
+* Some operators like (assignment)=, (address)& and comma (,) are by default overloaded.
+* Consider the statement “ob1 + ob2” (let ob1 and ob2 be objects of two different classes). To make this statement compile, we must overload ‘+’ in class of ‘ob1’ or 
+make ‘+’ a global function. Which can be quite inconvenient in some cases (e.g. <<,>>).
+* Overloading the Output Operator <<
+* Ordinarily, the first parameter of an output operator is a reference to a nonconst ostream object. The ostream is nonconst because writing to the stream changes its state.  
+* The parameter is a reference because we cannot copy an ostream object. The second parameter ordinarily should be a reference to const of the class type we want to print. The parameter is a reference to avoid copying the argument. It can be const because (ordinarily) printing an object does not change that object.
 ---
-Overloading the Output Operator <<
-*  Ordinarily, the first parameter of an output operator is a reference to a nonconst ostream object. The ostream is nonconst because writing to the stream changes its state.  
-The parameter is a reference because we cannot copy an ostream object. The second parameter ordinarily should be a reference to const of the class type we want to print. The 
-parameter is a reference to avoid copying the argument. It can be const because (ordinarily) printing an object does not change that object.
-*                  void operator<<(ostream &os, const book &item)
+                   void operator<<(ostream &os, const book &item)
                    {
                    os << item.isbn() << " " << item.units_sold << " "
                    << item.revenue << " " << item.avg_price();
                    }
-		   ---
+---
 Note-: Differentiating Prefix and Postfix Operators-: Normal overloading cannot distinguish between these operators. The prefix and postfix versions use the same symbol, 
 meaning  that the overloaded versions of these operators have the same name. They also have the same number and type of operands. To solve this problem, the postfix versions 
 take an extra (unused) parameter of type int. When we use a postfix operator, the compiler supplies 0 as the argument for this parameter.
