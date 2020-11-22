@@ -650,14 +650,10 @@ make ‘+’ a global function. Which can be quite inconvenient in some cases (e
 Note-: Differentiating Prefix and Postfix Operators-: Normal overloading cannot distinguish between these operators. The prefix and postfix versions use the same symbol, 
 meaning  that the overloaded versions of these operators have the same name. They also have the same number and type of operands. To solve this problem, the postfix versions 
 take an extra (unused) parameter of type int. When we use a postfix operator, the compiler supplies 0 as the argument for this parameter.
-
----
-Function Overloading-: 
-* Parameter declarations that differ only in a pointer * versus an array [] are equivalent. That is, the array declaration is adjusted to become a pointer declaration. Only 
- the second and subsequent array dimensions are significant in parameter types. For example, following two function declarations are equivalent
- int fun(int * ptr); 
- int fun(int ptr[]); // redeclaration of fun(int * ptr)
- 
+2. Function Overloading-: 
+* Parameter declarations that differ only in a pointer * versus an array [] are equivalent. That is, the array declaration is adjusted to become a pointer declaration. Only the second and subsequent array dimensions are significant in parameter types. For example, following two function declarations are equivalent
+  * int fun(int * ptr); 
+  * int fun(int ptr[]); // redeclaration of fun(int * ptr)
  ---
  - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## Virtual Function & Runtime Polymorphism (Function Overriding)
