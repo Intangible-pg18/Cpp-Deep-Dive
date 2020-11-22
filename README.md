@@ -429,17 +429,15 @@ Types-:
 * Note : The private members in the base class cannot be directly accessed in the derived class, while protected members can be directly accessed. 
 * Constructor Calls in Inheritance-:
 Base class constructors are always called in the derived class constructors. Whenever you create derived class object, first the base class default constructor is executed and then the derived class's constructor finishes execution.
+* Points to Remember-:
+  * Whether derived class's default constructor is called or parameterised is called, base class's default constructor is always called inside them.
+  * To call base class's parameterised constructor inside derived class's parameterised constructo, we must mention it explicitly while declaring derived class's parameterized constructor. 
 ---
-Points to Remember-:
-* Whether derived class's default constructor is called or parameterised is called, base class's default constructor is always called inside them.
-* To call base class's parameterised constructor inside derived class's parameterised constructo, we must mention it explicitly while declaring derived class's parameterized 
-  constructor. 
-*                          #include<iostream> 
-                           using namespace std; 
-                           class Base
-                           {   int x;
-                               public:
-                               // parameterized constructor
+		       #include<iostream> 
+                       using namespace std; 
+		       class Base
+                       {   int x;
+                           public:
                                Base(int i)
                                {  x = i;
                                   cout << "Base Parameterized Constructor\n";
@@ -457,13 +455,8 @@ Points to Remember-:
                            int main()
                            {  Derived d(10) ;
                            }
-* Why is Base class Constructor called inside Derived class? -> Constructors have a special job of initializing the object properly. A Derived class constructor has access only to 
-	its own class members, but a Derived class object also have inherited property of Base class, and only base class constructor can properly initialize base class members. 
-	Hence all the constructors are called, else object wouldn't be constructed properly.	
-
-
-
 ---
+* Why is Base class Constructor called inside Derived class? -> Constructors have a special job of initializing the object properly. A Derived class constructor has access only to its own class members, but a Derived class object also have inherited property of Base class, and only base class constructor can properly initialize base class members. Hence all the constructors are called, else object wouldn't be constructed properly.	
 * Note-: 
   1. Constructors and Destructors are never inherited and hence never overrided.(We will study the concept of function overriding in the next tutorial)
   2. Assignment operator = is never inherited. It can be overloaded but can't be inherited by sub class.
@@ -471,16 +464,15 @@ Points to Remember-:
   1. They are inherited into the derived class.
   2. If you redefine a static member function in derived class, all the other overloaded functions in base class are hidden.
   3. Static Member functions can never be virtual. We will study about Virtual in coming topics.
----
-Types of Inheritance-:
-* Single Inheritance: In single inheritance, a class is allowed to inherit from only one class. i.e. one sub class is inherited by one base class only.    
+* Types of Inheritance-:
+  * Single Inheritance: In single inheritance, a class is allowed to inherit from only one class. i.e. one sub class is inherited by one base class only.    
   https://media.geeksforgeeks.org/wp-content/uploads/single-inheritance.png
-* Multiple Inheritance (V): Multiple Inheritance is a feature of C++ where a class can inherit from more than one classes. i.e one sub class is inherited from more than one base classes.
+  * Multiple Inheritance (V): Multiple Inheritance is a feature of C++ where a class can inherit from more than one classes. i.e one sub class is inherited from more than one base classes.
   https://media.geeksforgeeks.org/wp-content/uploads/multiple-inheritance.png Note-: The constructors of inherited classes are called in the same order in which they are inherited   
   and the destructors are called in reverse order of constructors. 
-* Multilevel Inheritance-: In this type of inheritance, a derived class is created from another derived class. https://media.geeksforgeeks.org/wp-content/uploads/multilevel-inheritance.png  
-* Hierarchical Inheritance (A)-: In this type of inheritance, more than one sub class is inherited from a single base class. i.e. more than one derived class is created from a single base class. https://media.geeksforgeeks.org/wp-content/uploads/hierarchical-inheritance.png
-* Hybrid (Virtual) Inheritance: Hybrid Inheritance is implemented by combining more than one type of inheritance. For example: Combining Hierarchical inheritance and Multiple Inheritance. https://media.geeksforgeeks.org/wp-content/uploads/Hybrid-Inheritance.png
+  * Multilevel Inheritance-: In this type of inheritance, a derived class is created from another derived class. https://media.geeksforgeeks.org/wp-content/uploads/multilevel-inheritance.png  
+  * Hierarchical Inheritance (A)-: In this type of inheritance, more than one sub class is inherited from a single base class. i.e. more than one derived class is created from a single base class. https://media.geeksforgeeks.org/wp-content/uploads/hierarchical-inheritance.png
+  * Hybrid (Virtual) Inheritance: Hybrid Inheritance is implemented by combining more than one type of inheritance. For example: Combining Hierarchical inheritance and Multiple Inheritance. https://media.geeksforgeeks.org/wp-content/uploads/Hybrid-Inheritance.png
 ---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## Inheritance -> UPCASTING & DOWNCASTING
