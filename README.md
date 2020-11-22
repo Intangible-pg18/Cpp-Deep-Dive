@@ -106,25 +106,26 @@ invalid address.
 * Method-: operator << — add a string to the stringstream object
            operator >> — read something from the stringstream object
 e.g. Count number of words in a string
-                                      #include <bits/stdc++.h> 
-                                      using namespace std;   
-                                      int countWords(string str) 
-                                      { 
-                                       // breaking input into word using string stream 
-                                       stringstream s(str); // Used for breaking words 
-                                       string word; // to store individual words   
-                                       int count = 0; 
-                                       while (s >> word) 
-                                         count++; 
-                                       return count; 
-                                      } 
-                                      int main() 
-                                      { 
-                                       string s = "geeks for geeks geeks "
-                                                  "contribution placements"; 
-                                       cout << " Number of words are: " << countWords(s); 
-                                       return 0; 
-                                      } 
+---
+		       #include <bits/stdc++.h> 
+                       using namespace std;   
+                       int countWords(string str) 
+                       { 
+                          // breaking input into word using string stream 
+                          stringstream s(str); // Used for breaking words 
+                          string word; // to store individual words   
+                          int count = 0; 
+                          while (s >> word) 
+                            count++; 
+                          return count; 
+                        } 
+                        int main() 
+                         { 
+                            string s = "geeks for geeks geeks "
+                                       "contribution placements"; 
+                            cout << " Number of words are: " << countWords(s); 
+                             return 0; 
+                         } 
 
 ---
 Storage for Strings in C++
