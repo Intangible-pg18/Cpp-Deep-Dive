@@ -235,8 +235,8 @@ Uses-:
                         return 0; 
                        } 
 ---
-2) To return reference to the calling object-: Usecase-: Chain Function Calls
-	---
+2. To return reference to the calling object-: Usecase-: Chain Function Calls
+---
 		       #include<iostream> 
 		       using namespace std; 
                        class Test 
@@ -256,8 +256,7 @@ Uses-:
                           obj1.print(); 
                           return 0; 
                          }
-	---
-	
+---	
 * Smart Pointers
 * Wild Pointers
 * Near, Far & Huge Pointers
