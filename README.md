@@ -91,17 +91,19 @@ invalid address.
 ## STRINGS
 * In case of strings, >> ignores anything after whitespaces and getline() reads the whole line until it encounters a new line.
 * There is a threat of array decay in case of character array. As strings are represented as objects, no array decay occurs.
-* String methods-: getline()
-                 push_back()
-                 pop_back() 
-                 capacity()
-                 length()
-                 resize()
-                 copy(“char array”, len, pos)
-                 Iterator functions-: begin()
-                                      end()
-                                      rbegin()
-                                      rend()                                    
+* String methods-:
+  * getline()
+  * push_back()
+  * pop_back() 
+  * capacity()
+  * length()
+  * resize()
+  * copy(“char array”, len, pos)
+* Iterator functions-:
+  * begin()
+  * end()
+  * rbegin()
+  * rend()                                    
 * A stringstream associates a string object with a stream allowing you to read from the string as if it were a stream (like cin). 
 * Method-: operator << — add a string to the stringstream object
            operator >> — read something from the stringstream object
@@ -136,19 +138,15 @@ In the above line “GfG” is stored in a shared read-only location, but pointe
 ---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## ARRAYS
-There is no index out of bounds checking in C++. But doing so may cause a Buffer Overflow (-: is an anomaly where a program, while writing data to a buffer, overruns the buffer's 
+* There is no index out of bounds checking in C++. But doing so may cause a Buffer Overflow (-: is an anomaly where a program, while writing data to a buffer, overruns the buffer's 
 boundary and overwrites adjacent memory locations.) and a Segmentation Fault (-: For an array int arr[] = {1,2,3,4,5} , cout<<arr[10] works fine and prints a garbage value but arr[10]=9 results in a segmentation fault cause the memory beyond the buffer's boundaries in read-only memory.)
-Array name indicates the address of first element and arrays are always passed as pointers (even if we use square bracket).
-Compiler uses pointer arithmetic to access array element. For example, an expression like “arr[i]” is treated as *(arr + i) by the compiler.
-The loss of type and dimensions of an array is known as decay of an array.This generally occurs when we pass the array into function by value or pointer. 
-What it does is, it sends first address to the array which is a pointer, hence the size of array is not the original one, but the one occupied by the pointer in the 
+* Array name indicates the address of first element and arrays are always passed as pointers (even if we use square bracket).
+* Compiler uses pointer arithmetic to access array element. For example, an expression like “arr[i]” is treated as * (arr + i) by the compiler.
+* The loss of type and dimensions of an array is known as decay of an array.This generally occurs when we pass the array into function by value or pointer. What it does is, it sends first address to the array which is a pointer, hence the size of array is not the original one, but the one occupied by the pointer in the 
 memory. A typical solution to handle decay is to send the array into functions by reference (int (&p)[7])
-“array” is a “pointer to the first element of array” but “&array” is a “pointer to whole array of 5 int”. Since “array” is pointer to int, addition of 1 resulted in an address with 
-increment of 4 (assuming int size in your machine is 4 bytes). Since “&array” is pointer to array of 5 ints, addition of 1 resulted in an address with increment of 4 x 5 = 20 = 0x14.
+* “array” is a “pointer to the first element of array” but “&array” is a “pointer to whole array of 5 int”. Since “array” is pointer to int, addition of 1 resulted in an address with increment of 4 (assuming int size in your machine is 4 bytes). Since “&array” is pointer to array of 5 ints, addition of 1 resulted in an address with increment of 4 x 5 = 20 = 0x14.
 
 ---
-
-
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## FUNCTIONS
 It is always recommended to declare a function before it is used. (int max(int, int); int *swap(int*,int);)
