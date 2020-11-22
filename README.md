@@ -650,7 +650,7 @@ make ‘+’ a global function. Which can be quite inconvenient in some cases (e
 Note-: Differentiating Prefix and Postfix Operators-: Normal overloading cannot distinguish between these operators. The prefix and postfix versions use the same symbol, 
 meaning  that the overloaded versions of these operators have the same name. They also have the same number and type of operands. To solve this problem, the postfix versions 
 take an extra (unused) parameter of type int. When we use a postfix operator, the compiler supplies 0 as the argument for this parameter.
-2. Function Overloading-: 
+* 2. Function Overloading-: 
 * Parameter declarations that differ only in a pointer * versus an array [] are equivalent. That is, the array declaration is adjusted to become a pointer declaration. Only the second and subsequent array dimensions are significant in parameter types. For example, following two function declarations are equivalent
   * int fun(int * ptr); 
   * int fun(int ptr[]); // redeclaration of fun(int * ptr)
@@ -695,7 +695,7 @@ take an extra (unused) parameter of type int. When we use a postfix operator, th
 	                                         somefunc(d); // Object Slicing, the member j of d is sliced off 
 	                                         return 0; 
                                          }
-	---
+---
 * I am Base class object, i = 33
   I am Base class object, i = 45
 * Solution 1-: Object slicing doesn’t occur when pointers or references to objects are passed as function arguments since a pointer or reference of any type takes same amount of memory and prevents copying.  -> void somefunc (Base &obj)
@@ -730,7 +730,7 @@ take an extra (unused) parameter of type int. When we use a postfix operator, th
                                             pAccount = &savings;
                                             pAccount->PrintBalance();
                                          }	
-	---
+---
 * In the preceding code, the calls to PrintBalance are identical, except for the object pAccount points to. Because PrintBalance is virtual, the version of the function defined for each object is called. The PrintBalance function in the derived classes CheckingAccount and SavingsAccount "override" the function in the base class Account.In the preceding code, the calls to PrintBalance are identical, except for the object pAccount points to. Because PrintBalance is virtual, the version of the function defined for each object is called. The PrintBalance function in the derived classes CheckingAccount and SavingsAccount "override" the function in the base class Account.
 * A function that is virtual in a base class is implicitly virtual in its derived classes-: When a derived class overrides a virtual function, it may, but is not required to,  repeat the virtual keyword. Once a function is declared as virtual, it remains virtual in all the derived classes.
 * If a class is declared that does not provide an overriding implementation of the PrintBalance function, the default implementation from the base class Account is used.
@@ -778,8 +778,8 @@ take an extra (unused) parameter of type int. When we use a postfix operator, th
 		                                      // according to the type of pointer
 		                                      emp[i]->raiseSalary();
                                       }
-	---
-*Working of the above code and the concept of VTABLE and VPTR-: 
+---
+* Working of the above code and the concept of VTABLE and VPTR-: 
 * vtable: A table of function pointers, maintained per class and created at compile time.
 * vptr: A pointer to vtable, maintained per object instance and is inherited by derived classes.
 * If a class contains a virtual function then compiler itself does two things: 1. If object of that class is created then a virtual pointer (VPTR) is inserted as a data member of the class to point to virtual table (VTABLE) of that class. For each new object created, a new virtual pointer is inserted as a data member of that class. 2. Irrespective of object is created or not, a static array of function pointer called VTABLE where each cell contains the address of each virtual function contained in that class.
@@ -809,7 +809,7 @@ take an extra (unused) parameter of type int. When we use a postfix operator, th
                                           else cout << "a < b"; 
                                           return 0; 
                                       }
-						  ---
+---
 * Output -> a > b
 * Explanation-: Class A has a VPTR which is not there in class B. In a typical implementation of virtual functions, compiler places a VPTR with every object. Compiler secretly adds some code in every constructor to this.
 * Note-: By default all the functions defined inside the class are implicitly or automatically considered as inline except virtual functions. Whenever virtual function is called using base class reference or pointer it cannot be inlined (because call is resolved at runtime), but whenever called using the object (without reference or pointer) of that class, can be inlined because compiler knows the exact class of the object at compile time.	
@@ -824,13 +824,13 @@ take an extra (unused) parameter of type int. When we use a postfix operator, th
                                           // Pure Virtual Function 
                                           virtual void show() = 0;     
                                       }; 
-						  ---
-* Note-: 1. A class is abstract if it has at least one pure virtual function.
-	 2. If we do not override the pure virtual function in derived class, then derived class also becomes abstract class.
-	 3. We cannot create objects of abstract classes. Reasoon-: Because it's abstract and an object is concrete. An abstract class is sort of like a template, or an empty/partially empty structure, you have to extend it and build on it before you can use it. Take for example an "Animal" abstract class. There's no such thing as a "pure" animal - there are specific types of animals. So you can instantiate Dog and Cat and Turtle, but you shouldn't be able to instantiate plain Animal - that's just a basic template. And there's certain functionality that all animals share, such as "makeSound()", but that can't be defined on the base Animal level. So if you could create an Animal object and you would call makeSound(), how would the object know which sound to make?
-         4. An abstract class can have constructors. Reason-: An abstract class can have member variables and potentially non-virtual member functions, so that every derived class from the former implements specific features. Then, the responsibility for the initialization of these members variables may belong to the abstract class (at least always for private members, because the derived class wouldn't be able to initialize them, yet could use some inherited member functions that may use/rely on these members). Thus, it makes it perfectly reasonable for abstract classes to implement constructors.
-	 5. We can have pointers and references of abstract class type (But they should not be pointing at the astract class's object but to any of the derived class's object.
-						  ---
+---
+* Note-: 
+  * A class is abstract if it has at least one pure virtual function.
+  * If we do not override the pure virtual function in derived class, then derived class also becomes abstract class.
+  * We cannot create objects of abstract classes. Reasoon-: Because it's abstract and an object is concrete. An abstract class is sort of like a template, or an empty/partially empty structure, you have to extend it and build on it before you can use it. Take for example an "Animal" abstract class. There's no such thing as a "pure" animal - there are specific types of animals. So you can instantiate Dog and Cat and Turtle, but you shouldn't be able to instantiate plain Animal - that's just a basic template. And there's certain functionality that all animals share, such as "makeSound()", but that can't be defined on the base Animal level. So if you could create an Animal object and you would call makeSound(), how would the object know which sound to make?
+  * An abstract class can have constructors. Reason-: An abstract class can have member variables and potentially non-virtual member functions, so that every derived class from the former implements specific features. Then, the responsibility for the initialization of these members variables may belong to the abstract class (at least always for private members, because the derived class wouldn't be able to initialize them, yet could use some inherited member functions that may use/rely on these members). Thus, it makes it perfectly reasonable for abstract classes to implement constructors.
+  * We can have pointers and references of abstract class type (But they should not be pointing at the astract class's object but to any of the derived class's object.						 
 * Multiple Inheritace and Hybrid Inheritance -> Virtual Inheritance (The Diamond Problem) -> Virtual Base Class -: The diamond problem occurs when two superclasses of a class have a common base class. For example, in the following diagram, the TA class gets two copies of all attributes of Person class, this causes ambiguities. https://media.geeksforgeeks.org/wp-content/uploads/diamondproblem.png						
 						---
                          #include<iostream> 
