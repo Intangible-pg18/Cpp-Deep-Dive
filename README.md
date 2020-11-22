@@ -149,72 +149,47 @@ memory. A typical solution to handle decay is to send the array into functions b
 ---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## FUNCTIONS
-It is always recommended to declare a function before it is used. (int max(int, int); int *swap(int*,int);)
-
----
-In C++, both void fun() and void fun(void) are same.
-
----
-Once default value is used for an argument in function definition, all subsequent arguments to it must have default value.
-
----
-When the program executes the function call instruction the CPU stores the memory address of the instruction following the function call, 
+* It is always recommended to declare a function before it is used. (int max(int, int); int *swap(int*,int);)
+* In C++, both void fun() and void fun(void) are same.
+* Once default value is used for an argument in function definition, all subsequent arguments to it must have default value.
+* When the program executes the function call instruction the CPU stores the memory address of the instruction following the function call, 
 copies the arguments of the function on the stack and finally transfers control to the specified function. The CPU then executes the function code, 
 stores the function return value in a predefined memory location/register and returns control to the calling function. This can become overhead if the execution time
 of function is less than the switching time from the caller function to called function (callee). For functions that are large and/or perform complex tasks, the 
 overhead of the function call is usually insignificant compared to the amount of time the function takes to run. However, for small, commonly-used functions, the 
 time needed to make the function call is often a lot more than the time needed to actually execute the function’s code. This overhead occurs for small functions 
 because execution time of small function is less than the switching time. C++ provides an inline functions to reduce the function call overhead.
-
----
-Inlining is only a request to the compiler, not a command. Compiler can ignore the request for inlining. Compiler may not perform inlining in such circumstances like:
+* Inlining is only a request to the compiler, not a command. Compiler can ignore the request for inlining. Compiler may not perform inlining in such circumstances like:
 1) If a function contains a loop. (for, while, do-while)
 2) If a function contains static variables.
 3) If a function is recursive.
 4) If a function return type is other than void, and the return statement doesn’t exist in function body.
-5) If a function contains switch or goto statement.
----                                      
-Disadvantage-: 
-* The added variables from the inlined function consumes additional registers, After in-lining function if variables number which are going to use 
-               register increases than they may create overhead on register variable resource utilization.
-* Too much inlining can also reduce your instruction cache hit rate, thus reducing the speed of instruction fetch from that of cache memory to that of 
-               primary memory.
-* Inline function may increase compile time overhead if someone changes the code inside the inline function then all the calling location has to be 
-               recompiled because compiler would require to replace all the code once again to reflect the changes, otherwise it will continue with old functionality.
----                                     
-All the functions defined inside the class are implicitly inline. 
-
+5) If a function contains switch or goto statement.                                      
+* Disadvantage-: 
+  * The added variables from the inlined function consumes additional registers, After in-lining function if variables number which are going to use register increases than they may create overhead on register variable resource utilization.
+  * Too much inlining can also reduce your instruction cache hit rate, thus reducing the speed of instruction fetch from that of cache memory to that of primary memory.
+  * Inline function may increase compile time overhead if someone changes the code inside the inline function then all the calling location has to be recompiled because compiler would require to replace all the code once again to reflect the changes, otherwise it will continue with old functionality.                                    
+* All the functions defined inside the class are implicitly inline. 
+* Macro cannot access private members of class. C++ compiler checks the argument types of inline functions and necessary conversions are performed correctly. Preprocessor macro is not capable for doing this. Macros are managed by preprocessor and inline functions are managed by C++ compiler.                                      
+* C++ compiler cannot perform inlining if the function is virtual. The reason is call to a virtual function is resolved at runtime instead of compile time. Virtual 
+means wait until runtime and inline means during compilation, if the compiler doesn’t know which function will be called, how it can perform inlining?                                                                           
+* A void fun() can return another void function
+* Like friend class, a friend function can be given special grant to access private and protected members. A friend function can be:
+  a) A method of another class
+  b) A global function
 ---
-Macro cannot access private members of class.
-C++ compiler checks the argument types of inline functions and necessary conversions are performed correctly. Preprocessor macro is not capable for doing this.
-Macros are managed by preprocessor and inline functions are managed by C++ compiler.
-
----                                      
-C++ compiler cannot perform inlining if the function is virtual. The reason is call to a virtual function is resolved at runtime instead of compile time. Virtual 
-means wait until runtime and inline means during compilation, if the compiler doesn’t know which function will be called, how it can perform inlining?                                      
-
----                                      
-A void fun() can return another void function
-
+		       class Node { 
+		       private: 
+    		       int key; 
+    		       Node* next; 
+    		       // Other members of Node Class
+    		       friend int LinkedList::search(); 
+    		       // Only search() of linkedList 
+    		       // can access internal members 
+		       }; 
 ---
-Like friend class, a friend function can be given special grant to access private and protected members. A friend function can be:
-a) A method of another class
-b) A global function
-class Node { 
-private: 
-    int key; 
-    Node* next; 
-    // Other members of Node Class
-    friend int LinkedList::search(); 
-    // Only search() of linkedList 
-    // can access internal members 
-}; 
-Note-: Friendship is not mutual & Friendship is not inherited. . If a base class has a friend function, then the function doesn’t become a friend of the derived class(es).
-
-
-
-
-
+* Note-: Friendship is not mutual & Friendship is not inherited. . If a base class has a friend function, then the function doesn’t become a friend of the derived class(es).
+---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## POINTERS & REFERENCES
 * A pointer can be declared as void but a reference can never be void
