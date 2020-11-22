@@ -1103,3 +1103,11 @@ An empty throw can appear only in a catch or in a function called (directly or i
 				        }
 ---
 * Finally block implementation in c++ -: C++ doesn't support the finally block (which is used in programming languages like Java) instead it uses a concept, RAII (Resource Acquisition Is Initialization). The idea is that an object's destructor is responsible for freeing resources. When the object has automatic storage duration, the object's destructor will be called when the block in which it was created exits -- even when that block is exited in the presence of an exception. Actual code and implementation is out of the scope of this repo and most of the c++ books. 
+- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
+## Reference
+* Stanley B. Lippman's C++ Primer
+* Stack Overflow
+* GeeksForGeeks
+* Wikipedia
+---
+## Happy Coding 						  
