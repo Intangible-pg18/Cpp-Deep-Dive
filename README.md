@@ -335,7 +335,7 @@ Protected access modifier is similar to private access modifier in the sense tha
 	                       cout << "\np2.x = " << p2.getX() << ", p2.y = " << p2.getY(); 
                          return 0; 
                          }
-  ---
+---
                          A copy constructor is called when an object is passed by value. Copy constructor itself is a function. So if we pass an argument by value in a copy 
 			 constructor, a call to copy constructor would be made to call copy constructor which becomes a non-terminating chain of calls. Therefore compiler doesn’t 
 			 allow parameters to be passed by value.		 
@@ -373,17 +373,17 @@ Protected access modifier is similar to private access modifier in the sense tha
                          3. When an object is constructed based on another object of the same class.
                          4. When the compiler generates a temporary object.
                          
-  ---
+---
                          It is, however, not guaranteed that a copy constructor will be called in all these cases, because the C++ Standard allows the compiler to optimize the copy                                
                          away in certain cases, one example is the return value optimization (sometimes referred to as RVO)
 		
 ---
-                         Note-: In C++ computer programming, copy elision refers to a compiler optimization technique that eliminates unnecessary copying of objects. The C++ language                   
-                         standard generally allows implementations to perform any optimization, provided the resulting program's observable behavior is the same as if, i.e. 
+                         Note-: In C++ computer programming, copy elision refers to a compiler optimization technique that eliminates unnecessary copying of objects. The C++    
+			 language standard generally allows implementations to perform any optimization, provided the resulting program's observable behavior is the same as if, i.e. 
                          pretending, the program were executed exactly as mandated by the standard.
                          In the context of the C++ programming language, return value optimization (RVO) is a compiler optimization that involves eliminating the temporary object 
-                         created to hold a function's return value.The standard also describes a few situations where copying can be eliminated even if this would alter the program's  
-                         behavior, the most common being the return value optimization.
+                         created to hold a function's return value.The standard also describes a few situations where copying can be eliminated even if this would alter the 
+			 program's behavior, the most common being the return value optimization.
 			 
 ---
                          If we don’t define our own copy constructor, the C++ compiler creates a default copy constructor for each class which does a member-wise copy between 
