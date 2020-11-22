@@ -16,6 +16,11 @@
 * Polymorphism
 * Virtual Function & Runtime Polymorphism (Function Overriding)
 * Exception Handling
+- ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+)
+## Note
+* The prerequisites to the repo is basic c++ itself because the repo contains-: 1. Lesser known cpp facts. 2. Tips for your cpp code and 3. In-depth cpp concepts.
+* If you like it do click on the star (present at the top right corner of the screen) and share it with your friends.
+* Feel free to put up a Pull request and to fork the repo.
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## BUFFER & STREAMS
 Buffer-: A region of storage used to hold data. IO facilities often store input (or output) in a buffer and read or write the buffer independently from actions in the program. Using a buffer allows the operating system to combine several output operations from our program into a single system-level write. Output buffers can be explicitly flushed to force the buffer to be written. By default, reading cin flushes cout; cout is also flushed when the program ends normally. By default, All output buffers are flushed as part of the return from main.
