@@ -261,57 +261,36 @@ Uses-:
 * Wild Pointers
 * Near, Far & Huge Pointers
 * Opaque Pointers
+* Pointer to a function -: int * foo(int); operator precedence also plays role here ..so in this case, operator () will take priority over the asterisk operator . And the above declaration will mean – a function foo with one argument of int type and return value of int * i.e. integer pointer. Solution-: int (* foo)(int); //there's no space between * and foo. Added space to avoid text formatting of a markdown file.
+* Note-: The Arrow(->) operator exists to access the members of the structure or the unions using pointers.
 ---
-Pointer to a function -: int * foo(int); operator precedence also plays role here ..so in this case, operator () will take priority over the asterisk operator . And the above declaration will mean – a function foo with one argument of int type and return value of int * i.e. integer pointer.
-Solution-: int (* foo)(int); //there's no space between * and foo. Added space to avoid text formatting of a markdown file.
-
----
-Note-: The Arrow(->) operator exists to access the members of the structure or the unions using pointers.
-
----
-
-
-
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## Object Oriented Programming
-When a class is defined, no memory is allocated but when it is instantiated (i.e. an object is created) memory is allocated. Object take up space in memory and have an associated address.
-
+* When a class is defined, no memory is allocated but when it is instantiated (i.e. an object is created) memory is allocated. Object take up space in memory and have an associated address.
+* The standard does not permit objects (or classes) of size 0, this is because that would make it possible for two distinct objects to have the same memory location. This is the reason behind the concept that even an empty class must have a size at least 1. It is known that size of an empty class is not zero. Generally, it is 1 byte. For dynamic allocation also, the new keyword returns different address for the same reason.
+* When a program is executed the objects interact by sending messages to one another. (For more info jump to *Message Passing* section)
+* By default the access modifier for the members will be Private. Only the member functions or the friend functions are allowed to access the private data members of a class. 
+Protected access modifier is similar to private access modifier in the sense that it can’t be accessed outside of it’s class unless with the help of friend class, the difference is that the class members declared as Protected can be accessed by any subclass(derived class) of that class as well. This access through inheritance can alter the access modifier of the elements of base class in derived class depending on the modes of Inheritance. (For more info jump to *Inheritance* section). A friend class can access private and protected members of other class in which it is declared as friend. It is sometimes useful to allow a particular class to access private members of other class. For example a LinkedList class may be allowed to access private members of Node.
 ---
-The standard does not permit objects (or classes) of size 0, this is because that would make it possible for two distinct objects to have the same memory location. This is the reason behind the concept that even an empty class must have a size at least 1. It is known that size of an empty class is not zero. Generally, it is 1 byte.
-For dynamic allocation also, the new keyword returns different address for the same reason.
-When a program is executed the objects interact by sending messages to one another. (For more info jump to *Message Passing* section)
-
+		       class Node { 
+		       private: 
+    		       int key; 
+    		       Node* next; 
+    		       // Other members of Node Class 
+    		       // Now class  LinkedList can 
+    		       // access private members of Node 
+    		       friend class LinkedList; 
+		       }; 
 ---
-By default the access modifier for the members will be Private.
-Only the member functions or the friend functions are allowed to access the private data members of a class. 
-Protected access modifier is similar to private access modifier in the sense that it can’t be accessed outside of it’s class unless with the help of friend class, the difference is that the class members declared as Protected can be accessed by any subclass(derived class) of that class as well. 
-This access through inheritance can alter the access modifier of the elements of base class in derived class depending on the modes of Inheritance. (For more info jump to *Inheritance* section)
-A friend class can access private and protected members of other class in which it is declared as friend. It is sometimes useful to allow a particular class to access private members of other class. For example a LinkedList class may be allowed to access private members of Node.
-class Node { 
-private: 
-    int key; 
-    Node* next; 
-    // Other members of Node Class 
-    // Now class  LinkedList can 
-    // access private members of Node 
-    friend class LinkedList; 
-}; 
----
-Note-: Friendship is not mutual & Friendship is not inherited. . If a base class has a friend function, then the function doesn’t become a friend of the derived class(es).
-
----
-Note-: Like member functions and member function arguments, the objects of a class can also be declared as const. an object declared as const cannot be modified and 
-       hence, can invoke only const member functions as these functions ensure not to modify the object.
-Constructors-: 
+* Note-: Friendship is not mutual & Friendship is not inherited. . If a base class has a friend function, then the function doesn’t become a friend of the derived class(es).
+* Note-: Like member functions and member function arguments, the objects of a class can also be declared as const. an object declared as const cannot be modified and hence, can invoke only const member functions as these functions ensure not to modify the object.
+* Constructors-: 
 * They can be defined in private section of class and thus can only be used by a friend class.
-
----
-Types of Contructors-: 
-* Default Constructor -: Consider a class derived from another class with the default constructor, or a class containing another class object with default constructor. The compiler 
+* Types of Contructors-: 
+  * Default Constructor -: Consider a class derived from another class with the default constructor, or a class containing another class object with default constructor. The compiler 
                          needs to insert code to call the default constructors of base class.
-* Parameterized Constructor
-* Copy Constructor -:  is a member function which initializes an object using another object of the same class.
-
+  * Parameterized Constructor
+  * Copy Constructor -:  is a member function which initializes an object using another object of the same class.
 ---
                        **OBJECT COPYING**
 		       It is the process of creating a copy of an existing object. Copying is done mostly so the copy can be modified or moved, or the 
