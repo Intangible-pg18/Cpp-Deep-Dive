@@ -1063,7 +1063,8 @@ destroyed.
 				        } 
 ---
 * Output-: 				          
----						  demo1 constructor called
+---						  
+						  demo1 constructor called
 						  Caught exception of demo1 class
 						  demo2 constructor called
 						  Caught exception of demo2 class 
