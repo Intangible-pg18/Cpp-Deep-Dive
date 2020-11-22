@@ -40,7 +40,7 @@ A typical memory representation of C++ program consists of following sections.
 >>> https://cpp.tech-academy.co.uk/files/2013/01/memoryLayout5.png
 >>> https://media.geeksforgeeks.org/wp-content/uploads/memoryLayoutC.jpg
 >>> https://cpp.tech-academy.co.uk/files/2013/01/stackFrames.png
-Note-: Each thread gets a stack, while there's typically only one heap for the application (although it isn't uncommon to have multiple heaps for different types of allocation).
+* Note-: Each thread gets a stack, while there's typically only one heap for the application (although it isn't uncommon to have multiple heaps for different types of allocation).
 * In a stack, the allocation and deallocation is automatically done by whereas, in heap, it needs to be done by the programmer manually.
 * Handling of Heap frame is costlier than handling of stack frame.
 * Memory shortage problem is more likely to happen in stack whereas the main issue in heap memory is fragmentation.
