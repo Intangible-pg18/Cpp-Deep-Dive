@@ -260,7 +260,7 @@ Uses-:
                         obj.print(); 
                         return 0; 
                        } 
-	---
+---
 2) To return reference to the calling object-: Usecase-: Chain Function Calls
 	---
 		       #include<iostream> 
