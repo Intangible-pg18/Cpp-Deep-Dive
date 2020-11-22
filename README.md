@@ -399,40 +399,20 @@ Protected access modifier is similar to private access modifier in the sense tha
 * Dynamic Constructor
 * Dummy Constructor
 * Move Constructor
-
 ---
-Destructor-:
-* When something is created using dynamic memory allocation, it is programmer’s responsibility to delete it. So compiler doesn’t bother. 
-* When a class has private destructor, only dynamic objects of that class can be created and use a function as friend of the class to call delete().
-* It cannot be declared static or const.
-* An object of a class with a Destructor cannot become a member of the union.
-* The programmer cannot access the address of destructor.
-* There can only one destructor in a class
-* It is always a good idea to make destructors virtual in base class when we have a virtual function.
-
+* Destructor-:
+  * When something is created using dynamic memory allocation, it is programmer’s responsibility to delete it. So compiler doesn’t bother. 
+  * When a class has private destructor, only dynamic objects of that class can be created and use a function as friend of the class to call delete().
+  * It cannot be declared static or const.
+  * An object of a class with a Destructor cannot become a member of the union.
+  * The programmer cannot access the address of destructor.
+  * There can only one destructor in a class
+  * It is always a good idea to make destructors virtual in base class when we have a virtual function.
+* Types of Destructors-:
+  * Virtual Destructor-: Discussed in the *Virtual Function & Runtime Polymorphism (Function Overriding)* section.
+  * Pure Destructor
+* Whenever we define one or more non-default constructors( with parameters ) for a class, a default constructor( without parameters ) should also be explicitly defined as the compiler will not provide a default constructor in this case.
 ---
-Types of Destructors-:
-* Virtual Destructor-: Discussed in the *Virtual Function & Runtime Polymorphism (Function Overriding)* section.
-* Pure Destructor
-
----
-Whenever we define one or more non-default constructors( with parameters ) for a class, a default constructor( without parameters ) should also be explicitly defined as the compiler will not provide a default constructor in this case.
-
----
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## ABSTRACTION
 Types-: 
