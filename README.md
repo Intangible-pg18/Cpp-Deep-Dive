@@ -79,7 +79,7 @@ Scenarios-:
 2. Bus Error (also known as SIGBUS and is usually signal 10) -:  occur when a process is trying to access memory that the CPU cannot physically address.In other words the memory 
    tried to access by the program is not a valid memory address.It caused due to alignment issues with the CPU (eg. trying to read a long from an address which isn’t a multiple of 
    4).
-Scenarios-: 
+* Scenarios-: 
   * Program instructs the CPU to read or write a specific physical memory address which is not valid / Requested physical address is unrecognized by the whole computer system.
   * Unaligned access of memory (For example, if multi-byte accesses must be 16 bit-aligned, addresses (given in bytes) at 0, 2, 4, 6, and so on would be considered aligned and 
     therefore accessible, while addresses 1, 3, 5, and so on would be considered unaligned.)
@@ -89,13 +89,9 @@ invalid address.
 ---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## STRINGS
-In case of strings, >> ignores anything after whitespaces and getline() reads the whole line until it encounters a new line.
-
----
-There is a threat of array decay in case of character array. As strings are represented as objects, no array decay occurs.
-
----
-String methods-: getline()
+* In case of strings, >> ignores anything after whitespaces and getline() reads the whole line until it encounters a new line.
+* There is a threat of array decay in case of character array. As strings are represented as objects, no array decay occurs.
+* String methods-: getline()
                  push_back()
                  pop_back() 
                  capacity()
@@ -105,14 +101,10 @@ String methods-: getline()
                  Iterator functions-: begin()
                                       end()
                                       rbegin()
-                                      rend()
-
----                                      
-A stringstream associates a string object with a stream allowing you to read from the string as if it were a stream (like cin). 
-
----
-Method-: operator << — add a string to the stringstream object
-         operator >> — read something from the stringstream object
+                                      rend()                                    
+* A stringstream associates a string object with a stream allowing you to read from the string as if it were a stream (like cin). 
+* Method-: operator << — add a string to the stringstream object
+           operator >> — read something from the stringstream object
 e.g. Count number of words in a string
                                       #include <bits/stdc++.h> 
                                       using namespace std;   
