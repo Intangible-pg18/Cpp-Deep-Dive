@@ -422,20 +422,13 @@ Types-:
 ---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## Inheritance
-Modes Of Inheritance-:
-* Public mode: If we derive a sub class from a public base class. Then the public member of the base class will become public in the derived class and protected members of the base 
-  class will become protected in derived class.
-* Protected mode: If we derive a sub class from a Protected base class. Then both public member and protected members of the base class will become protected in derived class.
-* Private mode: If we derive a sub class from a Private base class. Then both public member and protected members of the base class will become Private in derived class.
-
----
-Note : The private members in the base class cannot be directly accessed in the derived class, while protected members can be directly accessed. 
-
----
-Constructor Calls in Inheritance-:
-Base class constructors are always called in the derived class constructors. Whenever you create derived class object, first the base class default constructor is executed and then 
-the derived class's constructor finishes execution.
-
+* Modes Of Inheritance-:
+  * Public mode: If we derive a sub class from a public base class. Then the public member of the base class will become public in the derived class and protected members of the base class will become protected in derived class.
+  * Protected mode: If we derive a sub class from a Protected base class. Then both public member and protected members of the base class will become protected in derived class.
+  * Private mode: If we derive a sub class from a Private base class. Then both public member and protected members of the base class will become Private in derived class.
+* Note : The private members in the base class cannot be directly accessed in the derived class, while protected members can be directly accessed. 
+* Constructor Calls in Inheritance-:
+Base class constructors are always called in the derived class constructors. Whenever you create derived class object, first the base class default constructor is executed and then the derived class's constructor finishes execution.
 ---
 Points to Remember-:
 * Whether derived class's default constructor is called or parameterised is called, base class's default constructor is always called inside them.
