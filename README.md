@@ -1055,10 +1055,124 @@ Function Overloading-:
 ---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## Exception Handling-:
-*Terminate function-: Library function that is called if an exception is not caught. Terminate aborts the program. If no appropriate catch is found, execution is transferred to a library function named terminate. The behavior of that function is system dependent but is guaranteed to stop further execution of the program. Exceptions that occur in programs that do not define any try blocks are handled in the same manner: After all, if there are no try blocks, there can be no handlers. If a program has no try blocks and an exception occurs, then terminate is called and the program is exited.	
+* Terminate function-: Library function that is called if an exception is not caught. Terminate aborts the program. If no appropriate catch is found, execution is transferred to a library function named terminate. The behavior of that function is system dependent but is guaranteed to stop further execution of the program. Exceptions that occur in programs that do not define any try blocks are handled in the same manner: After all, if there are no try blocks, there can be no handlers. If a program has no try blocks and an exception occurs, then terminate is called and the program is exited.	
 * The fact that control passes from
 throw clause to a catch block, has two important implications:
-• Functions along the call chain may be prematurely exited.
-• When a handler is entered, objects created along the call chain will have been
+ • Functions along the call chain may be prematurely exited.
+ • When a handler is entered, objects created along the call chain will have been
 destroyed.
+* what() method-: Each of the library exception classes defines a member function named what. These functions take no arguments and return a C style character string (i.e., a const char*).
+* Stack Unwinding-: The process of removing function entries from function call stack at run time is called Stack Unwinding. Workflow-: If the throw appears inside a try block, the catch clauses associated with that try are examined. If a matching catch is found, the exception is handled by that catch. Otherwise, if the try was itself nested inside another try, the search continues through the catch clauses of the enclosing trys. If no matching catch is found, the current function is exited, and the search continues in the calling function. If the call to the function that threw is in a try block, then the catch clauses associated with that try are examined. If a matching catch is found, the exception is handled. Otherwise, if that try was nested, the catch clauses of the enclosing trys are searched. If no catch is found, the calling function is also exited. The search continues in the function that called the just exited one, and so on.
+* Note-: When a block is exited during stack unwinding, the compiler guarantees that objects created in that block are properly destroyed. If a local object is of class type, the destructor for that object is called automatically.
+---
+                                        #include <iostream> 
+                                        using namespace std; 
+                                        void f1() throw (int) { 
+                                        cout<<"\n f1() Start "; 
+                                        throw 100; 
+                                        cout<<"\n f1() End "; 
+                                        } 
+                                        void f2() throw (int) { 
+                                        cout<<"\n f2() Start "; 
+                                        f1(); 
+                                        cout<<"\n f2() End "; 
+                                        } 
+                                        void f3() { 
+                                        cout<<"\n f3() Start "; 
+                                        try { 
+	                                        f2(); 
+                                        } 
+                                        catch(int i) { 
+                                        cout<<"\n Caught Exception: "<<i; 
+                                        } 
+                                        cout<<"\n f3() End"; 
+                                        } 
+                                        int main() { 
+                                        f3(); 
+                                        getchar(); 
+                                        return 0; 
+                                        } 
+			---
+* Output-:                              f3() Start
+                                         f2() Start
+                                         f1() Start
+                                         Caught Exception: 100
+                                         f3() End
+* Object destruction-: When an exception is thrown, destructors of the objects (whose scope ends with the try block) is automatically called before the catch block gets exectuted. Destructors are only called for the completely constructed objects. When constructor of an object throws an exception, destructor for that object is not called. Reason-:  In C++ the lifetime of an object is said to begin when the constructor runs to completion. And it ends right when the destructor is called. If the constructor throws, then the destructor is not called.
 * 
+---
+                                        #include <iostream> 
+                                        using namespace std; 
+                                        class Test1 { 
+                                        public: 
+                                        Test1() { cout << "Constructing an Object of Test1" << endl; } 
+                                        ~Test1() { cout << "Destructing an Object of Test1" << endl; } 
+                                        }; 
+                                        class Test2 { 
+                                        public: 
+                                        Test2() { cout << "Constructing an Object of Test2" << endl; 
+			                                        throw 20; } 
+                                        ~Test2() { cout << "Destructing an Object of Test2" << endl; } 
+                                        }; 
+                                        int main() { 
+                                        try { 
+	                                        Test1 t1; // Constructed and destructed 
+	                                        Test2 t2; // Partially constructed 
+	                                        Test1 t3; // t3 is not constructed as this statement never gets executed 
+                                        } catch(int i) { 
+	                                        cout << "Caught " << i << endl; 
+                                        } 
+                                        }	
+						  ---
+* Output-: Constructing an Object of Test1
+  Constructing an Object of Test2
+  Destructing an Object of Test1
+  Caught 20
+* User Defined Exception-:
+---
+				        #include <iostream> 
+				        using namespace std; 
+				        class demo1 {
+						  demo1(){
+						  cout<<"demo1 constructor called"<<endl;
+				        }; 
+				        class demo2 { 
+						  demo2(){
+						  cout<<"demo2 constructor called"<<endl;
+				        }; 
+				        int main() 
+				        { 
+					        for (int i = 1; i <= 2; i++) { 
+						        try { 
+							        if (i == 1) 
+								        throw demo1(); 
+							        else if (i == 2) 
+								        throw demo2(); 
+						        } 
+						        catch (demo1 d1) { 
+							        cout << "Caught exception of demo1 class \n"; 
+						        } 
+						        catch (demo2 d2) { 
+							        cout << "Caught exception of demo2 class \n"; 
+						        } 
+					        } 
+				        } 
+---
+* Output-: 				          demo1 constructor called
+						  Caught exception of demo1 class
+						  demo2 constructor called
+						  Caught exception of demo2 class 
+* Rethrowing an exception-: Sometimes a single catch cannot completely handle an exception. After some corrective actions, a catch may decide that the exception must be handled by a
+function further up the call chain. A catch passes its exception out to another catch by rethrowing the exception. A rethrow is a throw that is not followed by an expression:
+throw;
+An empty throw can appear only in a catch or in a function called (directly or indirectly) from a catch. If an empty throw is encountered when a handler is not active, terminate is called. A rethrow does not specify an expression; the (current) exception object is passed up the chain. In general, a catch might change the contents of its parameter. If, after changing its parameter, the catch rethrows the exception, then those changes will be propagated only if the catch’s exception declaration is a reference:
+* 				        catch (my_error &eObj) { // specifier is a reference type
+				        eObj.status = errCodes::severeErr; // modifies the exception object
+				        throw; // the status member of the exception object is severeErr
+				        } 
+				        catch (other_error eObj) { // specifier is a nonreference type
+				        eObj.status = errCodes::badErr; // modifies the local copy only
+				        throw; // the status member of the exception object is unchanged
+				        }
+						  ---
+* Finally block implementation in c++ -: C++ doesn't support the finally block (which is used in programming languages like Java) instead it uses a concept, RAII (Resource Acquisition Is Initialization). The idea is that an object's destructor is responsible for freeing resources. When the object has automatic storage duration, the object's destructor will be called when the block in which it was created exits -- even when that block is exited in the presence of an exception. Actual code and implementation is out of the scope of this repo and most of the c++ books. 
