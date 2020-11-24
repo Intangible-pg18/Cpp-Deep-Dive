@@ -10,12 +10,13 @@
 * FUNCTIONS
 * POINTERS & REFERENCES
   * Compiler's Optimizations
+* Static (Variables, Methods, Objects and Classes)
 * ABSTRACTION
-* Inheritance
-* Inheritance -> UPCASTING & DOWNCASTING
-* Polymorphism
+* INHERITANCE
+* INHERITANCE -> UPCASTING & DOWNCASTING
+* POLYMORPHISM
 * Virtual Function & Runtime Polymorphism (Function Overriding)
-* Exception Handling
+* EXCEPTION HANDLING
 - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+)
 ## Note
 * The prerequisites to the repo is basic c++ itself because the repo contains-: 1. Lesser known cpp facts. 2. Tips for your cpp code and 3. In-depth cpp concepts.
@@ -433,6 +434,89 @@ Protected access modifier is similar to private access modifier in the sense tha
   * Virtual Destructor-: Discussed in the *Virtual Function & Runtime Polymorphism (Function Overriding)* section.
   * Pure Destructor
 * Whenever we define one or more non-default constructors( with parameters ) for a class, a default constructor( without parameters ) should also be explicitly defined as the compiler will not provide a default constructor in this case.
+---
+- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
+## STATIC (Variables, Methods, Objects and Classes)
+* Static Local Variables-: It can be useful to have a local variable whose lifetime continues across calls to the function. We obtain such objects by defining a local variable as static. Each local static object is initialized before the first time execution passes through the object’s definition. Local statics are not destroyed when a function ends; they are destroyed when the program terminates. (Note-: Even the global objects are destroyed when the main fucntion ends.)
+---
+		       int count_calls()
+		       {
+		       static int ctr = 0; // value will persist across calls
+		       return ++ctr;
+		       }
+		       int main()
+		       {
+		       for (int i = 0; i != 10; ++i)
+		       cout << count_calls() << endl;
+		       return 0;
+		       }
+---
+* This program will print the numbers from 1 through 10 inclusive.
+* Note-: If a local static has no explicit initializer, it is value initialized, meaning that local statics of built-in type are initialized to zero by the default constructor.
+---
+* Static class members-: Classes sometimes need members that are associated with the class, rather than with individual objects of the class type. For example, a bank account class might need a data member to represent the current prime interest rate. In this case, we’d want to associate the rate with the class, not with each individual object. From an efficiency standpoint, there’d be no reason for each object to store the rate. Much more importantly, if the rate changes, we’d want each object to use the new value.
+* The static members of a class exist outside any object. Objects do not contain data associated with static data members. Similarly, static member functions are not bound to any object; they do not have a this pointer. As a result, static member functions may not be declared as const. Note-: 1. We can access a static member using the scope operator or using an object, reference or pointer of class type. 2. Member functions can use static members directly, without the scope operator.
+---
+		       class Account {
+		       public:
+		       void calculate() { amount += amount * interestRate; }
+		       static double rate() { return interestRate; }
+		       static void rate(double);
+		       private:
+		       std::string owner;
+		       double amount;
+		       static double interestRate;
+		       static double initRate();
+		       };
+		       void Account::rate(double newRate)
+		       {
+		       interestRate = newRate;
+		       }
+		       int main(){		      
+		       double r;
+		       r = Account::rate(); 
+		       Account ac1;
+		       Account * ac2 = &ac1;
+		       r = ac1.rate();
+		       r = ac2->rate();
+---
+* Note-: 
+  * A static member function can be called even if no objects of the class exist and the static functions are accessed using only the class name and the scope resolution operator ::
+  * Static member function: it can only access static member data, or other static member functions while non-static member functions can access all data members of the class: static and non-static.
+  * A static can be declared inside a class and can only be defined outside the class. 
+  * Static variables are allocated memory in data segment, not stack segment.
+ * Static Objects-: Objects also when declared as static have a scope till the lifetime of program.
+ ---
+		       #include<iostream> 
+		       using namespace std; 
+		       class GfG 
+		       { 
+			       int i = 0; 	
+			       public: 
+			       GfG() 
+			       { 
+				       i = 0; 
+				       cout << "Inside Constructor\n"; 
+			       } 	
+			       ~GfG() 
+			       { 
+				       cout << "Inside Destructor\n"; 
+			       } 
+		       }; 
+		       int main() 
+		       { 
+			       int x = 0; 
+			       if (x==0) 
+			       { 
+				      static GfG obj; 
+			       } 
+			       cout << "End of main\n"; 
+		       } 
+---
+* Output-: 
+	  Inside Constructor
+          End of main
+          Inside Destructor
 ---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## ABSTRACTION
