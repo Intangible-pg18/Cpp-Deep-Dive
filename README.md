@@ -11,7 +11,7 @@
 * POINTERS & REFERENCES
   * Compiler's Optimizations
 * OBJECT-ORIENTED PROGRAMMING  
-* STATIC (Variables, Methods, and Objects)
+* STATIC (Variables, Methods and Objects)
 * ABSTRACTION
 * INHERITANCE
 * INHERITANCE -> UPCASTING & DOWNCASTING
@@ -438,7 +438,7 @@ Protected access modifier is similar to private access modifier in the sense tha
 * Whenever we define one or more non-default constructors( with parameters ) for a class, a default constructor( without parameters ) should also be explicitly defined as the compiler will not provide a default constructor in this case.
 ---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
-## STATIC (Variables, Methods, Objects and Classes)
+## STATIC (Variables, Methods and Objects)
 * Static Local Variables-: It can be useful to have a local variable whose lifetime continues across calls to the function. We obtain such objects by defining a local variable as static. Each local static object is initialized before the first time execution passes through the object’s definition. Local statics are not destroyed when a function ends; they are destroyed when the program terminates. (Note-: Even the global objects are destroyed when the main fucntion ends.)
 ---
 		       int count_calls()
