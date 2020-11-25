@@ -10,7 +10,8 @@
 * FUNCTIONS
 * POINTERS & REFERENCES
   * Compiler's Optimizations
-* Static (Variables, Methods, Objects and Classes)
+* OBJECT-ORIENTED PROGRAMMING  
+* STATIC (Variables, Methods, and Objects)
 * ABSTRACTION
 * INHERITANCE
 * INHERITANCE -> UPCASTING & DOWNCASTING
