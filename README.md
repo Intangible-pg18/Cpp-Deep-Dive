@@ -17,6 +17,7 @@
 * POLYMORPHISM
 * Virtual Function & Runtime Polymorphism (Function Overriding)
 * EXCEPTION HANDLING
+* Few topics ( Templates, STL and Dynamic Memory Alloacations) will be added soon.
 - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+)
 ## Note
 * The prerequisites to the repo is basic c++ itself because the repo contains-: 1. Lesser known cpp facts. 2. Tips for your cpp code and 3. In-depth cpp concepts.
