@@ -1330,19 +1330,7 @@ An empty throw can appear only in a catch or in a function called (directly or i
 ---
 * Output-: Specialized template object
            General template object
-           General template object						  
-
-
-
-
-
-
-
-
-
-
-
-
+           General template object
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## Extras
 * Typedef-: C++ allows you to define explicitly new data type names by using the keyword typedef. Using typedef does not actually create a new data class, rather it defines a name for an existing type. 
