@@ -1189,6 +1189,173 @@ An empty throw can appear only in a catch or in a function called (directly or i
 				        }
 ---
 * Finally block implementation in c++ -: C++ doesn't support the finally block (which is used in programming languages like Java) instead it uses a concept, RAII (Resource Acquisition Is Initialization). The idea is that an object's destructor is responsible for freeing resources. When the object has automatic storage duration, the object's destructor will be called when the block in which it was created exits -- even when that block is exited in the presence of an exception. Actual code and implementation is out of the scope of this repo and most of the c++ books. 
+## Generic Programming
+* The method of Generic Programming or Generics is implemented to increase the efficiency of the code. Generic Programming enables the programmer to write a general algorithm which will work with all data types. It eliminates the need to create different algorithms if the data type is an integer, string or a character. Generics can be implemented in C++ using Templates.
+* Templates-: Template is a simple and yet very powerful tool in C++. The simple idea is to pass data type as a parameter so that we don’t need to write the same code for different data types. They are of two types-: Function Templates (or Generic Function) and Class Templates (or Generic Class). Templates are expanded at compiler time. This is like macros. The difference is, compiler does type checking before template expansion.						  
+* Generic Function-:						  
+---
+				        #include <iostream> 
+				        using namespace std;  
+				        template <typename T> 
+				        T myMax(T x, T y) 
+				        { 
+					        return (x > y) ? x : y; 
+				        } 
+				        int main() 
+				        { 
+					        cout << myMax<int>(3, 7) << endl; 
+					        cout << myMax<double>(3.0, 7.0) << endl; 
+					        cout << myMax<char>('g', 'e') << endl; 
+					        return 0; 
+				        } 
+---
+* Output-: 7
+           7
+           g						  
+* Generic Classes-: Like function templates, class templates are useful when a class defines something that is independent of data type. Can be useful for classes like LinkedList, binary tree, Stack, Queue, Array, etc. 						  
+---						  
+				        #include <iostream> 
+				        using namespace std; 
+				        template <typename T> 
+				        class Array { 
+				        private: 
+					        T *ptr; 
+					        int size; 
+				        public: 
+					        Array(T arr[], int s); 
+					        void print(); 
+				        }; 
+				        template <typename T> 
+				        Array<T>::Array(T arr[], int s) { 
+					        ptr = new T[s]; 
+					        size = s; 
+					        for(int i = 0; i < size; i++) 
+						        ptr[i] = arr[i]; 
+				        } 
+				        template <typename T> 
+				        void Array<T>::print() { 
+					        for (int i = 0; i < size; i++) 
+						        cout<<" "<<*(ptr + i); 
+					        cout<<endl; 
+				        } 
+				        int main() { 
+					        int arr[5] = {1, 2, 3, 4, 5}; 
+					        Array<int> a(arr, 5); 
+					        a.print(); 
+					        return 0; 
+				        } 
+---
+* Output-: 1 2 3 4 5						  
+* Multi-type Generics and default arguments-: 						  
+---
+				        #include<iostream> 
+				        using namespace std; 
+				        template<class T, class U=char> 
+				        class A { 
+					        T x; 
+					        U y; 
+				        public: 
+					        A() { cout<<"Constructor Called"<<endl; } 
+				        }; 
+				        int main() { 
+				        A<char> a; 
+				        A<int, double> b; 
+				        return 0; 
+				        } 
+---						  
+* Output-: Constructor Called
+           Constructor Called						  
+* Note-: Each instantiation of function template has its own copy of local static variables. e.g. Two copies of static variable i exist	will exist for the templates of the same function, void fun(int ) and void fun(double ).					  
+* Template Specialization-: Consider a big project that needs a function sort() for arrays of many different data types. Let Quick Sort be used for all datatypes except char. In case of char, total possible values are 256 and counting sort may be a better option. Is it possible to use different code only when sort() is called for char data type? It is possible in C++ to get a special behavior for a particular data type. This is called template specialization. 						  
+* Working-: If a specialized version is present in your code, compiler first checks with the specialized version and then the main template. Compiler first checks with the most specialized version by matching the passed parameter with the data type(s) specified in a specialized version. 
+* Function Template Specialization-: 						  
+---						  
+				        #include <iostream> 
+				        using namespace std; 
+				        template <class T> 
+				        void fun(T a) 
+				        { 
+				        cout << "The main template fun(): "
+						        << a << endl; 
+				        } 
+				        template<> 
+				        void fun(int a) 
+				        { 
+					        cout << "Specialized Template for int type: "
+						        << a << endl; 
+				        } 
+				        int main() 
+				        { 
+					        fun<char>('a'); 
+					        fun<int>(10); 
+					        fun<float>(10.14); 
+				        } 
+---
+* Output-: The main template fun(): a
+           Specialized Template for int type: 10
+           The main template fun(): 10.14						  
+* Class Template Specialization-: 
+---
+				        #include <iostream> 
+				        using namespace std; 
+				        template <class T> 
+				        class Test 
+				        { 
+				        public: 
+				        Test() 
+				        { 
+					        // Initialization of data members 
+					        cout << "General template object \n"; 
+				        } 
+				        }; 
+				        template <> 
+				        class Test <int> 
+				        { 
+				        public: 
+				        Test() 
+				        { 
+					        // Initialization of data members 
+					        cout << "Specialized template object\n"; 
+				        } 
+				        }; 
+				        int main() 
+				        { 
+					        Test<int> a; 
+					        Test<char> b; 
+					        Test<float> c; 
+					        return 0; 
+				        } 
+---
+* Output-: Specialized template object
+           General template object
+           General template object						  
+
+
+
+
+
+
+
+
+
+
+
+
+- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
+## Extras
+* Typedef-: C++ allows you to define explicitly new data type names by using the keyword typedef. Using typedef does not actually create a new data class, rather it defines a name for an existing type. 
+---
+				        #include <iostream> 
+				        using namespace std; 
+				        typedef unsigned char BYTE; 
+				        int main() 
+				        { 
+					        BYTE b1, b2; 
+					        b1 = 'c'; 
+					        cout << " " << b1; 
+					        return 0; 
+				        } 
+---						  
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## Reference
 * Stanley B. Lippman's C++ Primer
