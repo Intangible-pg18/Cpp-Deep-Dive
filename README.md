@@ -40,6 +40,7 @@ Clearing output buffer-:
 the program has generated so far is actually written to the output stream, rather than sitting in memory waiting to be written.
 * flush-: writes the output, then flushes the buffer and adds no data (contrary to which endl, adds a new line).
 * ends-: writes the output and a null, then flushes the buffer.
+---
 Disadvantage-: Flushing of buffers is an Operating System task. Each time the buffer is flushed, a request has to be made to the OS and these requests are comparatively expensive. 
 Furthermore, we don’t really need to flush the buffer every time we write something to the stream, since the buffers get flushed automatically when they get full. 
 Solution-: Writing ‘\n’ characters directly to the stream is more efficient since it doesn’t force a flush like std::endl. 
@@ -165,7 +166,7 @@ In the above line “GfG” is stored in a shared read-only location, but pointe
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## ARRAYS
 * There is no index out of bounds checking in C++. But doing so may cause a Buffer Overflow (-: is an anomaly where a program, while writing data to a buffer, overruns the buffer's 
-boundary and overwrites adjacent memory locations.) and a Segmentation Fault (-: For an array int arr[] = {1,2,3,4,5} , cout<<arr[10] works fine and prints a garbage value but arr[10]=9 results in a segmentation fault cause the memory beyond the buffer's boundaries in read-only memory.)
+boundary and overwrites adjacent memory locations.) and a Segmentation Fault (-: For an array int arr[] = {1,2,3,4,5} , cout<<arr[10] works fine and prints a garbage value but arr[10]=9 results in a segmentation fault because the memory beyond the buffer's boundaries is read-only memory.)
 * Array name indicates the address of first element and arrays are always passed as pointers (even if we use square bracket).
 * Compiler uses pointer arithmetic to access array element. For example, an expression like “arr[i]” is treated as * (arr + i) by the compiler.
 * The loss of type and dimensions of an array is known as decay of an array.This generally occurs when we pass the array into function by value or pointer. What it does is, it sends first address to the array which is a pointer, hence the size of array is not the original one, but the one occupied by the pointer in the 
