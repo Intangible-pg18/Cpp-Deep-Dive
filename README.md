@@ -1345,6 +1345,65 @@ An empty throw can appear only in a catch or in a function called (directly or i
 					        cout << " " << b1; 
 					        return 0; 
 				        } 
+---
+* Type Inferences-: Type Inference refers to automatic deduction of the data type of an expression in a programming language. All the types are deduced in compiler phase only, the time for compilation increases slightly but it does not affect the run time of the program.	Implementation-: 					  
+    * auto keyword-: The auto keyword specifies that the type of the variable that is being declared will be automatically deducted from its initializer. In case of functions, if their return type is auto then that will be evaluated by return type expression at runtime.The variable declared with auto keyword should be initialized at the time of its declaration only or else there will be a compile-time error 						  
+---						  
+				        #include <bits/stdc++.h>
+				        using namespace std;
+				        int main()
+				        {
+					        auto x = 4;
+					        auto y = 3.37;
+					        auto ptr = &x;
+					        cout << typeid(x).name() << endl
+						        << typeid(y).name() << endl
+						        << typeid(ptr).name() << endl;
+					        return 0;
+				        }
+---						  
+    * Output-: i
+	       d
+	       pi			  
+    * Note : auto becomes int type if even an integer reference is assigned to it. To make it reference type, we use auto &. 						  
+    * decltype -: It inspects the declared type of an entity or the type of an expression. Auto lets you declare a variable with particular type whereas decltype lets you extract the type from the variable so decltype is sort of an operator that evaluates the type of passed expression. 					  
+---
+				        #include <bits/stdc++.h>
+				        using namespace std;
+				        int fun1() { return 10; }
+				        char fun2() { return 'g'; }
+				        int main()
+				        {
+					        decltype(fun1()) x;
+					        decltype(fun2()) y;
+					        cout << typeid(x).name() << endl;
+					        cout << typeid(y).name() << endl;
+					        return 0;
+				        }
+---
+    * Output-: 	i
+		c
+---
+				        #include <bits/stdc++.h>
+				        using namespace std;
+				        int main()
+				        {
+					        int x = 5
+					        decltype(x) j = x + 5;
+					        cout << typeid(j).name();
+					        return 0;
+				        }
+---
+    * Output-: i						  
+* 						  
+						  
+						  
+						  
+						  
+						  
+						  
+						  
+						
 ---						  
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## Reference
