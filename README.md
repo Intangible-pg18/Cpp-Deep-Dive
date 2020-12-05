@@ -1362,11 +1362,11 @@ An empty throw can appear only in a catch or in a function called (directly or i
 					        return 0;
 				        }
 ---						  
-    * Output-: i
-	       d
-	       pi			  
-    * Note : auto becomes int type if even an integer reference is assigned to it. To make it reference type, we use auto &. 						  
-    * decltype -: It inspects the declared type of an entity or the type of an expression. Auto lets you declare a variable with particular type whereas decltype lets you extract the type from the variable so decltype is sort of an operator that evaluates the type of passed expression. 					  
+* Output-: i
+	   d
+	   pi			  
+* Note : auto becomes int type if even an integer reference is assigned to it. To make it reference type, we use auto &. 						  
+* decltype -: It inspects the declared type of an entity or the type of an expression. Auto lets you declare a variable with particular type whereas decltype lets you extract the type from the variable so decltype is sort of an operator that evaluates the type of passed expression. 					  
 ---
 				        #include <bits/stdc++.h>
 				        using namespace std;
@@ -1381,7 +1381,7 @@ An empty throw can appear only in a catch or in a function called (directly or i
 					        return 0;
 				        }
 ---
-    * Output-: 	i
+* Output-: 	i
 		c
 ---
 				        #include <bits/stdc++.h>
@@ -1394,7 +1394,7 @@ An empty throw can appear only in a catch or in a function called (directly or i
 					        return 0;
 				        }
 ---
-    * Output-: i						  
+* Output-: i						  
 * 						  
 						  
 						  
