@@ -74,8 +74,8 @@ A typical memory representation of C++ program consists of following sections.
 * Stack frame access is easier than the heap frame as the stack have small region of memory and is cache friendly, but in case of heap frames which are dispersed 
 throughout the memory so it cause more cache misses.
 * Stack is not flexible, the memory size allotted cannot be changed whereas a heap is flexible, and the allotted memory can be altered.
-Memory leakage occurs in C++ when programmers allocates memory by using new keyword and forgets to deallocate the memory by using delete() function or delete[] 
-operator. Avoid-: 
+* Memory leakage occurs in C++ when programmers allocates memory by using new keyword and forgets to deallocate the memory by using delete() function or delete[] 
+operator.
 * Instead of managing memory manually, try to use smart pointers where applicable.
 * Use std::string instead of char *. The std::string class handles all memory management internally, and it’s fast and well-optimized.
 * The best way to avoid memory leaks in C++ is to have as few new/delete calls at the program level as possible – ideally NONE. Anything that requires dynamic memory should be 
@@ -283,7 +283,7 @@ Uses-:
                           return 0; 
                          }
 ---	
-* Smart Pointers
+* Smart Pointers-: auto_ptr, shared_ptr, unique_ptr and weak_ptr pointers. (For more information jump to Dynamic Memory Allocation section)
 * Wild Pointers
 * Near, Far & Huge Pointers
 * Opaque Pointers
@@ -294,7 +294,6 @@ Uses-:
 ## Object Oriented Programming
 * When a class is defined, no memory is allocated but when it is instantiated (i.e. an object is created) memory is allocated. Object take up space in memory and have an associated address.
 * The standard does not permit objects (or classes) of size 0, this is because that would make it possible for two distinct objects to have the same memory location. This is the reason behind the concept that even an empty class must have a size at least 1. It is known that size of an empty class is not zero. Generally, it is 1 byte. For dynamic allocation also, the new keyword returns different address for the same reason.
-* When a program is executed the objects interact by sending messages to one another. (For more info jump to *Message Passing* section)
 * By default the access modifier for the members will be Private. Only the member functions or the friend functions are allowed to access the private data members of a class. 
 Protected access modifier is similar to private access modifier in the sense that it can’t be accessed outside of it’s class unless with the help of friend class, the difference is that the class members declared as Protected can be accessed by any subclass(derived class) of that class as well. This access through inheritance can alter the access modifier of the elements of base class in derived class depending on the modes of Inheritance. (For more info jump to *Inheritance* section). A friend class can access private and protected members of other class in which it is declared as friend. It is sometimes useful to allow a particular class to access private members of other class. For example a LinkedList class may be allowed to access private members of Node.
 ---
@@ -725,7 +724,7 @@ converted. Otherwise, it returns nullptr.
 ## Polymorphism
 * Types of polymorphism-: https://media.geeksforgeeks.org/wp-content/uploads/20200703160531/Polymorphism-in-CPP.png
 * Binding-: refers to the process of converting identifiers (such as variable and function names) into addresses. Binding is done for each variable and functions. For functions, it means that matching the call with the right function definition by the compiler. It takes place either at compile time or at runtime.
-  * Early Binding (compile-time time polymorphism or static binding) As the name indicates, compiler (or linker) directly associate an address to the function call. It replaces the call with a machine language instruction that tells the mainframe to leap to the address of the function. By default early binding happens in C++.
+  * Early Binding (compile-time time polymorphism or static binding or static dispatch or comipile-time dispatch) As the name indicates, compiler (or linker) directly associate an address to the function call. It replaces the call with a machine language instruction that tells the mainframe to leap to the address of the function. By default early binding happens in C++.
 1. Operator Overloading-:
 * Most overloaded operators may be defined as ordinary non-member functions or as class member functions. Box operator+(const Box&); In case we define above function as non-member function of a class then we would have to pass two arguments for each operand as Box operator+(const Box&, const Box&);
 * Operators which cannot be overloaded-:     
@@ -766,7 +765,7 @@ take an extra (unused) parameter of type int. When we use a postfix operator, th
  ---
  - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## Virtual Function & Runtime Polymorphism (Function Overriding)
-* Late Binding (Run time polymorphism or dynamic binding)-: In this, the compiler adds code that identifies the kind of object at runtime then matches the call with the right function definition.
+* Late Binding (Run time polymorphism or dynamic binding or dynamic dispatch or run-time dispatch)-: In this, the compiler adds code that identifies the kind of object at runtime then matches the call with the right function definition.
 * A Base Class pointer can point to a derived class object. Why is the vice-versa not true? ->  A derived class contains the properties of it's super class but the super class doesn't contain the properties of the derived class. A derived object is a base class object (as it's a sub class), so it can be pointed to by a base class pointer. However, a base class object is not a derived class object so it can't be assigned to a derived class pointer.
 * A base class pointer can point to a derived class object, but we can only access base class member or virtual functions using the base class pointer because object slicing happens when a derived class object is assigned to a base class object. Additional attributes of a derived class object are sliced off to form the base class object.
 * Example of the above point-: A class base contains the following function definition-: virtual void fun_4() { cout << "base-4\n"; } and the derived class conatins the following: void fun_4(int x) { cout << "derived-4\n"; }. Then doing this-: base* p; derived obj1; p = &obj1; p->fun_4(5); is illegal.
@@ -1331,6 +1330,164 @@ An empty throw can appear only in a catch or in a function called (directly or i
 * Output-: Specialized template object
            General template object
            General template object
+- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
+## Dynamic Memory Allocation 
+* The mechanism by which storage/memory/cells can be allocated to variables during the runtime is called Dynamic Memory Allocation. Dynamic memory allocation can be done on both stack and heap. An example of dynamic allocation to be done on the stack is recursion where the functions are put into call stack in order of their occurrence and popped off one by one on reaching the base case. For dynamically allocated memory like “int *p = new int[10]”, it is programmers responsibility to deallocate memory when no longer needed. If programmer doesn’t deallocate memory, it causes memory leak. 
+* new operator-: The new operator denotes a request for memory allocation on the Free Store. If sufficient memory is available, new operator initializes the memory and returns the address of the newly allocated and initialized memory to the pointer variable.						  
+* e.g. Allocating memory using new operator-:
+---
+				        int *p = NULL; 
+				        p = new int;						  
+				        OR						  
+				        int *p = new int;						  
+* e.g. Initializing memory using new operator-: int *p = new int(25);
+* e.g. Allocating block of memory using new operator-: int *a = new int[10];
+* delete operator-: Since it is programmer’s responsibility to deallocate dynamically allocated memory, programmers are provided delete operator. e.g. delete p;
+* To free the dynamically allocated array pointed by pointer-variable, use following form of delete: delete[] a;
+* Exception handling of new operator-: When new operator request for the memory then if there is a free memory is available then it returns valid address or else it throws bad_alloc exception.						  
+---						  
+				        #include <iostream>
+				        using namespace std;
+				        int main(int argc, char** argv) {	
+					        int *piValue = NULL;	
+					        try
+					        {
+						        piValue = new int[9999999999999]; // allocate huge amount of memory
+					        }
+					        catch(...)
+					        {
+						        cout<<"Free memory is not available"<<endl;		
+						        return -1;
+					        }	
+					        delete []piValue;
+   				        return 0;
+				        }						  
+---
+* Output-: Free memory is not available 	
+* To avoid the exception throw we can use “nothrow” with the new operator. When we are used “nothrow” with new operator then it returns a valid address if it is available either return 0 (NULL). 	
+* Note-: We need to include file <new> for the use of “nothrow” with the new operator.	
+---	
+				        #include <iostream>
+				        #include <new>
+				        using namespace std;
+				        int main() {	
+					        int *piValue = NULL;	
+					        piValue = new(nothrow) int[999999999999999]; // We are using nothrow here.	
+					        if(piValue == NULL) // or if(!piValue)
+					        {
+					        	cout<<"Free memory is not available"<<endl;
+					        }
+					        else
+					        {
+						        cout<<"Free memory available"<<endl;
+						        delete []piValue;
+					        }	
+   				        return 0;
+				        }
+---
+* Dynamic Objects-: C++ programming language allows both auto(or stack allocated) and dynamically allocated objects. In java & C#, all objects must be dynamically allocated using new. C++ supports stack allocated objects for the reason of runtime efficiency. Stack based objects are implicitly managed by C++ compiler. They are destroyed when they go out of scope and dynamically allocated objects must be manually released, using delete operator otherwise memory leak occurs. C++ doesn’t support automatic garbage collection approach used by languages such as Java & C#. 	
+* e.g. A * a = new A() //dynamic object of class A
+* e.g. A * a = new A[10] // array of dynamic objects
+* Specific examples of memory leak in dynamic memory allocation-: Dynamically allocated memory stays allocated until it is explicitly deallocated or until the program ends (and the operating system cleans it up, assuming your operating system does that). However, the pointers used to hold dynamically allocated memory addresses follow the normal scoping rules for local variables. e.g. 1-:
+---						  
+				        void doSomething()
+				        {
+    				        int *ptr{ new int{} };
+				        }
+---
+* This function allocates an integer dynamically, but never frees it using delete. Because pointers variables are just normal variables, when the function ends, ptr will go out of scope. And because ptr is the only variable holding the address of the dynamically allocated integer, when ptr is destroyed there are no more references to the dynamically allocated memory. This means the program has now “lost” the address of the dynamically allocated memory. As a result, this dynamically allocated integer can not be deleted.
+* e.g. 2-:
+---
+				        int value = 5;
+				        int *ptr{ new int{} }; // allocate memory
+				        ptr = &value; // old address lost, memory leak results						  
+---						  
+* Fix-:
+---						  
+				        int value{ 5 };
+				        int *ptr{ new int{} }; // allocate memory
+				        delete ptr; // return memory back to operating system
+				        ptr = &value; // reassign pointer to address of value
+---
+* e.g. 3-: 						  
+---						  
+int *ptr{ new int{} };
+ptr = new int{}; // old address lost, memory leak results						  
+---						  
+* Because of the laziness or carelessness of the programmer this type of problem may arise thus c++ introduced smart pointers.						  
+* Smart Pointers-: Using Smart Pointers, we can make pointers to work in a way that we don’t need to explicitly call delete. A smart pointer is a wrapper class over a pointer with an operator like * and -> overloaded. Types-:						  
+* Note-: Smart pointers are defined in the memory header file in the std namespace so don't forget to include the <memory> header file.
+* unique_ptr-: The idea behind a unique pointer is that if a pointer is pointing at an memory that holds an object then we can't copy or assign that pointer variable to another because if we do so then two different pointers would be pointing at the same memory and if any one of them is deleted that the memory to which it was pointing is freed and thus the other pointer is now pointing at a memory which has been freed which is illogical and irrelevant. The object to which a unique_ptr points is destroyed when the unique_ptr is destroyed.					  
+---
+				        unique_ptr<double> p1; // unique_ptr that can point at a double
+				        unique_ptr<int> p2(new int(42)); // p2 points to int with value 42						  
+---  
+				        unique_ptr<string> p1(new string("Stegosaurus"));
+				        unique_ptr<string> p2(p1); // error: no copy for unique_ptr
+				        unique_ptr<string> p3;
+				        p3 = p2; // error: no assign for unique_ptr						  
+---						  
+* Although we can’t copy or assign a unique_ptr, we can transfer ownership from one (nonconst) unique_ptr to another by calling release or reset:			
+---						  
+				        // transfers ownership from p1 (which points to the string Stegosaurus) to p2
+				        unique_ptr<string> p2(p1.release()); // release makes p1 null
+				        unique_ptr<string> p3(new string("Trex"));
+				        // transfers ownership from p3 to p2
+				        p2.reset(p3.release()); // reset deletes the memory to which p2 had pointed						  
+---	  
+* Note-: For exception safety, the preferred way to create an unique pointer is -: unique_ptr<string> p2= make_unique<string>(42);
+* shared_ptr-: If you are using shared_ptr then more than one pointer can point to this one object at a time and it’ll maintain a Reference Counter (no. of pointers pointing at a memory address) using use_count() method. Shared pointers allocate another block of memory called the control block to store the reference count.
+---
+				        #include <iostream> 
+				        using namespace std; 
+				        #include <memory> 
+				        class Rectangle { 
+					        int length; 
+					        int breadth; 
+				        public: 
+					        Rectangle(int l, int b) 
+					        { 
+						        length = l; 
+						        breadth = b; 
+					        } 
+    				        ~Rectangle() { cout<<"Dest called"<<endl;}
+					        int area() 
+					        { 
+						        return length * breadth; 
+					        } 
+				        }; 
+				        int main() 
+				        { 
+					        shared_ptr<Rectangle> P1(new Rectangle(10, 5)); 
+					        cout << P1->area() << endl;
+					        shared_ptr<Rectangle> P2; 
+					        P2 = P1; 
+					        cout << P2->area() << endl; 
+					        cout << P1->area() << endl;  
+					        cout << P1.use_count() << endl; 
+					        return 0; 
+				        } 						  
+---
+* Output-: 50
+           50
+           50
+           2
+           Dest called 						  
+* Note-: An object referenced by the pointer will not be destroyed until reference count is equal to zero i.e. until all copies of shared_ptr have been deleted.
+* Note-: If we create a shared pointer using the new keyword the statement results in the allocation of two blocks of memory. One for the object and one for the control block.Therefore the preferred way to create a shared pointer is -: shared_ptr<string> p2= make_shared<string>(42);
+* weak_ptr-: A weak_ptr is a smart pointer that does not control the lifetime of the object to which it points. Instead, a weak_ptr points to an object that is managed by a shared_ptr. Binding a weak_ptr to a shared_ptr does not change the reference count of that shared_ptr. Once the last shared_ptr pointing to the object goes away, the object itself will be deleted. That object will be deleted even if there are weak_ptrs pointing to it—hence the name weak_ptr, which captures the idea that a weak_ptr shares its object “weakly”. The existence or destruction of weak_ptr has no effect on the shared_ptr or its other copies.
+---
+				        share_ptr<int> p = make_shared<int>(42);
+				        weak_ptr<int> wp(p); // wp weakly shares with p; use count in p is unchanged
+                                        // Here both wp and p point to the same object. Because the sharing is weak, creating wp doesn’t change the reference count of p; it                                       
+		                        // is possible that the object to which wp points might be deleted.
+---
+* Note-: Because the object might no longer exist, we cannot use a weak_ptr to access its object directly. To access that object, we must call lock. The lock function checks whether the object to which the weak_ptr points still exists. If so, lock returns a shared_ptr to the shared object or else returns null.						  
+---
+		                        if (shared_ptr<int> np = wp.lock()) { // true if np is not null
+		                        // inside the if, np shares its object with p
+		                        }
+---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## Extras
 * Typedef-: C++ allows you to define explicitly new data type names by using the keyword typedef. Using typedef does not actually create a new data class, rather it defines a name for an existing type. 
