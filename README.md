@@ -1411,8 +1411,8 @@ An empty throw can appear only in a catch or in a function called (directly or i
 ---
 * e.g. 3-: 						  
 ---						  
-int *ptr{ new int{} };
-ptr = new int{}; // old address lost, memory leak results						  
+				        int *ptr{ new int{} };
+				        ptr = new int{}; // old address lost, memory leak results						  
 ---						  
 * Because of the laziness or carelessness of the programmer this type of problem may arise thus c++ introduced smart pointers.						  
 * Smart Pointers-: Using Smart Pointers, we can make pointers to work in a way that we don’t need to explicitly call delete. A smart pointer is a wrapper class over a pointer with an operator like * and -> overloaded. Types-:						  
