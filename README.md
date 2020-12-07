@@ -231,10 +231,27 @@ references must be used for overloading some operators like ++.
 above restrictions and can be used to implement all data structures. References being more powerful in Java is the main reason Java doesn’t need pointers.
 ---
 Types of pointers-: 
-* Null Pointers
-* Void Pointers
-* Invalid Pointers
-* Dangling Pointers
+* Null Pointers-: NULL Pointer is a pointer which is pointing to nothing. In case, if we don’t have address to be assigned to a pointer, then we can simply use NULL.
+* Void Pointers-: Void pointer is a specific pointer type – void * – a pointer that points to some data location in storage, which doesn’t have any specific type. Void refers to the type. Basically the type of data that it points to is can be any. If we assign address of char data type to void pointer it will become char Pointer, if int data type then int pointer and so on. Any pointer type is convertible to a void pointer hence it can point to any value. Note-: void pointers cannot be dereferenced. It can however be done using typecasting the void pointer. Pointer arithmetic is not possible on pointers of void due to lack of concrete value and thus size.
+---
+		       #include<stdlib.h> 
+		       int main() 
+		       { 
+			       int x = 4; 
+			       float y = 5.5; 	
+			       void * ptr; 
+			       ptr = &x; 
+			       // (int*)ptr - does type casting of void 
+			       // *((int*)ptr) dereferences the typecasted 
+			       printf("Integer variable is = %d", *( (int*) ptr) ); 
+			       ptr = &y; 
+			       printf("\nFloat variable is= %f", *( (float*) ptr) ); 
+			       return 0; 
+		       } 
+---
+* Output-: Integer variable is = 4
+           Float variable is= 5.500000
+* Dangling Pointers-: For more information jump to Dynamic Memory Allocation section
 * This Pointers-: each object gets its own copy of data members and all objects share a single copy of member functions. Then now question is that if only one copy of each member function exists and is used by multiple objects, how are the proper data members are accessed and updated? The compiler supplies an implicit pointer along with the names of the functions as ‘this’. The ‘this’ pointer is passed as a hidden argument to all nonstatic member function calls and is available as a local variable within the body of all nonstatic functions. ‘this’ pointer is not available in static member functions as static member functions can be called without any object (with class name). For a class X, the type of this pointer is ‘X* ‘. Also, if a member function of X is declared as const, then the type of this pointer is ‘const X *’.
 Uses-:
 1. When local variable’s name is same as member’s name-: 
@@ -284,9 +301,9 @@ Uses-:
                          }
 ---	
 * Smart Pointers-: auto_ptr, shared_ptr, unique_ptr and weak_ptr pointers. (For more information jump to Dynamic Memory Allocation section)
-* Wild Pointers
-* Near, Far & Huge Pointers
-* Opaque Pointers
+* Wild Pointers-: A pointer which has not been initialized to anything (not even NULL) is known as wild pointer. The pointer may be initialized to a non-NULL garbage value that may not be a valid address. Every uninitialized pointer is a wild pointer unless it has been initialized.
+* Near, Far & Huge Pointers-: Near pointer is used to store 16 bit addresses means within current segment on a 16 bit machine. The limitation is that we can only access 64kb of data at a time. A far pointer is typically 32 bit that can access memory outside current segment.  To use this, compiler allocates a segment register to store segment address, then another register to store offset within current segment. Like far pointer, huge pointer is also typically 32 bit and can access outside segment. In case of far pointers, a segment is fixed. In far pointer, the segment part cannot be modified, but in Huge it can be.
+* Opaque Pointers-: Opaque pointer is a pointer which points to a data structure whose contents are not exposed at the time of its definition. Following pointer is opaque. One can’t know the data contained in STest structure by looking at the definition. struct STest* pSTest;
 * Pointer to a function -: int * foo(int); operator precedence also plays role here ..so in this case, operator () will take priority over the asterisk operator . And the above declaration will mean – a function foo with one argument of int type and return value of int * i.e. integer pointer. Solution-: int (* foo)(int); //there's no space between * and foo. Added space to avoid text formatting of a markdown file.
 * Note-: The Arrow(->) operator exists to access the members of the structure or the unions using pointers.
 ---
@@ -1488,6 +1505,24 @@ An empty throw can appear only in a catch or in a function called (directly or i
 		                        // inside the if, np shares its object with p
 		                        }
 ---
+* Usecase of weak_ptr-: 
+* Cyclic Dependency (Problems with shared_ptr): Let’s consider a scenario where we have two classes A and B, both have pointers to other classes. So, it’s always like A is pointing to B and B is pointing to A. Hence, use_count will never reach zero and they never get deleted. https://media.geeksforgeeks.org/wp-content/uploads/Image_2.jpg . This is the reason we use weak pointers(weak_ptr) as they are not reference counted. So, the class in which weak_ptr is declared doesn’t have a stronghold of it i.e. the ownership isn’t shared, but they can have access to these objects. https://media.geeksforgeeks.org/wp-content/uploads/Image_3.jpg
+* Dangling Pointers-: A pointer pointing to a memory location that has been deleted (or freed) is called dangling pointer. 
+---
+De-allocating or free variable memory-:
+---
+					#include <iostream>
+		                        int main()
+		                        {
+    		                        char **strPtr;
+    		                        char *str = "Hello!";	
+    		                        strPtr = &str;
+    		                        delete str;
+    		                        //strPtr now becomes a dangling pointer	
+    		                        cout<<*strPtr;
+		                        strPtr=NULL; // isn't a dangling pointer anymore
+				        }
+---	  
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## Extras
 * Typedef-: C++ allows you to define explicitly new data type names by using the keyword typedef. Using typedef does not actually create a new data class, rather it defines a name for an existing type. 
@@ -1552,16 +1587,140 @@ An empty throw can appear only in a catch or in a function called (directly or i
 				        }
 ---
 * Output-: i						  
-* 						  
-						  
-						  
-						  
-						  
-						  
-						  
-						  
-						
+* The "return 0;" statement is optional for the main method. The compiler automatically adds it for us during the compilation of the code. 
+* Exiting from the code before encountering the return statement of any method (including main)-: For this c++ provides us with the exit method and _Exit method.
+* Note-: exit() function performs some cleaning before termination of the program like connection termination, buffer flushes etc. The _Exit() function in C/C++ gives normal termination of a program without performing any cleanup tasks.
+* Difference-:					  
+--- 
+				        #include<bits/stdc++.h> 
+				        using namespace std; 
+				        void fun(void) 
+				        { 
+				        cout << "Exiting"; 
+				        } 
+				        int main() 
+				        { 
+				        atexit(fun); 
+				        exit(10); 
+				        } 
+---
+* Output-: Exiting						  
+---
+				        #include<bits/stdc++.h> 
+				        using namespace std; 
+				        void fun(void) 
+				        { 
+				        cout << "Exiting"; 
+				        } 
+				        int main() 
+				        { 
+				        atexit(fun); 
+				        _Exit(10); 
+				        } 
+---	  
+* No output.						  
+* Command Line Arguments-: Command-line arguments are given after the name of the program in command-line shell of Operating Systems.
+To pass command line arguments, we typically define main() with two arguments : first argument is the number of command line arguments and second is list of command-line arguments. argc (ARGument Count) is int and stores number of command-line arguments passed by the user including the name of the program. So if we pass a value to a program, value of argc would be 2 (one for argument and one for program name). The value of argc should be non negative. argv(ARGument Vector) is array of character pointers listing all the arguments. If argc is greater than zero,the array elements from argv[0] to argv[argc-1] will contain pointers to strings. Argv[0] is the name of the program , After that till argv[argc-1] every element is command -line arguments.
+* Run this code on your linux machine-:						  
+---				
+				        #include <iostream> 
+				        using namespace std; 
+				        int main(int argc, char** argv) 
+				        { 
+					        cout << "You have entered " << argc 
+						        << " arguments:" << "\n"; 
+					        for (int i = 0; i < argc; ++i) 
+						        cout << argv[i] << "\n"; 
+					        return 0; 
+				        } 
+---  
+* Variadic function template-: Variadic templates are template that take a variable number of arguments. Variadic function templates are functions which can take multiple number of arguments.	Note-: Defining a base function for the variadic function template is compulsory and it is always called at the end.					  
 ---						  
+				        #include <iostream> 
+				        using namespace std;  
+				        // To handle base case of below recursive Variadic function Template 
+				        void print() 
+				        { 
+    				        cout << "I am empty function and "
+            				        "I am called at last.\n" ; 
+				        } 
+				        template <typename T, typename... Types> 
+				        void print(T var1, Types... var2) 
+				        { 
+    				        cout << var1 << endl ; 
+    				        print(var2...) ; 
+				        }  
+				        int main() 
+				        { 
+    				        print(1, 2, 3.14, "Pass me any "
+              				        "number of arguments",  
+                  				        "I will print\n"); 
+    				        return 0; 
+				        } 						  
+---						  
+* Output-: 1
+           2
+           3.14
+           Pass me any number of arguments
+           I will print
+           I am empty function and I am called at last.						  
+* Local classes-: A class declared inside a function becomes local to that function and is called Local Class						  
+* Note-: All the methods of Local classes must be defined inside the class only. 
+---
+				        #include<iostream> 
+				        using namespace std; 
+				        void fun() 
+				        { 
+					        class Test // local to fun 
+					        { 
+					        public: 	
+					        void method() { 
+						        cout << "Local Class method() called"; 
+					        } //method() cannot be defined outside the class even if it is within the function.
+					        };	 
+					        Test t; 
+					        t.method(); 
+				        } 
+				        int main() 
+				        { 
+					        fun(); 
+					        return 0; 
+				        } 
+---	
+* Output-: Local Class method() called						  
+* Note-: A Local class cannot contain static data members. It may contain static functions though.						  
+* Note-: Member methods of local class can only access static variables of the enclosing function.						  
+* Note-: Local classes can access global types, variables and functions. Also, local classes can access other local classes of same function.						  
+* Nested class-: A nested class is a class which is declared in another enclosing class. A nested class is a member and as such has the same access rights as any other member. The members of an enclosing class have no special access to members of a nested class; the usual access rules shall be obeyed. 						  
+---						  
+				        int x,y; // globals
+				        class enclose { // enclosing class
+    				        int x; // note: private members
+    				        static int s;
+ 				        public:
+    				        class inner { // nested class
+        				        void f(int i) {
+            				        x = i; // Error: can't write to non-static enclose::x without instance
+            				        s = i;   // OK: can assign to the static enclose::s
+            				        ::x = i; // OK: can assign to global x
+            				        y = i;   // OK: can assign to global y
+       				         }
+        				        void g(enclose* p, int i) {
+            				        p->x = i; // OK: assign to enclose::x
+        				        }
+    				        };
+				        };
+---
+* Range based for loop-: It executes a for loop over a range.
+---
+				        for (auto n : {0, 1, 2, 3, 4, 5}) 
+						        cout << n << ' ';  
+				        int a[] = {0, 1, 2, 3, 4, 5};	 
+					        for (int n : a) 
+						        std::cout << n << ' ';
+				        string str = "Geeks"; 
+					        for (char c : str) 
+						        std::cout << c << ' ';
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## Reference
 * Stanley B. Lippman's C++ Primer
