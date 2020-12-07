@@ -19,8 +19,8 @@
 * Virtual Function & Runtime Polymorphism (Function Overriding)
 * EXCEPTION HANDLING
 * GENERIC PROGRMMING
-* EXTRAS
-* Few topics ( Like Dynamic Memory Alloacations) will be added soon.
+* DYNAMIC MEMORY ALLOCATION
+* EXTRAS (Typedef, Type Inferences, decltype, exit() & _ Exit(), Command Line Arguments, Variadic function template, Local classes, Nested class and Range based for loop)
 - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+)
 ## Note
 * The prerequisites to the repo is basic c++ itself because the repo contains-: 1. Lesser known cpp facts. 2. Tips for your cpp code and 3. In-depth cpp concepts.
@@ -1508,8 +1508,6 @@ An empty throw can appear only in a catch or in a function called (directly or i
 * Usecase of weak_ptr-: 
 * Cyclic Dependency (Problems with shared_ptr): Let’s consider a scenario where we have two classes A and B, both have pointers to other classes. So, it’s always like A is pointing to B and B is pointing to A. Hence, use_count will never reach zero and they never get deleted. https://media.geeksforgeeks.org/wp-content/uploads/Image_2.jpg . This is the reason we use weak pointers(weak_ptr) as they are not reference counted. So, the class in which weak_ptr is declared doesn’t have a stronghold of it i.e. the ownership isn’t shared, but they can have access to these objects. https://media.geeksforgeeks.org/wp-content/uploads/Image_3.jpg
 * Dangling Pointers-: A pointer pointing to a memory location that has been deleted (or freed) is called dangling pointer. 
----
-De-allocating or free variable memory-:
 ---
 					#include <iostream>
 		                        int main()
