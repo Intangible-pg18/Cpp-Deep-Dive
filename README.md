@@ -65,7 +65,9 @@ A typical memory representation of C++ program consists of following sections.
             comprised of a number of Stack Frames, with each frame representing a function call.
 7. OS -: Environment variables, command line arguments.
 >>> ![alt text](https://cpp.tech-academy.co.uk/files/2013/01/memoryLayout5.png)
+---
 >>> ![alt text](https://media.geeksforgeeks.org/wp-content/uploads/memoryLayoutC.jpg)
+---
 >>> ![alt text](https://cpp.tech-academy.co.uk/files/2013/01/stackFrames.png)
 * Note-: Each thread gets a stack, while there's typically only one heap for the application (although it isn't uncommon to have multiple heaps for different types of allocation).
 * In a stack, the allocation and deallocation is automatically done by whereas, in heap, it needs to be done by the programmer manually.
