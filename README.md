@@ -65,8 +65,8 @@ A typical memory representation of C++ program consists of following sections.
             comprised of a number of Stack Frames, with each frame representing a function call.
 7. OS -: Environment variables, command line arguments.
 >>> ![alt text](https://cpp.tech-academy.co.uk/files/2013/01/memoryLayout5.png)
->>> https://media.geeksforgeeks.org/wp-content/uploads/memoryLayoutC.jpg
->>> https://cpp.tech-academy.co.uk/files/2013/01/stackFrames.png
+>>> ![alt text](https://media.geeksforgeeks.org/wp-content/uploads/memoryLayoutC.jpg)
+>>> ![alt text](https://cpp.tech-academy.co.uk/files/2013/01/stackFrames.png)
 * Note-: Each thread gets a stack, while there's typically only one heap for the application (although it isn't uncommon to have multiple heaps for different types of allocation).
 * In a stack, the allocation and deallocation is automatically done by whereas, in heap, it needs to be done by the programmer manually.
 * Handling of Heap frame is costlier than handling of stack frame.
@@ -591,13 +591,11 @@ Base class constructors are always called in the derived class constructors. Whe
   3. Static Member functions can never be virtual. We will study about Virtual in coming topics.
 * Types of Inheritance-:
   * Single Inheritance: In single inheritance, a class is allowed to inherit from only one class. i.e. one sub class is inherited by one base class only.    
-  https://media.geeksforgeeks.org/wp-content/uploads/single-inheritance.png
-  * Multiple Inheritance (V): Multiple Inheritance is a feature of C++ where a class can inherit from more than one classes. i.e one sub class is inherited from more than one base classes.
-  https://media.geeksforgeeks.org/wp-content/uploads/multiple-inheritance.png Note-: The constructors of inherited classes are called in the same order in which they are inherited   
-  and the destructors are called in reverse order of constructors. 
-  * Multilevel Inheritance-: In this type of inheritance, a derived class is created from another derived class. https://media.geeksforgeeks.org/wp-content/uploads/multilevel-inheritance.png  
-  * Hierarchical Inheritance (A)-: In this type of inheritance, more than one sub class is inherited from a single base class. i.e. more than one derived class is created from a single base class. https://media.geeksforgeeks.org/wp-content/uploads/hierarchical-inheritance.png
-  * Hybrid (Virtual) Inheritance: Hybrid Inheritance is implemented by combining more than one type of inheritance. For example: Combining Hierarchical inheritance and Multiple Inheritance. https://media.geeksforgeeks.org/wp-content/uploads/Hybrid-Inheritance.png
+  ![alt text](https://media.geeksforgeeks.org/wp-content/uploads/single-inheritance.png)
+  * Multiple Inheritance (V): Multiple Inheritance is a feature of C++ where a class can inherit from more than one classes. i.e one sub class is inherited from more than one base classes. ![alt text](https://media.geeksforgeeks.org/wp-content/uploads/multiple-inheritance.png) Note-: The constructors of inherited classes are called in the same order in which they are inherited and the destructors are called in reverse order of constructors. 
+  * Multilevel Inheritance-: In this type of inheritance, a derived class is created from another derived class. ![alt text](https://media.geeksforgeeks.org/wp-content/uploads/multilevel-inheritance.png)
+  * Hierarchical Inheritance (A)-: In this type of inheritance, more than one sub class is inherited from a single base class. i.e. more than one derived class is created from a single base class. ![alt text](https://media.geeksforgeeks.org/wp-content/uploads/hierarchical-inheritance.png)
+  * Hybrid (Virtual) Inheritance: Hybrid Inheritance is implemented by combining more than one type of inheritance. For example: Combining Hierarchical inheritance and Multiple Inheritance. ![alt text](https://media.geeksforgeeks.org/wp-content/uploads/Hybrid-Inheritance.png)
 ---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## Inheritance -> UPCASTING & DOWNCASTING
@@ -694,7 +692,7 @@ the base class.
                            Manager of Kevin is Steve
 	
 ---	
-* Memory Layout-: https://www.tutorialcup.com/images/cplusplus/upcasting-downcasting/upcasting-memory-layout.png  -> It represents the fact that when you use a base class pointer to 
+* Memory Layout-: ![alt text](https://www.tutorialcup.com/images/cplusplus/upcasting-downcasting/upcasting-memory-layout.png)  -> It represents the fact that when you use a base class pointer to 
 point up an object of the derived class, you can access only elements that are defined in the base class (green area). Elements of the derived class (yellow area) are not accessible 
 when you use a base class pointer.
 * Downcasting is an opposite process for upcasting. It converts base class pointer to derived class pointer. Downcasting must be done manually. It means that you have to specify 
@@ -721,7 +719,7 @@ explicit typecast.
                            cout << m3->getComm() << endl;
                            >>>e1 object is not an object of the Manager class. It does not contain any information about the commission. That’s why such an operation can produce 
 			   unexpected results.
-* Memory layout-:https://www.tutorialcup.com/images/cplusplus/upcasting-downcasting/upcasting-memory-layout.png  -> When you try to downcast base class pointer (Employee) that is not 
+* Memory layout-:![alt text](https://www.tutorialcup.com/images/cplusplus/upcasting-downcasting/upcasting-memory-layout.png) -> When you try to downcast base class pointer (Employee) that is not 
 actually pointing up an object of the derived class (Manager), you will get access to the memory that does not have any information about the derived class object (yellow area). This 
 is the main danger of downcasting. You can use a safe cast that can help you to know if one type can be converted correctly to another type. For this purpose, use a dynamic cast.
 * Dynamic_Cast-: is an operator that converts safely one type to another type. In the case, the conversation is possible and safe, it returns the address of the object that is 
@@ -739,7 +737,7 @@ converted. Otherwise, it returns nullptr.
 ---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## Polymorphism
-* Types of polymorphism-: https://media.geeksforgeeks.org/wp-content/uploads/20200703160531/Polymorphism-in-CPP.png
+* Types of polymorphism-: ![alt text](https://media.geeksforgeeks.org/wp-content/uploads/20200703160531/Polymorphism-in-CPP.png)
 * Binding-: refers to the process of converting identifiers (such as variable and function names) into addresses. Binding is done for each variable and functions. For functions, it means that matching the call with the right function definition by the compiler. It takes place either at compile time or at runtime.
   * Early Binding (compile-time time polymorphism or static binding or static dispatch or comipile-time dispatch) As the name indicates, compiler (or linker) directly associate an address to the function call. It replaces the call with a machine language instruction that tells the mainframe to leap to the address of the function. By default early binding happens in C++.
 1. Operator Overloading-:
@@ -865,8 +863,7 @@ take an extra (unused) parameter of type int. When we use a postfix operator, th
 	  4. A class may have virtual destructor but it cannot have a virtual constructor. (More details later)
 * Use-: Virtual functions allow us to call methods of any of the derived classes without even knowing kind of derived class object. 
 * Usecase-: To raise the salary of each employee in the organisation-:
-	
-	---
+---
                                       class Employee {
                                       public:
 	                                      virtual void raiseSalary()
@@ -908,7 +905,7 @@ take an extra (unused) parameter of type int. When we use a postfix operator, th
 * vtable: A table of function pointers, maintained per class and created at compile time.
 * vptr: A pointer to vtable, maintained per object instance and is inherited by derived classes.
 * If a class contains a virtual function then compiler itself does two things: 1. If object of that class is created then a virtual pointer (VPTR) is inserted as a data member of the class to point to virtual table (VTABLE) of that class. For each new object created, a new virtual pointer is inserted as a data member of that class. 2. Irrespective of object is created or not, a static array of function pointer called VTABLE where each cell contains the address of each virtual function contained in that class.
-* For the code above this is what happens under the hood-: https://media.geeksforgeeks.org/wp-content/uploads/VirtualFunction.png
+* For the code above this is what happens under the hood-: ![alt text](https://media.geeksforgeeks.org/wp-content/uploads/VirtualFunction.png)
 * Compiler adds additional code at two places to maintain and use vptr-: 
 1) Code in every constructor. This code sets the vptr of the object being created. This code sets vptr to point to the vtable of the class. 
 2) Wherever a polymorphic call is made, the compiler inserts code to first look for vptr using base class pointer or reference (In the above example, since pointed or referred object is of derived type, vptr of derived class is accessed). Once vptr is fetched, vtable of derived class can be accessed. Using vtable, address of derived class function raisesalary() is accessed and called.
@@ -956,7 +953,7 @@ take an extra (unused) parameter of type int. When we use a postfix operator, th
   * We cannot create objects of abstract classes. Reasoon-: Because it's abstract and an object is concrete. An abstract class is sort of like a template, or an empty/partially empty structure, you have to extend it and build on it before you can use it. Take for example an "Animal" abstract class. There's no such thing as a "pure" animal - there are specific types of animals. So you can instantiate Dog and Cat and Turtle, but you shouldn't be able to instantiate plain Animal - that's just a basic template. And there's certain functionality that all animals share, such as "makeSound()", but that can't be defined on the base Animal level. So if you could create an Animal object and you would call makeSound(), how would the object know which sound to make?
   * An abstract class can have constructors. Reason-: An abstract class can have member variables and potentially non-virtual member functions, so that every derived class from the former implements specific features. Then, the responsibility for the initialization of these members variables may belong to the abstract class (at least always for private members, because the derived class wouldn't be able to initialize them, yet could use some inherited member functions that may use/rely on these members). Thus, it makes it perfectly reasonable for abstract classes to implement constructors.
   * We can have pointers and references of abstract class type (But they should not be pointing at the astract class's object but to any of the derived class's object.						 
-* Multiple Inheritace and Hybrid Inheritance -> Virtual Inheritance (The Diamond Problem) -> Virtual Base Class -: The diamond problem occurs when two superclasses of a class have a common base class. For example, in the following diagram, the TA class gets two copies of all attributes of Person class, this causes ambiguities. https://media.geeksforgeeks.org/wp-content/uploads/diamondproblem.png						
+* Multiple Inheritace and Hybrid Inheritance -> Virtual Inheritance (The Diamond Problem) -> Virtual Base Class -: The diamond problem occurs when two superclasses of a class have a common base class. For example, in the following diagram, the TA class gets two copies of all attributes of Person class, this causes ambiguities. ![alt text](https://media.geeksforgeeks.org/wp-content/uploads/diamondproblem.png)						
 ---
                          #include<iostream> 
                          using namespace std; 
@@ -1506,7 +1503,7 @@ An empty throw can appear only in a catch or in a function called (directly or i
 		                        }
 ---
 * Usecase of weak_ptr-: 
-* Cyclic Dependency (Problems with shared_ptr): Let’s consider a scenario where we have two classes A and B, both have pointers to other classes. So, it’s always like A is pointing to B and B is pointing to A. Hence, use_count will never reach zero and they never get deleted. https://media.geeksforgeeks.org/wp-content/uploads/Image_2.jpg . This is the reason we use weak pointers(weak_ptr) as they are not reference counted. So, the class in which weak_ptr is declared doesn’t have a stronghold of it i.e. the ownership isn’t shared, but they can have access to these objects. https://media.geeksforgeeks.org/wp-content/uploads/Image_3.jpg
+* Cyclic Dependency (Problems with shared_ptr): Let’s consider a scenario where we have two classes A and B, both have pointers to other classes. So, it’s always like A is pointing to B and B is pointing to A. Hence, use_count will never reach zero and they never get deleted. ![alt text](https://media.geeksforgeeks.org/wp-content/uploads/Image_2.jpg) . This is the reason we use weak pointers(weak_ptr) as they are not reference counted. So, the class in which weak_ptr is declared doesn’t have a stronghold of it i.e. the ownership isn’t shared, but they can have access to these objects. ![alt text](https://media.geeksforgeeks.org/wp-content/uploads/Image_3.jpg)
 * Dangling Pointers-: A pointer pointing to a memory location that has been deleted (or freed) is called dangling pointer. 
 ---
 					#include <iostream>
