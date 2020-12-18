@@ -31,7 +31,8 @@
 Buffer-: A region of storage used to hold data. IO facilities often store input (or output) in a buffer and read or write the buffer independently from actions in the program. Using a buffer allows the operating system to combine several output operations from our program into a single system-level write. Output buffers can be explicitly flushed to force the buffer to be written. By default, reading cin flushes cout; cout is also flushed when the program ends normally. By default, All output buffers are flushed as part of the return from main.
 
 ---
-Note-: cout is an object of ostream class and cin is an object istream class.
+Note-: cout is an object of ostream class and cin is an object of
+istream class.
 
 ---
 Manipulator-: Object, such as std::endl, that when read or written “manipulates” the stream itself.
@@ -40,6 +41,9 @@ Clearing output buffer-:
 the program has generated so far is actually written to the output stream, rather than sitting in memory waiting to be written.
 * flush-: writes the output, then flushes the buffer and adds no data (contrary to which endl, adds a new line).
 * ends-: writes the output and a null, then flushes the buffer.
+---
+e.g. If three cout statements prints 1,2,3 respectively, without any cin statement in between or any manipulator used would print the three numbers on the same line but using endl will write the output of each cout statement on a seperate new line. 
+
 ---
 Disadvantage-: Flushing of buffers is an Operating System task. Each time the buffer is flushed, a request has to be made to the OS and these requests are comparatively expensive. 
 Furthermore, we don’t really need to flush the buffer every time we write something to the stream, since the buffers get flushed automatically when they get full. 
@@ -57,8 +61,8 @@ Solution-: Typing “cin>>ws” after “cin” statement tells the compiler to 
 ## MEMORY (UNDER THE HOOD)
 A typical memory representation of C++ program consists of following sections.
 1. Text segment (Code segment) -: Contains the compiled Machine code (program) instructions.
-2. Initialized data segment (Data segment) -: Global and static variables
-3. Uninitialized data segment (Block Started by Symbol (BSS) segment)
+2. Initialized data segment (Data segment) -: Initialized global and local static variables.
+3. Uninitialized data segment (Block Started by Symbol (BSS) segment)-: Uninitialized or zero-initialized variables and constants.
 4. Heap (Free store) -: Used for Dynamic Memory allocation. C++ managed by new, delete.
 5. Unallocated. Free area, available to be utilised for growth by heap or stack.
 6. Stack -: Used for local variables and passing arguments to functions, along with return address of the next instruction to be executed when the function call is over. The stack is
