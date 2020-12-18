@@ -166,11 +166,47 @@ In the above line “GfG” is stored in a shared read-only location, but pointe
 ## ARRAYS
 * There is no index out of bounds checking in C++. But doing so may cause a Buffer Overflow (-: is an anomaly where a program, while writing data to a buffer, overruns the buffer's 
 boundary and overwrites adjacent memory locations.) and a Segmentation Fault (-: For an array int arr[] = {1,2,3,4,5} , cout<<arr[10] works fine and prints a garbage value but arr[10]=9 results in a segmentation fault because the memory beyond the buffer's boundaries is read-only memory.)
-* Array name indicates the address of first element and arrays are always passed as pointers (even if we use square bracket).
+* Array name indicates the address of the first element and arrays when passed to a function are always passed as pointers (even if we use square brackets).
 * Compiler uses pointer arithmetic to access array element. For example, an expression like “arr[i]” is treated as * (arr + i) by the compiler.
-* Array Decay-: The loss of type and dimensions of an array is known as decay of an array.This generally occurs when we pass the array to a function by value or by pointer. If you're passing an array by value, what you're really doing is copying a pointer - a pointer to the array's first element is copied to the parameter (whose type should also be the same as array element's type). This works due to array's decaying nature; once decayed, sizeof no longer gives the complete array's size, because it essentially becomes a pointer A typical solution to handle decay is to send the array into functions by reference (int (&p)[7]).
-* “array” is a “pointer to the first element of array” but “&array” is a “pointer to whole array of 5 int”. Since “array” is pointer to int, addition of 1 resulted in an address with increment of 4 (assuming int size in your machine is 4 bytes). Since “&array” is pointer to array of 5 ints, addition of 1 resulted in an address with increment of 4 x 5 = 20 bytes.
-
+* Array Decay-: The loss of type and dimensions of an array is known as decay of an array.This generally occurs when we pass the array to a function by value or by pointer. If you're passing an array by value, what you're really doing is copying a pointer - a pointer to the array's first element is copied to the parameter (whose type should also be the same as array element's type). This works due to array's decaying nature; once decayed, sizeof no longer gives the complete array's size, because it essentially becomes a pointer. A typical solution to handle decay is to send the array into functions by reference (int (&p)[7]).
+* “array” is a “pointer to the first element of array” but “&array” is a “pointer to whole array of 5 integers”. Since “array” is pointer to int, addition of 1 resulted in an address with increment of 4 (assuming size of int in your machine is 4 bytes). Since “&array” is pointer to array of 5 integers, addition of 1 resulted in an address with increment of 4 x 5 = 20 bytes.
+---
+		       #include<iostream> 
+		       using namespace std;
+		       // Passing array by value 
+		       void aDecay(int *p) 
+		       { cout << "Modified size of array is by "
+					       " passing by value: "; 
+			       cout << sizeof(p) << endl; 
+  		       cout << *p << endl; 
+  		       cout << *(++p) << endl;
+		       } 
+		       // Function to show that array decay happens 
+		       // even if we use pointer 
+		       void pDecay(int (*p)[7]) 
+		       { cout << "Modified size of array by "
+					       "passing by pointer: "; 
+			       cout << sizeof(p) << endl; 
+  		         cout << *p << endl;
+  		         cout << *(++p )<< endl;
+		       } 
+		       int main() 
+		       { 
+			       int a[7] = {1, 2, 3, 4, 5, 6, 7,};
+			       cout << "Actual size of array is: "; 
+			       cout << sizeof(a) <<endl; 
+			       aDecay(a); 
+			       pDecay(&a); 
+			       return 0; 
+		       }
+---
+* Output-: Actual size of array is: 28
+           Modified size of array is by  passing by value: 8
+           1
+           2
+           Modified size of array by passing by pointer: 8
+           0x7fff168bcab0
+           0x7fff168bcacc
 ---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## FUNCTIONS
