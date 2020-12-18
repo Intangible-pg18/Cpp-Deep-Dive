@@ -201,6 +201,7 @@ boundary and overwrites adjacent memory locations.) and a Segmentation Fault (-:
 		       }
 ---
 * Output-: 
+---
 		       Actual size of array is: 28
            	       Modified size of array is by  passing by value: 8
 		       1
