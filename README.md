@@ -200,13 +200,14 @@ boundary and overwrites adjacent memory locations.) and a Segmentation Fault (-:
 			       return 0; 
 		       }
 ---
-* Output-: Actual size of array is: 28
-           Modified size of array is by  passing by value: 8
-           1
-           2
-           Modified size of array by passing by pointer: 8
-           0x7fff168bcab0
-           0x7fff168bcacc
+* Output-: 
+		       Actual size of array is: 28
+           	       Modified size of array is by  passing by value: 8
+		       1
+		       2
+		       Modified size of array by passing by pointer: 8
+		       0x7fff168bcab0
+		       0x7fff168bcacc
 ---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## FUNCTIONS
