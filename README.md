@@ -97,18 +97,14 @@ Q-N-A -:
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## FAULTS
 They are signals generated when serious program error is detected by the operating system and there is no way the program could continue to execute because of these errors.
-1. Core Dump or Segmentation fault (SIGSEGV) -: When a piece of code tries to do read and write operation in a read only location in memory or freed block of memory, it is known as 
-   core dump.
+1. Core Dump or Segmentation fault (SIGSEGV) -: When a piece of code tries to perform write operation in a read only location in memory or read/write operations on a freed block of memory, it is known as core dump.
 Scenarios-:
   * Modifying a string literal (explained later)
   * Accessing an address that is freed
   * Accessing out of array index bounds (explained later)
-  * Stack Overflow-:  It’s because of recursive function gets called repeatedly which eats up all the stack memory resulting in stack overflow. Running out of memory on the stack is 
-    also a type of memory corruption. It can be resolved by having a base condition to return from the recursive function.
+  * Stack Overflow-:  It’s because of recursive function gets called repeatedly which eats up all the stack memory resulting in stack overflow. Running out of memory on the stack is also a type of memory corruption. It can be resolved by having a base condition to return from the recursive function.
   * Dereferencing uninitialized pointer.
-2. Bus Error (also known as SIGBUS and is usually signal 10) -:  occur when a process is trying to access memory that the CPU cannot physically address.In other words the memory 
-   tried to access by the program is not a valid memory address.It caused due to alignment issues with the CPU (eg. trying to read a long from an address which isn’t a multiple of 
-   4).
+2. Bus Error (also known as SIGBUS and is usually signal 10) -:  occur when a process is trying to access memory that the CPU cannot recognise.In other words the memory tried to access by the program is not a valid memory address. It is caused due to alignment issues with the CPU (eg. trying to read a long from an address which isn’t a multiple of 4).
 * Scenarios-: 
   * Program instructs the CPU to read or write a specific physical memory address which is not valid / Requested physical address is unrecognized by the whole computer system.
   * Unaligned access of memory (For example, if multi-byte accesses must be 16 bit-aligned, addresses (given in bytes) at 0, 2, 4, 6, and so on would be considered aligned and 
