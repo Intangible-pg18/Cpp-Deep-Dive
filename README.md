@@ -64,7 +64,7 @@ A typical memory representation of C++ program consists of following sections.
 2. Initialized data segment (Data segment) -: Initialized global and local static variables.
 3. Uninitialized data segment (Block Started by Symbol (BSS) segment)-: Uninitialized or zero-initialized variables and constants.
 4. Heap (Free store) -: Used for Dynamic Memory allocation.  C++ managed by new, delete.
-5. Unallocated. Free area, available to be utilised for growth by heap or stack.
+5. Unallocated-: Free area, available to be utilised for growth by heap or stack.
 6. Stack -: Used for local variables and passing arguments to functions, along with return address of the next instruction to be executed when the function call is over. The stack is
             comprised of a number of Stack Frames, with each frame representing a function call.
 7. OS -: Environment variables, command line arguments.
