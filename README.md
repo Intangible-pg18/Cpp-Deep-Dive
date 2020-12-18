@@ -28,11 +28,10 @@
 * Feel free to put up a Pull request and to fork the repo.
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## BUFFER & STREAMS
-Buffer-: A region of storage used to hold data. IO facilities often store input (or output) in a buffer and read or write the buffer independently from actions in the program. Using a buffer allows the operating system to combine several output operations from our program into a single system-level write. Output buffers can be explicitly flushed to force the buffer to be written. By default, reading cin flushes cout; cout is also flushed when the program ends normally. By default, All output buffers are flushed as part of the return from main.
+Buffer-: A region of storage used to hold data. IO facilities often store input or output in a buffer and read or write the buffer independently from actions in the program. Using a buffer allows the operating system to combine several output operations from our program into a single system-level write. Output buffers can be explicitly flushed to force the buffer to be written. By default, reading cin flushes cout; cout is also flushed when the program ends normally. By default, All output buffers are flushed as part of the return from main.
 
 ---
-Note-: cout is an object of ostream class and cin is an object of
-istream class.
+Note-: cout is an object of ostream class and cin is an object of istream class.
 
 ---
 Manipulator-: Object, such as std::endl, that when read or written “manipulates” the stream itself.
@@ -40,7 +39,7 @@ Clearing output buffer-:
 * endl-: It is a manipulator. Writing endl has the effect of ending the current line and flushing the buffer associated with that device. Flushing the buffer ensures that all the output
 the program has generated so far is actually written to the output stream, rather than sitting in memory waiting to be written.
 * flush-: writes the output, then flushes the buffer and adds no data (contrary to which endl, adds a new line).
-* ends-: writes the output and a null, then flushes the buffer.
+* ends-: writes the output adds a null, then flushes the buffer.
 ---
 e.g. If three cout statements prints 1,2,3 respectively, without any cin statement in between or any manipulator used would print the three numbers on the same line but using endl will write the output of each cout statement on a seperate new line. 
 
@@ -60,14 +59,13 @@ Solution-: Typing “cin>>ws” after “cin” statement tells the compiler to 
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## MEMORY (UNDER THE HOOD)
 A typical memory representation of C++ program consists of following sections.
-1. Text segment (Code segment) -: Contains the compiled Machine code (program) instructions.
+1. Text segment (Code segment) -: Contains the compiled Machine code instructions.
 2. Initialized data segment (Data segment) -: Initialized global and local static variables.
 3. Uninitialized data segment (Block Started by Symbol (BSS) segment)-: Uninitialized or zero-initialized variables and constants.
-4. Heap (Free store) -: Used for Dynamic Memory allocation.  C++ managed by new, delete.
+4. Heap (Free store) -: Used for Dynamic Memory allocation. In C++ managed by new and delete.
 5. Unallocated-: Free area, available to be utilised for growth by heap or stack.
-6. Stack -: Used for local variables and passing arguments to functions, along with return address of the next instruction to be executed when the function call is over. The stack is
-            comprised of a number of Stack Frames, with each frame representing a function call.
-7. OS -: Environment variables, command line arguments.
+6. Stack -: Used for local variables and passing arguments to a functions, along with return address of the next instruction to be executed when the function call is over. The stack is comprised of a number of Stack Frames, with each frame representing a function call.
+7. OS and the BIOS level -: For Environment variables and command line arguments.
 >>> ![alt text](https://cpp.tech-academy.co.uk/files/2013/01/memoryLayout5.png)
 ---
 >>> ![alt text](https://media.geeksforgeeks.org/wp-content/uploads/memoryLayoutC.jpg)
@@ -76,26 +74,25 @@ A typical memory representation of C++ program consists of following sections.
 * Note-: Each thread gets a stack, while there's typically only one heap for the application (although it isn't uncommon to have multiple heaps for different types of allocation).
 * In a stack, the allocation and deallocation is automatically done by whereas, in heap, it needs to be done by the programmer manually.
 * Handling of Heap frame is costlier than handling of stack frame.
-* Memory shortage problem is more likely to happen in stack whereas the main issue in heap memory is fragmentation.
+* Memory shortage problem is more likely to happen in stack whereas the main issue in heap memory is fragmentation (-: When a computer program requests blocks of memory from the computer system, the blocks are allocated in chunks. When the computer program is finished with a chunk, it can free it back to the system, making it available to later be allocated again to another or the same program. The size and the amount of time a chunk is held by a program varies. During its lifespan, a computer program can request and free many chunks of memory. When a program is started, the free memory areas are long and contiguous. Over time and with use, the long contiguous regions become fragmented into smaller and smaller contiguous areas. Eventually, it may become impossible for the program to obtain large contiguous chunks of memory. This is known as fragmentation of memory.)
 * Stack frame access is easier than the heap frame as the stack have small region of memory and is cache friendly, but in case of heap frames which are dispersed 
-throughout the memory so it cause more cache misses.
+throughout the memory so it causes more cache misses.
 * Stack is not flexible, the memory size allotted cannot be changed whereas a heap is flexible, and the allotted memory can be altered.
-* Memory leakage occurs in C++ when programmers allocates memory by using new keyword and forgets to deallocate the memory by using delete() function or delete[] 
+* Memory leakage-: occurs in C++ when programmers allocates memory by using new keyword and forgets to deallocate the memory by using delete() function or delete[] 
 operator.
 * Instead of managing memory manually, try to use smart pointers where applicable.
 * Use std::string instead of char *. The std::string class handles all memory management internally, and it’s fast and well-optimized.
 * The best way to avoid memory leaks in C++ is to have as few new/delete calls at the program level as possible – ideally NONE. Anything that requires dynamic memory should be 
-buried inside an RAII object that releases the memory when it goes out of scope. RAII allocate memory in constructor and release it in destructor, so that memory is garanteed to be 
-deallocated when the variable leave the current scope.
-
+buried inside an RAII object that releases the memory when it goes out of scope. RAII allocate memory in constructor and release it in destructor, so that memory is guaranteed to be deallocated when the variable leave the current scope.
+* Note-: Memory caching (often simply referred to as caching) is a technique in which computer applications temporarily store data in a computer's main memory (i.e., random access memory, or RAM) to enable fast retrievals of that data. The RAM that is used for the temporary storage is known as the cache.
 ---
 Q-N-A -:
 * To what extent are they (stack & heap) controlled by the OS or language runtime?
 ->The OS allocates the stack for each system-level thread when the thread is created. Typically the OS is called by the language runtime to allocate the heap for the application.
 * What is their scope?
--> The stack is attached to a thread, so when the thread exits the stack is reclaimed. The heap is typically allocated at application startup by the runtime, and is reclaimed when the application (technically process) exits.
+-> The stack is attached to a thread, so when the thread exits the stack is reclaimed. The heap is typically allocated at application startup by the runtime, and is reclaimed when the application (technical process) exits.
 * What makes one faster?
--> The stack is faster because the access pattern makes it trivial to allocate and deallocate memory from it (a pointer/integer is simply incremented or decremented), while the heap has much more complex bookkeeping involved in an allocation or deallocation. Also, each byte in the stack tends to be reused very frequently which means it tends to be mapped to the processor's cache, making it very fast. Another performance hit for the heap is that the heap, being mostly a global resource, typically has to be multi-threading safe, i.e. each allocation and deallocation needs to be - typically - synchronized with "all" other heap accesses in the program. OR While the stack is allocated by the OS when the process starts (assuming the existence of an OS), it is maintained inline by the program. This is another reason the stack is faster, as well - push and pop operations are typically one machine instruction, and modern machines can do at least 3 of them in one cycle, whereas allocating or freeing heap involves calling into OS code. 
+-> 1. The stack is faster because the access pattern makes it trivial to allocate and deallocate memory from it (a pointer/integer is simply incremented or decremented), while the heap has much more complex bookkeeping involved in allocation or deallocation. Also, each byte in the stack tends to be reused very frequently which means it tends to be mapped to the processor's cache, making it very fast. 2. Another performance hit for the heap is that the heap, being mostly a global resource, typically has to be multi-threading safe, i.e. each allocation and deallocation needs to be - typically - synchronized with "all" other heap accesses in the program. 3. While the stack is allocated by the OS when the process starts (assuming the existence of an OS), it is maintained inline by the program whereas allocating or freeing heap involves calling into OS code. 
 ---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## FAULTS
