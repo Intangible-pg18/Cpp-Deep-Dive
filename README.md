@@ -398,20 +398,10 @@ Protected access modifier is similar to private access modifier in the sense tha
   * Parameterized Constructor
   * Copy Constructor -:  is a member function which initializes an object using another object of the same class.
 ---
-                       **OBJECT COPYING**
-		       It is the process of creating a copy of an existing object. Copying is done mostly so the copy can be modified or moved, or the 
-                       current value preserved. If either of these is unneeded, a reference to the original data is sufficient and more efficient, as no copying occurs. 
-                       Types-: 
-		       1. Shallow copy-: In that case a new object B is created, and the fields values of A are copied over to B. If the field value is a primitive type it copies          the 
-		       value of the primitive type. In languages without primitive types (where everything is an object), all fields of the copy B are references to the same objects 
-		       as the fields of original A. >>> ![alt text](https://media.geeksforgeeks.org/wp-content/uploads/copy-constructor.png)
-		       2. Deep copy-: Rather than references to objects being copied, new copy objects are created for any referenced objects, and references to these placed in B.  
-		       The result is different from the result a shallow copy gives in that the objects referenced by the copy B are distinct from those referenced by A, and 
-		       independent. >>> ![alt text](https://media.geeksforgeeks.org/wp-content/uploads/copy-constructor1.png)
-		       3. Lazy copy-: A lazy copy is an implementation of a deep copy. When initially copying an object, a (fast) shallow copy is used. A counter is also used to 
-		       track how many objects share the data. When the program wants to modify an object, it can determine if the data is shared (by examining the counter) and can do 
-		       a deep copy if needed. Lazy copy looks to the outside just as a deep copy, but takes advantage of the speed of a shallow copy whenever possible.
-
+* OBJECT COPYING-: It is the process of creating a copy of an existing object. Copying is done mostly so the copy can be modified or moved, or the current value preserved. If either of these is unneeded, a reference to the original data is sufficient and more efficient, as no copying occurs. 
+Types-: 1. Shallow copy-: In that case a new object B is created, and the fields values of A are copied over to B. If the field value is a primitive type it copies the value of the primitive type. In languages without primitive types (where everything is an object), all fields of the copy B are references to the same objects as the fields of original A. >>> ![alt text](https://media.geeksforgeeks.org/wp-content/uploads/copy-constructor.png)
+2. Deep copy-: Rather than references to objects being copied, new copy objects are created for any referenced objects, and references to these placed in B. The result is different from the result a shallow copy gives in that the objects referenced by the copy B are distinct from those referenced by A, and independent. >>> ![alt text](https://media.geeksforgeeks.org/wp-content/uploads/copy-constructor1.png)
+3. Lazy copy-: A lazy copy is an implementation of a deep copy. When initially copying an object, a (fast) shallow copy is used. A counter is also used to track how many objects share the data. When the program wants to modify an object, it can determine if the data is shared (by examining the counter) and can do a deep copy if needed. Lazy copy looks to the outside just as a deep copy, but takes advantage of the speed of a shallow copy whenever possible.
 ---
                        **Compiler's Optimizations**
 		       1. Copy Elision-: or Copy omission is a compiler optimization technique that avoids unnecessary copying of objects.
