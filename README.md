@@ -813,12 +813,10 @@ converted. Otherwise, it returns nullptr.
 * Overloaded operators cannot have default arguments except the function call operator () which can have default arguments.
 * Compiler automatically creates a default assignment operator with every class. 
 * Assignment (=), subscript ([]), function call (“()”), and member selection (->) operators must be defined as member functions, all other operators can be either member functions or a non member functions.
-* Some operators like (assignment)=, (address)& and comma (,) are by default overloaded.
+* Some operators like assignment (=), address (&) and comma (,) are by default overloaded.
 * Consider the statement “ob1 + ob2” (let ob1 and ob2 be objects of two different classes). To make this statement compile, we must overload ‘+’ in class of ‘ob1’ or 
 make ‘+’ a global function. Which can be quite inconvenient in some cases (e.g. <<,>>).
-* Overloading the Output Operator <<
-* Ordinarily, the first parameter of an output operator is a reference to a nonconst ostream object. The ostream is nonconst because writing to the stream changes its state.  
-* The parameter is a reference because we cannot copy an ostream object. The second parameter ordinarily should be a reference to const of the class type we want to print. The parameter is a reference to avoid copying the argument. It can be const because (ordinarily) printing an object does not change that object.
+* In case of the Output Operator << -: Ordinarily, the first parameter of an output operator is a reference to a nonconst ostream object. The ostream is nonconst because writing to the stream changes its state. The parameter is a reference because we cannot copy an ostream object. The second parameter ordinarily should be a reference to const of the class type we want to print. The parameter is a reference to avoid copying the argument. It can be const because (ordinarily) printing an object does not change that object.
 ---
                    void operator<<(ostream &os, const book &item)
                    {
