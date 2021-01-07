@@ -2,26 +2,26 @@
 
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) 
 ## Table Of Contents
-* COMPILATION
-* BUFFER & STREAMS
-* MEMORY (UNDER THE HOOD)
-* FAULTS
-* STRINGS
-* ARRAYS
-* FUNCTIONS
-* POINTERS & REFERENCES
+* [COMPILATION](#compilation)
+* [BUFFER & STREAMS](#buffer--streams)
+* [MEMORY (UNDER THE HOOD)](#memory-under-the-hood)
+* [FAULTS](#faults)
+* [STRINGS](#strings)
+* [ARRAYS](#arrays)
+* [FUNCTIONS](#functions)
+* [POINTERS & REFERENCES)](#pointers--references)
   * Compiler's Optimizations
-* OBJECT-ORIENTED PROGRAMMING  
-* STATIC (Variables, Methods and Objects)
-* ABSTRACTION
-* INHERITANCE
-* INHERITANCE -> UPCASTING & DOWNCASTING
-* POLYMORPHISM
-* Virtual Function & Runtime Polymorphism (Function Overriding)
-* EXCEPTION HANDLING
-* GENERIC PROGRMMING
-* DYNAMIC MEMORY ALLOCATION
-* EXTRAS (Typedef, Type Inferences, decltype, exit() & _ Exit(), Command Line Arguments, Variadic function template, Local classes, Nested class and Range based for loop)
+* [OBJECT-ORIENTED PROGRAMMING](#object-oriented-programming)
+* [STATIC (Variables, Methods and Objects)](#static-variables-methods-and-objects)
+* [ABSTRACTION](#abstraction)
+* [INHERITANCE](#inheritance)
+* [INHERITANCE -> UPCASTING & DOWNCASTING](#inheritance---upcasting--downcasting)
+* [POLYMORPHISM](#polymorphism)
+* [Virtual Function & Runtime Polymorphism (Function Overriding)](#virtual-function--runtime-polymorphism-function-overriding)
+* [EXCEPTION HANDLING](#exception-handling-)
+* [GENERIC PROGRMMING](#generic-programming)
+* [DYNAMIC MEMORY ALLOCATION}](#dynamic-memory-allocation)
+* [EXTRAS (Typedef, Type Inferences, decltype, exit() & _ Exit(), Command Line Arguments, Variadic function template, Local classes, Nested class and Range based for loop)](#extras)
 - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+)
 ## Note
 * The prerequisites to the repo is basic c++ itself because the repo contains-: 1. Lesser known cpp facts. 2. Tips for your cpp code and 3. In-depth cpp concepts.
