@@ -239,7 +239,7 @@ boundary and overwrites adjacent memory locations.) and a Segmentation Fault (-:
 ---
 - ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) - ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)
 ## FUNCTIONS
-* It is always recommended to declare a function before it is used. (int max(int, int); int *swap(int*,int);)
+* It is always recommended to declare a function before it is used. Example-: int max(int, int); int *swap(int*,int);    It is not required that a function be declared before use in C/C++. If it encounters an attempt to call a function, the compiler will assume a variable argument list and that the function returns int. The reason modern compilers give warnings on an attempt to call a function before seeing a declaration is that a declaration allows the compiler to check if arguments are of the expected type. Given a declaration, the compiler can issue warnings or errors if an argument does not match the specification in the function declaration.
 * In C++, both void fun() and void fun(void) are same.
 * Once default value is used for an argument in function definition, all subsequent arguments to it must have default value.
 * When the program executes the function call instruction the CPU stores the memory address of the instruction following the function call, 
