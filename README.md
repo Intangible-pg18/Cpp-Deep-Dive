@@ -21,11 +21,13 @@
 * [GENERIC PROGRMMING](#generic-programming)
 * [DYNAMIC MEMORY ALLOCATION}](#dynamic-memory-allocation)
 * [EXTRAS (Typedef, Type Inferences, decltype, exit() & _ Exit(), Command Line Arguments, Variadic function template, Local classes, Nested class and Range based for loop)](#extras)
+---
 🟥🟩🟦 
 ## Note
 * The prerequisites to the repo is basic c++ itself because the repo contains-: 1. Lesser known cpp facts. 2. Tips for your cpp code and 3. In-depth cpp concepts.
 * If you like it do click on the star (present at the top right corner of the screen) and share it with your friends.
 * Feel free to put up a Pull request and to fork the repo.
+---
 🟥🟩🟦 
 ## COMPILATION
 Programmer writes the source code in plain text, often in an IDE (Integrated Development Environment). The program is then compiled (converted) to a language that the computer can understand, and run as a program. This is normally a two step process that consists of: 1. Pulling in any specified header files and creating Assembly (or object) code native to the processor. 2. Using a linker program to pull in any other object or library files required, to finally output machine code (1's and 0's). This resulting code is usually known as a binary or executable file. The program can then be run (or executed) on the computer.
